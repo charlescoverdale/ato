@@ -161,12 +161,16 @@ The mixed licence is preserved on each returned `ato_tbl`: the `ato_licence` att
 
 ## Related packages
 
-- [**hmrc**](https://github.com/charlescoverdale/hmrc): UK parallel (HM Revenue and Customs tax receipts, VAT, fuel and tobacco duties, stamp duty, R&D tax credits, Income Tax by income range)
-- [**grattan**](https://github.com/HughParsonage/grattan): Australian tax calculator (Parsonage, Coates, Cowgill)
-- [**readabs**](https://github.com/mattcowgill/readabs): Australian Bureau of Statistics economic data
-- [**readrba**](https://github.com/mattcowgill/readrba): Reserve Bank of Australia statistical tables
-- [**readaec**](https://github.com/charlescoverdale/readaec): Australian Electoral Commission
-- [**inflateR**](https://github.com/charlescoverdale/inflateR): inflation adjustment for price series (useful for real-term income distributions)
+| Package | Description |
+|---|---|
+| [`hmrc`](https://github.com/charlescoverdale/hmrc) | UK parallel: HM Revenue and Customs tax receipts, VAT, fuel and tobacco duties, stamp duty, R&D tax credits, Income Tax by income range |
+| [`grattan`](https://github.com/HughParsonage/grattan) | Australian tax calculator (Parsonage, Coates, Cowgill) |
+| [`readabs`](https://github.com/mattcowgill/readabs) | Australian Bureau of Statistics economic data |
+| [`readrba`](https://github.com/mattcowgill/readrba) | Reserve Bank of Australia statistical tables |
+| [`readaec`](https://github.com/charlescoverdale/readaec) | Australian Electoral Commission |
+| [`aemo`](https://github.com/charlescoverdale/aemo) | Australian Energy Market Operator (NEM prices, demand, dispatch) |
+| [`cer`](https://github.com/charlescoverdale/cer) | Australian Clean Energy Regulator (carbon, renewables) |
+| [`inflateR`](https://github.com/charlescoverdale/inflateR) | Inflation adjustment for price series (useful for real-term income distributions) |
 
 ## Citation
 
