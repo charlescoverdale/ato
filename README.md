@@ -14,7 +14,7 @@ Taxation Statistics is the closest thing Australia has to a public microdata sou
 
 ## Why does this package exist?
 
-Taxation Statistics is free and published under Creative Commons, but getting it into R has always been tedious. The ATO's own statistics site at ato.gov.au renders via JavaScript and blocks bulk crawlers. The canonical machine interface is the data.gov.au CKAN mirror, but CKAN resource UUIDs change on every annual release, column names drift from year to year, table numbers shift (occupation data has been Table 13, 14, and 15 in different years), and the historical series from 1994-95 to 2008-09 is a ZIP bundle of legacy `.xls` files.
+The ATO's annual **Taxation Statistics** publication is free and available under Creative Commons, but getting it into R has always been tedious. The ATO's own statistics site at ato.gov.au renders via JavaScript and blocks bulk crawlers. The canonical machine interface is the data.gov.au CKAN mirror, but CKAN resource UUIDs change on every annual release, column names drift from year to year, table numbers shift (occupation data has been Table 13, 14, and 15 in different years), and the historical series from 1994-95 to 2008-09 is a ZIP bundle of legacy `.xls` files.
 
 ```r
 # Without this package
