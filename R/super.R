@@ -40,7 +40,13 @@ ato_super_funds <- function(year = "latest",
   }
 
   id <- ato_ts_package_id(year)
-  pattern <- if (type == "apra") "superfunds0[1-4]|super_fund|super-fund" else "super"
+  pattern <- if (type == "apra") {
+    # Real resource filenames are ts<YY>fund0[1-4]... (e.g. ts23fund01aprasbyyear.xlsx);
+    # the display name is "SuperFunds - Table N".
+    "fund0[1-4]|superfunds"
+  } else {
+    "super"
+  }
   res <- ato_ckan_resolve(id, pattern)
   url <- res$url %||% ""
   df <- ato_fetch_xlsx(url, sheet = 1)

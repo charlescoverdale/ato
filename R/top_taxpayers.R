@@ -54,7 +54,19 @@ ato_top_taxpayers <- function(year = "latest",
   res <- ato_ckan_resolve("corporate-transparency", year)
   url <- res$url %||% ""
   ext <- tolower(tools::file_ext(url))
-  df <- if (ext == "csv") ato_fetch_csv(url) else ato_fetch_xlsx(url, sheet = 1)
+  # The XLSX has three sheets: "Information" (metadata, 7 rows),
+  # "Income tax details" (the headline data, ~4,000 entities), and
+  # "PRRT details" (a handful of petroleum resource rent tax
+  # filers). Pick the income tax sheet; fall back to sheet 2 if
+  # the name doesn't match (older releases used different names).
+  df <- if (ext == "csv") {
+    ato_fetch_csv(url)
+  } else {
+    tryCatch(
+      ato_fetch_xlsx(url, sheet = "Income tax details"),
+      error = function(e) ato_fetch_xlsx(url, sheet = 2)
+    )
+  }
 
   if (entity_type != "all") {
     type_col <- intersect(c("entity_type", "tax_entity_type", "company_type"),
