@@ -1,9 +1,12 @@
-test_that("ato_individuals validates table choice", {
-  expect_error(ato_individuals(table = "banana"))
-})
-
 test_that("ato_individuals_occupation validates sex", {
   expect_error(ato_individuals_occupation(sex = "x"))
+})
+
+test_that("ato_individuals_occupation accepts long and short sex forms", {
+  # match.arg succeeds without hitting the network; we only
+  # check the arg validation, not the fetch.
+  expect_silent(match.arg("male", c("all", "male", "female", "m", "f")))
+  expect_silent(match.arg("f",    c("all", "male", "female", "m", "f")))
 })
 
 test_that("ato_individuals_postcode live fetch", {

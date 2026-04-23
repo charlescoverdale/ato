@@ -2,7 +2,7 @@
 % Please edit documentation in R/top_taxpayers.R
 \name{ato_top_taxpayers}
 \alias{ato_top_taxpayers}
-\title{Corporate Tax Transparency (Top 500/Top 1000)}
+\title{Corporate Tax Transparency}
 \source{
 Australian Taxation Office Corporate Tax Transparency
 release. Licensed CC BY 3.0 AU.
@@ -10,29 +10,50 @@ release. Licensed CC BY 3.0 AU.
 \usage{
 ato_top_taxpayers(
   year = "latest",
-  entity_type = c("all", "public", "private", "foreign")
+  entity_type = c("all", "public", "private", "foreign"),
+  sheet = c("income_tax", "prrt")
 )
 }
 \arguments{
 \item{year}{\code{"YYYY-YY"} (e.g. \code{"2023-24"}) or \code{"latest"}.}
 
 \item{entity_type}{One of \code{"all"} (default), \code{"public"},
-\code{"private"}, \code{"foreign"}.}
+\code{"private"}, or \code{"foreign"}. Matches the CTT \verb{Entity type}
+column values \code{"Australian public"}, \code{"Australian private"},
+\code{"Foreign-owned"}.}
+
+\item{sheet}{One of \code{"income_tax"} (default, the ~4,000-entity
+income-tax sheet) or \code{"prrt"} (petroleum resource rent tax
+filers, typically 10-20 entities).}
 }
 \value{
-An \code{ato_tbl} with one row per disclosed entity.
+An \code{ato_tbl} with one row per disclosed entity. All
+monetary values are nominal AUD of the reporting year.
 }
 \description{
-Returns the ATO's annual Corporate Tax Transparency release:
-per-entity total income, taxable income, and tax payable for
-companies meeting threshold tests (Australian public and
-foreign-owned corporates above AUD 100m total income, and
-Australian-owned private companies above AUD 200m total
-income). Published each November/December.
+Returns the ATO's annual Corporate Tax Transparency release,
+mandated by Part 5-25 of the \emph{Taxation Administration Act
+1953}. Covers every Australian public company, foreign-owned
+company, or Australian-owned private company above the
+AUD 100 million total-income threshold (the private-company
+threshold was lowered from AUD 200 million to AUD 100 million
+for the 2022-23 income year onwards, making all three
+categories uniform). The 2023-24 release was published 1
+October 2025 and covered 4,110 entities.
 }
 \details{
-Licensed under CC BY 3.0 Australia (note: different from most
-Taxation Statistics datasets which are CC BY 2.5 AU).
+The underlying XLSX has three sheets:
+\itemize{
+\item \strong{Information} (cover/metadata, ~7 rows).
+\item \strong{Income tax details} (the headline dataset, ~4,000
+entities: total income, taxable income, tax payable).
+\item \strong{PRRT details} (petroleum resource rent tax filers,
+typically 10-20 entities).
+}
+
+Licensed under \strong{CC BY 3.0 Australia} (the Corporate Tax
+Transparency and Voluntary Tax Transparency Code releases use
+CC BY 3.0 AU; most other Taxation Statistics use CC BY 2.5 AU).
 }
 \examples{
 \donttest{
@@ -40,6 +61,9 @@ op <- options(ato.cache_dir = tempdir())
 try({
   top <- ato_top_taxpayers(year = "2023-24")
   head(top)
+  # Petroleum resource rent tax sheet
+  prrt <- ato_top_taxpayers(year = "2023-24", sheet = "prrt")
+  head(prrt)
 })
 options(op)
 }
@@ -47,6 +71,7 @@ options(op)
 \seealso{
 Other discovery: 
 \code{\link{ato_catalog}()},
+\code{\link{ato_cite}()},
 \code{\link{ato_download}()}
 }
 \concept{discovery}

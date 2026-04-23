@@ -3,6 +3,7 @@
 S3method(print,ato_tbl)
 export(ato_cache_info)
 export(ato_catalog)
+export(ato_cite)
 export(ato_clear_cache)
 export(ato_companies)
 export(ato_download)

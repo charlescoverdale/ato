@@ -16,19 +16,30 @@ ato_ts_package_id <- function(year) {
   paste0("taxation-statistics-", yr)
 }
 
-#' Individual Taxation Statistics: snapshot or detailed table
+#' Individual Taxation Statistics snapshot
 #'
-#' Returns the Individuals Table 1 snapshot (aggregate counts,
-#' taxable income, tax payable, deductions) by default. Pass
-#' `table = "all"` to concatenate all per-year Individuals tables
-#' in long form (large).
+#' Returns the Individuals Table 1 snapshot: aggregate counts,
+#' total income, taxable income, tax payable, and deductions
+#' across all individual returns (roughly 14 million per year).
+#' The snapshot is the headline table; for finer cuts use the
+#' dedicated functions:
+#' - [ato_individuals_postcode()] for geographic breakdowns,
+#' - [ato_individuals_occupation()] for occupation × sex × income-range
+#'   detail, or
+#' - [ato_download()] with a custom `pattern` for specific
+#'   Tables 2 to 27 (age, sex, state, industry, source of income,
+#'   deductions, offsets, CGT, non-residents).
+#'
+#' Monetary values are nominal AUD of the reporting year. Use
+#' `inflateR::inflate()` or the ABS CPI series if you need
+#' real-term comparisons.
 #'
 #' @param year Year in `"YYYY-YY"` form (e.g. `"2022-23"`) or
-#'   `"latest"`.
-#' @param table One of `"snapshot"` (Individuals Table 1, default)
-#'   or `"all"`.
+#'   `"latest"`. `"latest"` resolves to the most recently
+#'   published release (currently 2022-23).
 #'
-#' @return An `ato_tbl`.
+#' @return An `ato_tbl` with one row per aggregate line-item and
+#'   columns for count and amount in nominal AUD.
 #'
 #' @source Australian Taxation Office Taxation Statistics
 #'   <https://www.ato.gov.au/about-ato/research-and-statistics/>.
@@ -45,22 +56,16 @@ ato_ts_package_id <- function(year) {
 #' })
 #' options(op)
 #' }
-ato_individuals <- function(year = "latest", table = c("snapshot", "all")) {
-  table <- match.arg(table)
+ato_individuals <- function(year = "latest") {
   id <- ato_ts_package_id(year)
-  pattern <- if (table == "snapshot") {
-    "individual(s)?01|individual_01|snapshot"
-  } else {
-    "individual(s)?[0-9]{2}"
-  }
-  res <- ato_ckan_resolve(id, pattern)
+  res <- ato_ckan_resolve(id, "individual(s)?01|individual_01|snapshot")
   url <- res$url %||% ""
   df <- ato_fetch_xlsx(url, sheet = 1)
   rownames(df) <- NULL
   new_ato_tbl(df,
               source = url,
               licence = "CC BY 2.5 AU",
-              title = paste0("ATO individuals ", year, " (", table, ")"))
+              title = paste0("ATO individuals snapshot ", year))
 }
 
 #' Individual tax data by postcode
@@ -70,14 +75,27 @@ ato_individuals <- function(year = "latest", table = c("snapshot", "all")) {
 #' 4-digit postcode. Headline dataset for income-distribution
 #' journalism.
 #'
+#' **Privacy suppression.** The ATO suppresses postcodes with
+#' fewer than 50 returns; those cells are returned as `NA` after
+#' parsing (the package maps `"np"`, `"*"`, and similar tokens
+#' to `NA` so numeric columns stay numeric). Small or remote
+#' postcodes will be silently missing from the output.
+#'
+#' Monetary values are nominal AUD of the reporting year. Use
+#' `inflateR::inflate()` for real-term series.
+#'
 #' @param year `"YYYY-YY"` or `"latest"`.
-#' @param state Optional character vector of state codes.
+#' @param state Optional character vector of state codes (e.g.
+#'   `"NSW"`, `c("VIC", "QLD")`).
 #' @param postcode Optional character vector of 4-digit postcodes.
 #'
-#' @return An `ato_tbl` with one row per postcode.
+#' @return An `ato_tbl` with one row per postcode, including
+#'   state, return count, total income, taxable income, and tax
+#'   payable. Schema drifts year to year (SA3/SA4 columns present
+#'   from 2017 onwards).
 #'
-#' @source Australian Taxation Office Individual Sample File,
-#'   Taxation Statistics postcode release. Licensed CC BY 2.5 AU.
+#' @source Australian Taxation Office Taxation Statistics
+#'   postcode release. Licensed CC BY 2.5 AU.
 #'
 #' @family individuals
 #' @export
@@ -119,14 +137,23 @@ ato_individuals_postcode <- function(year = "latest", state = NULL,
 #' Individual tax data by occupation
 #'
 #' Returns the Individuals Table 14 (occupation by sex by taxable
-#' income range). Roughly 1,000 occupations with aggregate
-#' counts, taxable income, and tax payable.
+#' income range). Around 1,000 occupations classified by ANZSCO
+#' with aggregate counts, total income, taxable income, and tax
+#' payable. The ATO migrated from ANZSCO 2013 to ANZSCO 2021
+#' across the 2022-23 release; cross-year joins on occupation
+#' name or code must account for the recode.
 #'
 #' @param year `"YYYY-YY"` or `"latest"`.
-#' @param occupation Optional substring filter (case-insensitive).
-#' @param sex One of `"all"` (default), `"m"`, or `"f"`.
+#' @param occupation Optional substring filter (case-insensitive)
+#'   applied to the occupation description column.
+#' @param sex One of `"all"` (default), `"male"`, or `"female"`.
+#'   Rows with sex recorded as `"Not stated"` are dropped when
+#'   filtering to male or female. Short forms `"m"`/`"f"` are
+#'   accepted.
 #'
-#' @return An `ato_tbl` with one row per occupation-income-sex combo.
+#' @return An `ato_tbl` with one row per occupation-sex-income
+#'   combination. Monetary values in nominal AUD of the reporting
+#'   year.
 #'
 #' @source Australian Taxation Office Taxation Statistics.
 #'   Licensed CC BY 2.5 AU.
@@ -144,8 +171,11 @@ ato_individuals_postcode <- function(year = "latest", state = NULL,
 #' options(op)
 #' }
 ato_individuals_occupation <- function(year = "latest", occupation = NULL,
-                                        sex = c("all", "m", "f")) {
+                                        sex = c("all", "male", "female", "m", "f")) {
   sex <- match.arg(sex)
+  # Normalise short forms
+  sex <- switch(sex, m = "male", f = "female", sex)
+
   id <- ato_ts_package_id(year)
   res <- ato_ckan_resolve(id, "occupation|individual(s)?14|individual_14")
   url <- res$url %||% ""
@@ -161,7 +191,9 @@ ato_individuals_occupation <- function(year = "latest", occupation = NULL,
   if (sex != "all") {
     sex_col <- intersect(c("sex", "gender"), names(df))[1]
     if (!is.na(sex_col)) {
-      keep <- toupper(substr(df[[sex_col]], 1L, 1L)) == toupper(sex)
+      # Match full token to avoid dropping "Not stated" silently
+      # and to handle prefix-equal values robustly.
+      keep <- tolower(df[[sex_col]]) == sex
       df <- df[keep, , drop = FALSE]
     }
   }

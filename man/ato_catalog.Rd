@@ -35,6 +35,7 @@ options(op)
 }
 \seealso{
 Other discovery: 
+\code{\link{ato_cite}()},
 \code{\link{ato_download}()},
 \code{\link{ato_top_taxpayers}()}
 }

@@ -11,23 +11,32 @@ Licensed CC BY 2.5 AU.
 ato_individuals_occupation(
   year = "latest",
   occupation = NULL,
-  sex = c("all", "m", "f")
+  sex = c("all", "male", "female", "m", "f")
 )
 }
 \arguments{
 \item{year}{\code{"YYYY-YY"} or \code{"latest"}.}
 
-\item{occupation}{Optional substring filter (case-insensitive).}
+\item{occupation}{Optional substring filter (case-insensitive)
+applied to the occupation description column.}
 
-\item{sex}{One of \code{"all"} (default), \code{"m"}, or \code{"f"}.}
+\item{sex}{One of \code{"all"} (default), \code{"male"}, or \code{"female"}.
+Rows with sex recorded as \code{"Not stated"} are dropped when
+filtering to male or female. Short forms \code{"m"}/\code{"f"} are
+accepted.}
 }
 \value{
-An \code{ato_tbl} with one row per occupation-income-sex combo.
+An \code{ato_tbl} with one row per occupation-sex-income
+combination. Monetary values in nominal AUD of the reporting
+year.
 }
 \description{
 Returns the Individuals Table 14 (occupation by sex by taxable
-income range). Roughly 1,000 occupations with aggregate
-counts, taxable income, and tax payable.
+income range). Around 1,000 occupations classified by ANZSCO
+with aggregate counts, total income, taxable income, and tax
+payable. The ATO migrated from ANZSCO 2013 to ANZSCO 2021
+across the 2022-23 release; cross-year joins on occupation
+name or code must account for the recode.
 }
 \examples{
 \donttest{

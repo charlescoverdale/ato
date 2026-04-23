@@ -25,19 +25,47 @@ ato_clean_names <- function(x) {
   x
 }
 
+#' ATO confidentiality suppression tokens
+#'
+#' The ATO replaces values with one of these tokens when fewer
+#' than ten taxpayers (or fewer than 50 returns for postcode
+#' data) fall in a cell. Passing them through `na.strings`
+#' ensures numeric columns stay numeric. Seen across the
+#' Taxation Statistics, Corporate Tax Transparency, Tax Gaps,
+#' and Small Business Benchmarks releases.
+#' @noRd
+ATO_SUPPRESSION_TOKENS <- c(
+  "",
+  "NA", "N/A", "N.A.", "n/a", "n.a.",
+  "np", "n.p.", "N.P.", "Np",
+  "-", "--", ".", "..", "...",
+  "*", "**",
+  "\u2021", "\u2020"  # double dagger, dagger
+)
+
 #' Fetch a CSV and return a tidy data frame
+#'
+#' ATO CSVs use `"np"` (not published), `"*"`, `"‡"`, and other
+#' tokens to suppress cells with fewer than ten taxpayers. These
+#' are coerced to `NA` so numeric columns stay numeric; see
+#' [ATO_SUPPRESSION_TOKENS].
 #' @noRd
 ato_fetch_csv <- function(url, ...) {
   file <- ato_download_cached(url)
   df <- utils::read.csv(file, stringsAsFactors = FALSE,
                         check.names = FALSE,
-                        na.strings = c("", "NA", "N/A", "-", "."),
+                        na.strings = ATO_SUPPRESSION_TOKENS,
                         ...)
   names(df) <- ato_clean_names(names(df))
   df
 }
 
 #' Fetch an XLSX and return a data frame
+#'
+#' ATO XLSX releases use the same confidentiality-suppression
+#' tokens as CSV releases; `readxl::read_excel` is passed `na =
+#' ATO_SUPPRESSION_TOKENS` so numeric columns are not silently
+#' coerced to character when an `np` cell appears.
 #' @noRd
 ato_fetch_xlsx <- function(url, sheet = 1, skip = 0) {
   if (!requireNamespace("readxl", quietly = TRUE)) {
@@ -48,6 +76,7 @@ ato_fetch_xlsx <- function(url, sheet = 1, skip = 0) {
   file <- ato_download_cached(url)
   df <- as.data.frame(
     readxl::read_excel(file, sheet = sheet, skip = skip,
+                       na = ATO_SUPPRESSION_TOKENS,
                        .name_repair = "minimal"),
     stringsAsFactors = FALSE
   )

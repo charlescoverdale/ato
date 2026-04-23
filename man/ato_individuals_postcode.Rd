@@ -4,8 +4,8 @@
 \alias{ato_individuals_postcode}
 \title{Individual tax data by postcode}
 \source{
-Australian Taxation Office Individual Sample File,
-Taxation Statistics postcode release. Licensed CC BY 2.5 AU.
+Australian Taxation Office Taxation Statistics
+postcode release. Licensed CC BY 2.5 AU.
 }
 \usage{
 ato_individuals_postcode(year = "latest", state = NULL, postcode = NULL)
@@ -13,18 +13,32 @@ ato_individuals_postcode(year = "latest", state = NULL, postcode = NULL)
 \arguments{
 \item{year}{\code{"YYYY-YY"} or \code{"latest"}.}
 
-\item{state}{Optional character vector of state codes.}
+\item{state}{Optional character vector of state codes (e.g.
+\code{"NSW"}, \code{c("VIC", "QLD")}).}
 
 \item{postcode}{Optional character vector of 4-digit postcodes.}
 }
 \value{
-An \code{ato_tbl} with one row per postcode.
+An \code{ato_tbl} with one row per postcode, including
+state, return count, total income, taxable income, and tax
+payable. Schema drifts year to year (SA3/SA4 columns present
+from 2017 onwards).
 }
 \description{
 Returns the Individuals Table 6 (or standalone postcode
 dataset): taxable income, tax payable, and return counts by
 4-digit postcode. Headline dataset for income-distribution
 journalism.
+}
+\details{
+\strong{Privacy suppression.} The ATO suppresses postcodes with
+fewer than 50 returns; those cells are returned as \code{NA} after
+parsing (the package maps \code{"np"}, \code{"*"}, and similar tokens
+to \code{NA} so numeric columns stay numeric). Small or remote
+postcodes will be silently missing from the output.
+
+Monetary values are nominal AUD of the reporting year. Use
+\code{inflateR::inflate()} for real-term series.
 }
 \examples{
 \donttest{

@@ -45,6 +45,7 @@ options(op)
 \seealso{
 Other discovery: 
 \code{\link{ato_catalog}()},
+\code{\link{ato_cite}()},
 \code{\link{ato_top_taxpayers}()}
 }
 \concept{discovery}
