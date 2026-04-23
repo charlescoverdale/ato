@@ -31,6 +31,33 @@ ato_clear_cache <- function() {
   invisible(NULL)
 }
 
+#' Check whether a CKAN package has been updated since the cache was last written
+#'
+#' Only runs when `options(ato.check_staleness = TRUE)`. Silently no-ops on
+#' network error so it never blocks data retrieval.
+#' @noRd
+ato_check_staleness <- function(package_id) {
+  if (!isTRUE(getOption("ato.check_staleness", FALSE))) return(invisible(NULL))
+  tryCatch({
+    pkg <- ato_ckan_package(package_id)
+    modified <- pkg$metadata_modified %||% ""
+    if (!nzchar(modified)) return(invisible(NULL))
+    modified_time <- as.POSIXct(modified, format = "%Y-%m-%dT%H:%M:%S",
+                                 tz = "UTC")
+    d <- ato_cache_dir()
+    files <- list.files(d, full.names = TRUE)
+    if (length(files) == 0L) return(invisible(NULL))
+    oldest_mtime <- min(file.info(files)$mtime)
+    if (!is.na(modified_time) && modified_time > oldest_mtime) {
+      cli::cli_warn(c(
+        "ATO has updated {.val {package_id}} since your cache was last refreshed.",
+        "i" = "Run {.code ato_clear_cache()} and re-fetch to get the latest data."
+      ))
+    }
+  }, error = function(e) invisible(NULL))
+  invisible(NULL)
+}
+
 #' Inspect the local ato cache
 #'
 #' @return A list with `dir`, `n_files`, `size_bytes`,

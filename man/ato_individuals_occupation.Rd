@@ -15,7 +15,8 @@ ato_individuals_occupation(
 )
 }
 \arguments{
-\item{year}{\code{"YYYY-YY"} or \code{"latest"}.}
+\item{year}{\code{"YYYY-YY"}, \code{"latest"}, or a vector of years for
+a multi-year panel (e.g. \code{c("2020-21", "2021-22", "2022-23")}).}
 
 \item{occupation}{Optional substring filter (case-insensitive)
 applied to the occupation description column.}
@@ -27,8 +28,8 @@ accepted.}
 }
 \value{
 An \code{ato_tbl} with one row per occupation-sex-income
-combination. Monetary values in nominal AUD of the reporting
-year.
+combination. Multi-year queries add a \code{year} column.
+Monetary values in nominal AUD of the reporting year.
 }
 \description{
 Returns the Individuals Table 14 (occupation by sex by taxable
@@ -38,6 +39,12 @@ payable. The ATO migrated from ANZSCO 2013 to ANZSCO 2021
 across the 2022-23 release; cross-year joins on occupation
 name or code must account for the recode.
 }
+\details{
+\strong{Classification break.} Releases from 2022-23 onwards use
+ANZSCO 2021; earlier releases use ANZSCO 2013. A warning is
+emitted when the requested year(s) are at or after this boundary,
+or when a multi-year request spans it.
+}
 \examples{
 \donttest{
 op <- options(ato.cache_dir = tempdir())
@@ -45,6 +52,9 @@ try({
   occ <- ato_individuals_occupation(year = "2022-23",
                                     occupation = "economist")
   head(occ)
+  # Multi-year panel
+  panel <- ato_individuals_occupation(year = c("2021-22", "2022-23"),
+                                      occupation = "nurse")
 })
 options(op)
 }

@@ -16,7 +16,8 @@ ato_companies(
 )
 }
 \arguments{
-\item{year}{\code{"YYYY-YY"} or \code{"latest"}.}
+\item{year}{\code{"YYYY-YY"}, \code{"latest"}, or a vector of years for
+a multi-year panel. Multi-year requests add a \code{year} column.}
 
 \item{table}{One of \code{"snapshot"}, \code{"key_items_by_size"},
 \code{"entity_type"}, \code{"industry"} (default), \code{"industry_by_size"},
@@ -24,8 +25,7 @@ ato_companies(
 \code{"expenses"}.}
 
 \item{industry}{Optional substring filter on industry name
-(applied only when the fetched table has an industry
-column).}
+(applied only when the fetched table has an industry column).}
 }
 \value{
 An \code{ato_tbl}. Monetary values in nominal AUD of the
@@ -46,26 +46,28 @@ across all companies (~1m entities)
 \item \strong{entity_type} (T3): split by public/private/co-operative
 \item \strong{industry} (T4, default): key items by 2-digit ANZSIC
 subdivision
-\item \strong{industry_by_size} (T5): industry × turnover band
+\item \strong{industry_by_size} (T5): industry x turnover band
 \item \strong{sub_industry} (T6): 4-digit ANZSIC class detail
 \item \strong{taxable_status} (T7): items by taxable status
 \item \strong{source} (T8): source of income
 \item \strong{expenses} (T9): expense and deduction categories
 }
 
-Kate Griffiths' 2023 Grattan corporate tax paper used T2 and
-T3 cuts; these are now reachable by name.
+\strong{Classification break.} Releases from 2022-23 onwards use
+ANZSIC 2020; earlier releases use ANZSIC 2006. A warning is
+emitted when the requested year(s) are at or after this boundary,
+or when a multi-year request spans it.
 }
 \examples{
 \donttest{
 op <- options(ato.cache_dir = tempdir())
 try({
-  # Snapshot
   s <- ato_companies(year = "2022-23", table = "snapshot")
   head(s)
-  # Mining subset of industry detail
   m <- ato_companies(year = "2022-23", industry = "mining")
   head(m)
+  # Multi-year industry panel
+  panel <- ato_companies(year = c("2021-22", "2022-23"))
 })
 options(op)
 }

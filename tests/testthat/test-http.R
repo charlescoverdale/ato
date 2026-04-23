@@ -1,10 +1,10 @@
-test_that("ato_digest_url is deterministic", {
+test_that("ato_digest_url is deterministic and returns MD5 hex", {
   a <- ato:::ato_digest_url("https://data.gov.au/a")
   b <- ato:::ato_digest_url("https://data.gov.au/a")
-  c <- ato:::ato_digest_url("https://data.gov.au/b")
+  d <- ato:::ato_digest_url("https://data.gov.au/b")
   expect_equal(a, b)
-  expect_false(identical(a, c))
-  expect_match(a, "^[0-9]+_[0-9]+$")
+  expect_false(identical(a, d))
+  expect_match(a, "^[0-9a-f]{32}$")
 })
 
 test_that("ato_user_agent includes package version", {

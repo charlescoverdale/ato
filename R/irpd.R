@@ -52,11 +52,12 @@ ato_irpd <- function(year = "latest", table = 1L) {
 
   # The 2019-20 release uses the bare slug (no suffix); later
   # releases append the year. Try suffixed form first, then bare.
-  pkg_id <- paste0("international-related-party-dealings-", year)
+  pkg_id <- paste0(ATO_PACKAGE_IDS$irpd_bare, "-", year)
+  ato_check_staleness(pkg_id)
   res <- tryCatch(
     ato_ckan_resolve(pkg_id, sprintf("table[_-]?%d", table)),
     error = function(e) {
-      ato_ckan_resolve("international-related-party-dealings",
+      ato_ckan_resolve(ATO_PACKAGE_IDS$irpd_bare,
                        sprintf("table[_-]?%d", table))
     }
   )

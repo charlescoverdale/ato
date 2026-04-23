@@ -99,11 +99,10 @@ ato_industry <- function(year = "latest",
   )
 
   if (!is.null(anzsic)) {
-    ind_col <- intersect(c("industry", "broad_industry", "anzsic_industry"),
-                          names(df))[1]
+    ind_col <- ato_find_col(df, "industry")
     if (!is.na(ind_col)) {
-      pattern <- paste(tolower(anzsic), collapse = "|")
-      df <- df[grepl(pattern, tolower(df[[ind_col]])), , drop = FALSE]
+      ind_pattern <- paste(tolower(anzsic), collapse = "|")
+      df <- df[grepl(ind_pattern, tolower(df[[ind_col]])), , drop = FALSE]
     }
   }
   rownames(df) <- NULL

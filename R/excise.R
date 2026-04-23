@@ -38,7 +38,7 @@ ato_excise <- function(table = c("excise_rates", "ftc_rates",
     beer         = "beer-clearance",
     spirits      = "spirits|other-excisable-beverage"
   )
-  res <- ato_ckan_resolve("excise-data", pattern)
+  res <- ato_ckan_resolve(ATO_PACKAGE_IDS$excise, pattern)
   url <- res$url %||% ""
   df <- ato_fetch_xlsx(url, sheet = 1)
   rownames(df) <- NULL

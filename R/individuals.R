@@ -120,22 +120,17 @@ ato_individuals_postcode <- function(year = "latest", state = NULL,
                                       postcode = NULL) {
   # Multi-year path: stack results with a year column.
   if (length(year) > 1L) {
-    years <- vapply(as.list(year), ato_resolve_year, character(1))
+    resolved <- vapply(as.list(year), ato_resolve_year, character(1))
     first_src <- NULL
-    parts <- lapply(years, function(y) {
+    parts <- lapply(resolved, function(y) {
       df <- ato_individuals_postcode(year = y, state = state,
                                      postcode = postcode)
       if (is.null(first_src)) first_src <<- attr(df, "ato_source")
-      # Drop the ato_tbl class and any leftover attributes to
-      # guarantee `[.data.frame` semantics on subset.
       df <- as.data.frame(df, stringsAsFactors = FALSE)
       df$year <- y
       df
     })
     common <- Reduce(intersect, lapply(parts, names))
-    # Drop empty-string column names (artefact of trailing blank
-    # cells in ATO workbooks) which trigger
-    # "undefined columns selected" on subsetting.
     common <- common[nzchar(common)]
     if (length(common) == 0L) {
       cli::cli_abort(c(
@@ -149,18 +144,16 @@ ato_individuals_postcode <- function(year = "latest", state = NULL,
     )
     rownames(stacked) <- NULL
     return(new_ato_tbl(stacked,
-                       source = first_src %||% "",
+                       source  = first_src %||% "",
                        licence = "CC BY 2.5 AU",
-                       title = paste0("ATO individuals by postcode (",
-                                      min(years), " to ", max(years), ")")))
+                       title   = paste0("ATO individuals by postcode (",
+                                        min(resolved), " to ", max(resolved),
+                                        ")")))
   }
 
   id <- ato_ts_package_id(year)
   res <- ato_ckan_resolve(id, "postcode")
   url <- res$url %||% ""
-  # The Snapshot postcode workbook leads with a "Notes" sheet;
-  # the first data sheet is "Table 7A" (top 10 postcodes by
-  # state). Skip the Notes sheet when present.
   cached <- ato_download_cached(url)
   sheets <- tryCatch(readxl::excel_sheets(cached),
                      error = function(e) character(0))
@@ -168,29 +161,29 @@ ato_individuals_postcode <- function(year = "latest", state = NULL,
                       tolower(sheets[1]) %in% c("notes", "cover",
                                                  "information",
                                                  "contents")) {
-    2
+    2L
   } else {
-    1
+    1L
   }
   df <- ato_fetch_xlsx(url, sheet = target_sheet)
 
-  if (!is.null(state)) {
-    state_col <- intersect(c("state", "state_territory"), names(df))[1]
-    if (!is.na(state_col)) {
-      df <- df[toupper(df[[state_col]]) %in% toupper(state), , drop = FALSE]
-    }
+  state_col <- ato_find_col(df, "state")
+  if (!is.null(state) && !is.na(state_col)) {
+    df <- df[toupper(df[[state_col]]) %in% toupper(state), , drop = FALSE]
   }
-  if (!is.null(postcode)) {
-    pc_col <- intersect(c("postcode", "post_code"), names(df))[1]
-    if (!is.na(pc_col)) {
-      df <- df[as.character(df[[pc_col]]) %in% as.character(postcode), , drop = FALSE]
-    }
+  pc_col <- ato_find_col(df, "postcode")
+  if (!is.null(postcode) && !is.na(pc_col)) {
+    df <- df[as.character(df[[pc_col]]) %in% as.character(postcode), ,
+             drop = FALSE]
   }
   rownames(df) <- NULL
+
+  ato_warn_suppression(df, context = "postcode cells")
+
   new_ato_tbl(df,
-              source = url,
+              source  = url,
               licence = "CC BY 2.5 AU",
-              title = paste0("ATO individuals by postcode ", year))
+              title   = paste0("ATO individuals by postcode ", year))
 }
 
 #' Individual tax data by occupation
@@ -202,7 +195,13 @@ ato_individuals_postcode <- function(year = "latest", state = NULL,
 #' across the 2022-23 release; cross-year joins on occupation
 #' name or code must account for the recode.
 #'
-#' @param year `"YYYY-YY"` or `"latest"`.
+#' **Classification break.** Releases from 2022-23 onwards use
+#' ANZSCO 2021; earlier releases use ANZSCO 2013. A warning is
+#' emitted when the requested year(s) are at or after this boundary,
+#' or when a multi-year request spans it.
+#'
+#' @param year `"YYYY-YY"`, `"latest"`, or a vector of years for
+#'   a multi-year panel (e.g. `c("2020-21", "2021-22", "2022-23")`).
 #' @param occupation Optional substring filter (case-insensitive)
 #'   applied to the occupation description column.
 #' @param sex One of `"all"` (default), `"male"`, or `"female"`.
@@ -211,8 +210,8 @@ ato_individuals_postcode <- function(year = "latest", state = NULL,
 #'   accepted.
 #'
 #' @return An `ato_tbl` with one row per occupation-sex-income
-#'   combination. Monetary values in nominal AUD of the reporting
-#'   year.
+#'   combination. Multi-year queries add a `year` column.
+#'   Monetary values in nominal AUD of the reporting year.
 #'
 #' @source Australian Taxation Office Taxation Statistics.
 #'   Licensed CC BY 2.5 AU.
@@ -226,39 +225,55 @@ ato_individuals_postcode <- function(year = "latest", state = NULL,
 #'   occ <- ato_individuals_occupation(year = "2022-23",
 #'                                     occupation = "economist")
 #'   head(occ)
+#'   # Multi-year panel
+#'   panel <- ato_individuals_occupation(year = c("2021-22", "2022-23"),
+#'                                       occupation = "nurse")
 #' })
 #' options(op)
 #' }
 ato_individuals_occupation <- function(year = "latest", occupation = NULL,
-                                        sex = c("all", "male", "female", "m", "f")) {
+                                        sex = c("all", "male", "female",
+                                                 "m", "f")) {
   sex <- match.arg(sex)
-  # Normalise short forms
   sex <- switch(sex, m = "male", f = "female", sex)
 
-  id <- ato_ts_package_id(year)
+  # Multi-year path
+  if (length(year) > 1L) {
+    resolved <- vapply(as.list(year), ato_resolve_year, character(1))
+    ato_warn_classification_span(resolved, "anzsco")
+    fn <- function(year) {
+      ato_individuals_occupation(year = year, occupation = occupation, sex = sex)
+    }
+    return(ato_stack_years(fn, resolved,
+                           title_prefix = "ATO individuals by occupation"))
+  }
+
+  id  <- ato_ts_package_id(year)
+  resolved_year <- sub("taxation-statistics-", "", id)
+  ato_warn_classification_break(resolved_year, "anzsco")
+
   res <- ato_ckan_resolve(id, "occupation|individual(s)?14|individual_14")
   url <- res$url %||% ""
-  df <- ato_fetch_xlsx(url, sheet = 1)
+  df  <- ato_fetch_xlsx(url, sheet = 1)
 
-  if (!is.null(occupation)) {
-    occ_col <- intersect(c("occupation", "occupation_description"), names(df))[1]
-    if (!is.na(occ_col)) {
-      pattern <- paste(tolower(occupation), collapse = "|")
-      df <- df[grepl(pattern, tolower(df[[occ_col]])), , drop = FALSE]
-    }
+  occ_col <- ato_find_col(df, "occupation")
+  if (!is.null(occupation) && !is.na(occ_col)) {
+    pattern <- paste(tolower(occupation), collapse = "|")
+    df <- df[grepl(pattern, tolower(df[[occ_col]])), , drop = FALSE]
   }
-  if (sex != "all") {
-    sex_col <- intersect(c("sex", "gender"), names(df))[1]
-    if (!is.na(sex_col)) {
-      # Match full token to avoid dropping "Not stated" silently
-      # and to handle prefix-equal values robustly.
-      keep <- tolower(df[[sex_col]]) == sex
-      df <- df[keep, , drop = FALSE]
-    }
+  sex_col <- ato_find_col(df, "sex")
+  if (sex != "all" && !is.na(sex_col)) {
+    keep <- tolower(df[[sex_col]]) == sex
+    df   <- df[keep, , drop = FALSE]
   }
+
+  if (!is.null(occupation) && nrow(df) == 0L) {
+    cli::cli_warn("No occupation rows matched {.val {occupation}}.")
+  }
+
   rownames(df) <- NULL
   new_ato_tbl(df,
-              source = url,
+              source  = url,
               licence = "CC BY 2.5 AU",
-              title = paste0("ATO individuals by occupation ", year))
+              title   = paste0("ATO individuals by occupation ", year))
 }

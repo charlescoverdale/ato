@@ -40,7 +40,7 @@ ato_help <- function(scheme = c("help", "aasl", "vsl")) {
     aasl = "aasl-statistics",
     vsl  = "vsl-statistics"
   )
-  res <- ato_ckan_resolve("higher-education-loan-program-help", pattern)
+  res <- ato_ckan_resolve(ATO_PACKAGE_IDS$help, pattern)
   url <- res$url %||% ""
   df <- ato_fetch_xlsx(url, sheet = 1)
   rownames(df) <- NULL

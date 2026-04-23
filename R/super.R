@@ -29,7 +29,7 @@ ato_super_funds <- function(year = "latest",
                              type = c("apra", "smsf", "all")) {
   type <- match.arg(type)
   if (type == "smsf") {
-    res <- ato_ckan_resolve("self-managed-superannuation-funds",
+    res <- ato_ckan_resolve(ATO_PACKAGE_IDS$smsf,
                             "annual|overview|smsf")
     url <- res$url %||% ""
     df <- ato_fetch_xlsx(url, sheet = 1)

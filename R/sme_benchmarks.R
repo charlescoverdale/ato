@@ -31,8 +31,9 @@
 #' options(op)
 #' }
 ato_sme_benchmarks <- function(year = "latest") {
+  pkg_id <- ATO_PACKAGE_IDS$sme
   if (identical(year, "latest")) {
-    pkg <- ato_ckan_package("small-business-benchmarks")
+    pkg <- ato_ckan_package(pkg_id)
     urls <- vapply(pkg$resources %||% list(),
                    function(r) r$url %||% "", character(1))
     years <- regmatches(urls, regexpr("20[0-9]{2}-[0-9]{2}", urls))
@@ -40,7 +41,8 @@ ato_sme_benchmarks <- function(year = "latest") {
   } else {
     year <- ato_resolve_year(year)
   }
-  res <- ato_ckan_resolve("small-business-benchmarks", year)
+  ato_check_staleness(pkg_id)
+  res <- ato_ckan_resolve(pkg_id, year)
   url <- res$url %||% ""
   df <- ato_fetch_xlsx(url, sheet = 1)
   rownames(df) <- NULL

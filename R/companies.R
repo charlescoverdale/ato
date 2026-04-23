@@ -14,23 +14,25 @@
 #' - **entity_type** (T3): split by public/private/co-operative
 #' - **industry** (T4, default): key items by 2-digit ANZSIC
 #'   subdivision
-#' - **industry_by_size** (T5): industry × turnover band
+#' - **industry_by_size** (T5): industry x turnover band
 #' - **sub_industry** (T6): 4-digit ANZSIC class detail
 #' - **taxable_status** (T7): items by taxable status
 #' - **source** (T8): source of income
 #' - **expenses** (T9): expense and deduction categories
 #'
-#' Kate Griffiths' 2023 Grattan corporate tax paper used T2 and
-#' T3 cuts; these are now reachable by name.
+#' **Classification break.** Releases from 2022-23 onwards use
+#' ANZSIC 2020; earlier releases use ANZSIC 2006. A warning is
+#' emitted when the requested year(s) are at or after this boundary,
+#' or when a multi-year request spans it.
 #'
-#' @param year `"YYYY-YY"` or `"latest"`.
+#' @param year `"YYYY-YY"`, `"latest"`, or a vector of years for
+#'   a multi-year panel. Multi-year requests add a `year` column.
 #' @param table One of `"snapshot"`, `"key_items_by_size"`,
 #'   `"entity_type"`, `"industry"` (default), `"industry_by_size"`,
 #'   `"sub_industry"`, `"taxable_status"`, `"source"`, or
 #'   `"expenses"`.
 #' @param industry Optional substring filter on industry name
-#'   (applied only when the fetched table has an industry
-#'   column).
+#'   (applied only when the fetched table has an industry column).
 #'
 #' @return An `ato_tbl`. Monetary values in nominal AUD of the
 #'   reporting year.
@@ -44,12 +46,12 @@
 #' \donttest{
 #' op <- options(ato.cache_dir = tempdir())
 #' try({
-#'   # Snapshot
 #'   s <- ato_companies(year = "2022-23", table = "snapshot")
 #'   head(s)
-#'   # Mining subset of industry detail
 #'   m <- ato_companies(year = "2022-23", industry = "mining")
 #'   head(m)
+#'   # Multi-year industry panel
+#'   panel <- ato_companies(year = c("2021-22", "2022-23"))
 #' })
 #' options(op)
 #' }
@@ -65,11 +67,27 @@ ato_companies <- function(year = "latest",
                                      "expenses"),
                            industry = NULL) {
   table <- match.arg(table)
-  id <- ato_ts_package_id(year)
 
-  # Company tables are filenamed ts23company01*, ts23company02*,
-  # etc. The table → resource mapping varies slightly across
-  # years; the patterns below cover the common cases.
+  # Multi-year path
+  if (length(year) > 1L) {
+    resolved <- vapply(as.list(year), ato_resolve_year, character(1))
+    if (table %in% c("industry", "industry_by_size", "sub_industry")) {
+      ato_warn_classification_span(resolved, "anzsic")
+    }
+    fn <- function(year) {
+      ato_companies(year = year, table = table, industry = industry)
+    }
+    return(ato_stack_years(fn, resolved,
+                           title_prefix = paste0("ATO companies (", table, ")")))
+  }
+
+  id <- ato_ts_package_id(year)
+  resolved_year <- sub("taxation-statistics-", "", id)
+
+  if (table %in% c("industry", "industry_by_size", "sub_industry")) {
+    ato_warn_classification_break(resolved_year, "anzsic")
+  }
+
   pattern <- switch(table,
     snapshot          = "company01|company_01",
     key_items_by_size = "company02|company_02",
@@ -83,20 +101,20 @@ ato_companies <- function(year = "latest",
   )
   res <- ato_ckan_resolve(id, pattern)
   url <- res$url %||% ""
-  df <- ato_fetch_xlsx(url, sheet = 1)
+  df  <- ato_fetch_xlsx(url, sheet = 1)
 
-  if (!is.null(industry)) {
-    ind_col <- intersect(c("industry", "industry_description",
-                            "broad_industry", "anzsic_industry"),
-                          names(df))[1]
-    if (!is.na(ind_col)) {
-      pattern <- paste(tolower(industry), collapse = "|")
-      df <- df[grepl(pattern, tolower(df[[ind_col]])), , drop = FALSE]
-    }
+  ind_col <- ato_find_col(df, "industry")
+  if (!is.null(industry) && !is.na(ind_col)) {
+    ind_pattern <- paste(tolower(industry), collapse = "|")
+    df <- df[grepl(ind_pattern, tolower(df[[ind_col]])), , drop = FALSE]
   }
+  if (!is.null(industry) && nrow(df) == 0L) {
+    cli::cli_warn("No industry rows matched {.val {industry}}.")
+  }
+
   rownames(df) <- NULL
   new_ato_tbl(df,
-              source = url,
+              source  = url,
               licence = "CC BY 2.5 AU",
-              title = paste0("ATO companies ", year, " (", table, ")"))
+              title   = paste0("ATO companies ", year, " (", table, ")"))
 }

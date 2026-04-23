@@ -38,7 +38,8 @@
 #' options(op)
 #' }
 ato_tax_gaps <- function(sheet = 1) {
-  res <- ato_ckan_resolve("australian-tax-gaps",
+  ato_check_staleness(ATO_PACKAGE_IDS$tax_gaps)
+  res <- ato_ckan_resolve(ATO_PACKAGE_IDS$tax_gaps,
                           "australian-tax-gaps.*publication|tax-gaps")
   url <- res$url %||% ""
   df <- ato_fetch_xlsx(url, sheet = sheet)

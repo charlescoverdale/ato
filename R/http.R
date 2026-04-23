@@ -51,8 +51,10 @@ ato_download_cached <- function(url, cache = TRUE) {
 
 #' @noRd
 ato_digest_url <- function(url) {
-  chars <- utf8ToInt(url)
-  weights <- seq_along(chars)
-  checksum <- sum(as.numeric(chars) * weights) %% (2^31 - 1)
-  sprintf("%010.0f_%04d", as.numeric(checksum), nchar(url) %% 10000L)
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+  con <- file(tmp, open = "wb")
+  writeLines(enc2utf8(url), con = con, sep = "")
+  close(con)
+  unname(tools::md5sum(tmp))
 }

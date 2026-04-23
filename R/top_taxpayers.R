@@ -58,22 +58,18 @@ ato_top_taxpayers <- function(year = "latest",
   entity_type <- match.arg(entity_type)
   sheet <- match.arg(sheet)
 
+  pkg_id <- ATO_PACKAGE_IDS$ctt
   if (identical(year, "latest")) {
-    pkg <- ato_ckan_package("corporate-transparency")
+    pkg <- ato_ckan_package(pkg_id)
     resources <- pkg$resources %||% list()
     urls <- vapply(resources, function(r) r$url %||% "", character(1))
-    # Prefer most recent year in URL.
     years <- regmatches(urls, regexpr("20[0-9]{2}-[0-9]{2}", urls))
-    if (length(years) > 0L) {
-      year <- max(years)
-    } else {
-      year <- "2023-24"
-    }
+    year <- if (length(years) > 0L) max(years) else "2023-24"
   } else {
     year <- ato_resolve_year(year)
   }
-
-  res <- ato_ckan_resolve("corporate-transparency", year)
+  ato_check_staleness(pkg_id)
+  res <- ato_ckan_resolve(pkg_id, year)
   url <- res$url %||% ""
   ext <- tolower(tools::file_ext(url))
   sheet_name <- switch(sheet,
@@ -91,28 +87,24 @@ ato_top_taxpayers <- function(year = "latest",
     )
   }
 
-  if (entity_type != "all") {
-    type_col <- intersect(c("entity_type", "tax_entity_type", "company_type"),
-                          names(df))[1]
-    if (!is.na(type_col)) {
-      # CTT column values: "Australian public", "Australian
-      # private", "Foreign-owned". Match the substantive token
-      # only; the dead "australian.owned" branch from the prior
-      # implementation matched nothing (no such string appears in
-      # the CTT data).
-      pattern <- switch(entity_type,
-        public  = "public",
-        private = "private",
-        foreign = "foreign"
-      )
-      df <- df[grepl(pattern, tolower(df[[type_col]])), , drop = FALSE]
-    }
+  type_col <- ato_find_col(df, "entity")
+  if (entity_type != "all" && !is.na(type_col)) {
+    # CTT column values: "Australian public", "Australian private",
+    # "Foreign-owned". Match the substantive token only.
+    etype_pattern <- switch(entity_type,
+      public  = "public",
+      private = "private",
+      foreign = "foreign"
+    )
+    df <- df[grepl(etype_pattern, tolower(df[[type_col]])), , drop = FALSE]
   }
+
+  ato_warn_suppression(df, context = "CTT entity cells")
 
   rownames(df) <- NULL
   new_ato_tbl(df,
-              source = url,
+              source  = url,
               licence = "CC BY 3.0 AU",
-              title = paste0("ATO Corporate Tax Transparency ", year,
-                              " (", sheet, ")"))
+              title   = paste0("ATO Corporate Tax Transparency ", year,
+                               " (", sheet, ")"))
 }
