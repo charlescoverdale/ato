@@ -66,14 +66,23 @@ ato_fetch_csv <- function(url, ...) {
 #' tokens as CSV releases; `readxl::read_excel` is passed `na =
 #' ATO_SUPPRESSION_TOKENS` so numeric columns are not silently
 #' coerced to character when an `np` cell appears.
+#'
+#' When `skip` is `NULL` (the default), the helper auto-detects
+#' the header row by reading up to 15 rows without headers and
+#' finding the first row that looks like a header (three or more
+#' non-empty string cells). This handles ATO workbooks that lead
+#' with a title or narrative block before the data table.
 #' @noRd
-ato_fetch_xlsx <- function(url, sheet = 1, skip = 0) {
+ato_fetch_xlsx <- function(url, sheet = 1, skip = NULL) {
   if (!requireNamespace("readxl", quietly = TRUE)) {
     cli::cli_abort(c(
       "The {.pkg readxl} package is required to parse XLSX files."
     ))
   }
   file <- ato_download_cached(url)
+  if (is.null(skip)) {
+    skip <- ato_detect_header_row(file, sheet = sheet)
+  }
   df <- as.data.frame(
     readxl::read_excel(file, sheet = sheet, skip = skip,
                        na = ATO_SUPPRESSION_TOKENS,
@@ -82,6 +91,42 @@ ato_fetch_xlsx <- function(url, sheet = 1, skip = 0) {
   )
   names(df) <- ato_clean_names(names(df))
   df
+}
+
+#' Auto-detect the first row of an XLSX sheet that looks like a
+#' column-header row
+#'
+#' Heuristic: reads up to 15 rows without treating any row as a
+#' header, then finds the first row where at least three cells
+#' are non-empty strings that do not contain newlines (newlines
+#' typically appear in narrative-block rows, not headers).
+#' Returns the number of rows to skip before the header.
+#' @noRd
+ato_detect_header_row <- function(file, sheet = 1, max_scan = 15L) {
+  probe <- tryCatch(
+    readxl::read_excel(file, sheet = sheet, col_names = FALSE,
+                       n_max = max_scan, .name_repair = "minimal"),
+    error = function(e) NULL
+  )
+  if (is.null(probe) || nrow(probe) == 0L) return(0L)
+
+  is_string_row <- function(row) {
+    vals <- unlist(row, use.names = FALSE)
+    vals <- vals[!is.na(vals) & nzchar(as.character(vals))]
+    if (length(vals) < 3L) return(FALSE)
+    chars <- suppressWarnings(as.character(vals))
+    # Header rows frequently contain newlines (e.g. "Individuals\nno.")
+    # so do not reject on that. Reject rows that are all-numeric.
+    looks_numeric <- suppressWarnings(!any(is.na(as.numeric(chars))))
+    !looks_numeric
+  }
+
+  for (i in seq_len(nrow(probe))) {
+    if (is_string_row(probe[i, , drop = FALSE])) {
+      return(i - 1L)
+    }
+  }
+  0L
 }
 
 #' Convert a user-supplied year string to the ATO Taxation Statistics slug

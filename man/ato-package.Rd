@@ -16,10 +16,24 @@ Statistics and related datasets via the 'data.gov.au' CKAN API.
 resource access.
 \item \code{\link[=ato_individuals]{ato_individuals()}}, \code{\link[=ato_individuals_postcode]{ato_individuals_postcode()}},
 \code{\link[=ato_individuals_occupation]{ato_individuals_occupation()}}: individual tax return items.
-\item \code{\link[=ato_companies]{ato_companies()}}: company tax by industry.
+\code{ato_individuals_postcode()} accepts a vector of years for
+time-series panels.
+\item \code{\link[=ato_companies]{ato_companies()}}: company tax across Tables 1-9 (snapshot,
+by size, by entity type, by industry, by industry-and-size,
+by sub-industry, by taxable status, by source, by expenses).
 \item \code{\link[=ato_super_funds]{ato_super_funds()}}: APRA-regulated super funds and SMSFs.
-\item \code{\link[=ato_top_taxpayers]{ato_top_taxpayers()}}: Corporate Tax Transparency release.
+\item \code{\link[=ato_top_taxpayers]{ato_top_taxpayers()}}: Corporate Tax Transparency release
+(Income tax or PRRT sheet).
 \item \code{\link[=ato_gst]{ato_gst()}}, \code{\link[=ato_industry]{ato_industry()}}: GST and industry aggregates.
+\item \code{\link[=ato_tax_gaps]{ato_tax_gaps()}}: annual Tax Gap estimates across tax heads.
+\item \code{\link[=ato_rdti]{ato_rdti()}}: Research and Development Tax Incentive
+claimants.
+\item \code{\link[=ato_irpd]{ato_irpd()}}: International Related Party Dealings (BEPS /
+transfer pricing).
+\item \code{\link[=ato_excise]{ato_excise()}}: excise rates, fuel tax credits, beer and
+spirits clearances.
+\item \code{\link[=ato_sme_benchmarks]{ato_sme_benchmarks()}}: Small Business Benchmarks.
+\item \code{\link[=ato_help]{ato_help()}}: HELP / AASL / VSL student-loan statistics.
 \item \code{\link[=ato_cite]{ato_cite()}}: citation helper (BibTeX, APA, plain text).
 \item \code{\link[=ato_cache_info]{ato_cache_info()}}, \code{\link[=ato_clear_cache]{ato_clear_cache()}}: cache management.
 }

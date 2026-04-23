@@ -8,10 +8,24 @@
 #'   resource access.
 #' - [ato_individuals()], [ato_individuals_postcode()],
 #'   [ato_individuals_occupation()]: individual tax return items.
-#' - [ato_companies()]: company tax by industry.
+#'   `ato_individuals_postcode()` accepts a vector of years for
+#'   time-series panels.
+#' - [ato_companies()]: company tax across Tables 1-9 (snapshot,
+#'   by size, by entity type, by industry, by industry-and-size,
+#'   by sub-industry, by taxable status, by source, by expenses).
 #' - [ato_super_funds()]: APRA-regulated super funds and SMSFs.
-#' - [ato_top_taxpayers()]: Corporate Tax Transparency release.
+#' - [ato_top_taxpayers()]: Corporate Tax Transparency release
+#'   (Income tax or PRRT sheet).
 #' - [ato_gst()], [ato_industry()]: GST and industry aggregates.
+#' - [ato_tax_gaps()]: annual Tax Gap estimates across tax heads.
+#' - [ato_rdti()]: Research and Development Tax Incentive
+#'   claimants.
+#' - [ato_irpd()]: International Related Party Dealings (BEPS /
+#'   transfer pricing).
+#' - [ato_excise()]: excise rates, fuel tax credits, beer and
+#'   spirits clearances.
+#' - [ato_sme_benchmarks()]: Small Business Benchmarks.
+#' - [ato_help()]: HELP / AASL / VSL student-loan statistics.
 #' - [ato_cite()]: citation helper (BibTeX, APA, plain text).
 #' - [ato_cache_info()], [ato_clear_cache()]: cache management.
 #'

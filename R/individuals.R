@@ -84,15 +84,19 @@ ato_individuals <- function(year = "latest") {
 #' Monetary values are nominal AUD of the reporting year. Use
 #' `inflateR::inflate()` for real-term series.
 #'
-#' @param year `"YYYY-YY"` or `"latest"`.
+#' @param year `"YYYY-YY"` or `"latest"`. Pass a vector of years
+#'   (e.g. `c("2020-21", "2021-22", "2022-23")` or `2018:2022`)
+#'   to stack multiple years with a `year` column added to the
+#'   output. Useful for time-series analysis.
 #' @param state Optional character vector of state codes (e.g.
 #'   `"NSW"`, `c("VIC", "QLD")`).
 #' @param postcode Optional character vector of 4-digit postcodes.
 #'
-#' @return An `ato_tbl` with one row per postcode, including
-#'   state, return count, total income, taxable income, and tax
-#'   payable. Schema drifts year to year (SA3/SA4 columns present
-#'   from 2017 onwards).
+#' @return An `ato_tbl` with one row per postcode (or per postcode
+#'   per year for multi-year queries), including state, return
+#'   count, total income, taxable income, and tax payable. Schema
+#'   drifts year to year (SA3/SA4 columns present from 2017
+#'   onwards).
 #'
 #' @source Australian Taxation Office Taxation Statistics
 #'   postcode release. Licensed CC BY 2.5 AU.
@@ -103,17 +107,72 @@ ato_individuals <- function(year = "latest") {
 #' \donttest{
 #' op <- options(ato.cache_dir = tempdir())
 #' try({
+#'   # Single year
 #'   p <- ato_individuals_postcode(year = "2022-23", state = "NSW")
 #'   head(p)
+#'   # Multi-year stack with year column
+#'   panel <- ato_individuals_postcode(year = c("2020-21", "2021-22"),
+#'                                     state = "NSW")
 #' })
 #' options(op)
 #' }
 ato_individuals_postcode <- function(year = "latest", state = NULL,
                                       postcode = NULL) {
+  # Multi-year path: stack results with a year column.
+  if (length(year) > 1L) {
+    years <- vapply(as.list(year), ato_resolve_year, character(1))
+    first_src <- NULL
+    parts <- lapply(years, function(y) {
+      df <- ato_individuals_postcode(year = y, state = state,
+                                     postcode = postcode)
+      if (is.null(first_src)) first_src <<- attr(df, "ato_source")
+      # Drop the ato_tbl class and any leftover attributes to
+      # guarantee `[.data.frame` semantics on subset.
+      df <- as.data.frame(df, stringsAsFactors = FALSE)
+      df$year <- y
+      df
+    })
+    common <- Reduce(intersect, lapply(parts, names))
+    # Drop empty-string column names (artefact of trailing blank
+    # cells in ATO workbooks) which trigger
+    # "undefined columns selected" on subsetting.
+    common <- common[nzchar(common)]
+    if (length(common) == 0L) {
+      cli::cli_abort(c(
+        "No column names are common across the requested years.",
+        "i" = "Try fewer years or inspect each year separately first."
+      ))
+    }
+    stacked <- do.call(
+      rbind,
+      lapply(parts, function(d) d[, common, drop = FALSE])
+    )
+    rownames(stacked) <- NULL
+    return(new_ato_tbl(stacked,
+                       source = first_src %||% "",
+                       licence = "CC BY 2.5 AU",
+                       title = paste0("ATO individuals by postcode (",
+                                      min(years), " to ", max(years), ")")))
+  }
+
   id <- ato_ts_package_id(year)
   res <- ato_ckan_resolve(id, "postcode")
   url <- res$url %||% ""
-  df <- ato_fetch_xlsx(url, sheet = 1)
+  # The Snapshot postcode workbook leads with a "Notes" sheet;
+  # the first data sheet is "Table 7A" (top 10 postcodes by
+  # state). Skip the Notes sheet when present.
+  cached <- ato_download_cached(url)
+  sheets <- tryCatch(readxl::excel_sheets(cached),
+                     error = function(e) character(0))
+  target_sheet <- if (length(sheets) > 0L &&
+                      tolower(sheets[1]) %in% c("notes", "cover",
+                                                 "information",
+                                                 "contents")) {
+    2
+  } else {
+    1
+  }
+  df <- ato_fetch_xlsx(url, sheet = target_sheet)
 
   if (!is.null(state)) {
     state_col <- intersect(c("state", "state_territory"), names(df))[1]

@@ -41,6 +41,12 @@ ato_cite(x, style = "apa")
 Other discovery: 
 \code{\link{ato_catalog}()},
 \code{\link{ato_download}()},
+\code{\link{ato_excise}()},
+\code{\link{ato_help}()},
+\code{\link{ato_irpd}()},
+\code{\link{ato_rdti}()},
+\code{\link{ato_sme_benchmarks}()},
+\code{\link{ato_tax_gaps}()},
 \code{\link{ato_top_taxpayers}()}
 }
 \concept{discovery}

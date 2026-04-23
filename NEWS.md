@@ -1,7 +1,50 @@
-# ato 0.1.1 (in development)
+# ato 0.2.0
 
-Policy-audit patch release. Fixes three defects that produced
-silently wrong answers and adds one new helper.
+Tier 2 of the policy-audit roadmap. Adds six new data-access
+functions covering the ATO datasets that Grattan, e61, Treasury,
+and the PBO use most heavily outside the headline Taxation
+Statistics release; expands `ato_companies()` across all nine
+Company Tables; adds multi-year panel support to
+`ato_individuals_postcode()`.
+
+## New functions
+
+* `ato_tax_gaps()`: annual ATO Tax Gap estimates across tax
+  heads (individuals, small business, large corporate, GST,
+  excise, PRRT, SG). Treasury cites this in every MYEFO.
+* `ato_rdti(year)`: Research and Development Tax Incentive
+  claimants, expenditure, and offset data. Used by Treasury and
+  DISR to evaluate the AUD 2 billion+ programme.
+* `ato_irpd(year, table)`: International Related Party Dealings
+  across the four annual packages (2019-20 to 2023-24), with
+  Table 1 (totals), Table 2 (by jurisdiction), and Table 3
+  (chart-data index). Core dataset for BEPS and transfer-pricing
+  research.
+* `ato_excise(table)`: Excise rates, fuel tax credit rates, and
+  beer and spirits clearances. Covers four sub-releases.
+* `ato_sme_benchmarks(year)`: Small Business Benchmarks
+  (industry-specific cost-to-turnover ratios). Releases from
+  2016-17 onwards.
+* `ato_help(scheme)`: Study and Training Support Loan statistics
+  covering HELP (~3m borrowers, AUD 80bn+ outstanding debt),
+  AASL (Australian Apprenticeship Support Loans), and VSL (VET
+  Student Loans).
+
+## Expanded functions
+
+* `ato_companies()` now accepts a `table` parameter dispatching
+  across the nine Company Tables: `snapshot` (T1),
+  `key_items_by_size` (T2), `entity_type` (T3),
+  `industry` (T4, default), `industry_by_size` (T5),
+  `sub_industry` (T6), `taxable_status` (T7), `source` (T8),
+  `expenses` (T9). Backwards-compatible default returns Table 4
+  as before.
+* `ato_individuals_postcode()` now accepts a vector of years
+  (e.g. `year = 2018:2022`) and returns a stacked panel with a
+  `year` column. Row-binds on the intersection of column names
+  to handle schema drift across releases.
+
+# ato 0.1.1
 
 ## Bug fixes
 

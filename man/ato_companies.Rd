@@ -2,33 +2,70 @@
 % Please edit documentation in R/companies.R
 \name{ato_companies}
 \alias{ato_companies}
-\title{Company Taxation Statistics by industry}
+\title{Company Taxation Statistics}
 \source{
 Australian Taxation Office Taxation Statistics Company
 Tables. Licensed CC BY 2.5 AU.
 }
 \usage{
-ato_companies(year = "latest", industry = NULL)
+ato_companies(
+  year = "latest",
+  table = c("industry", "snapshot", "key_items_by_size", "entity_type",
+    "industry_by_size", "sub_industry", "taxable_status", "source", "expenses"),
+  industry = NULL
+)
 }
 \arguments{
 \item{year}{\code{"YYYY-YY"} or \code{"latest"}.}
 
-\item{industry}{Optional substring filter on industry name.}
+\item{table}{One of \code{"snapshot"}, \code{"key_items_by_size"},
+\code{"entity_type"}, \code{"industry"} (default), \code{"industry_by_size"},
+\code{"sub_industry"}, \code{"taxable_status"}, \code{"source"}, or
+\code{"expenses"}.}
+
+\item{industry}{Optional substring filter on industry name
+(applied only when the fetched table has an industry
+column).}
 }
 \value{
-An \code{ato_tbl} with one row per industry.
+An \code{ato_tbl}. Monetary values in nominal AUD of the
+reporting year.
 }
 \description{
-Returns the Company Table 4 (key items by ANZSIC industry).
-Coverage includes total income, tax payable, net tax, and
-turnover-band counts at the 2-digit ANZSIC subdivision level.
+Returns the annual Company Taxation Statistics tables. The
+Company release ships tables covering entity type, turnover
+band, industry, taxable status, source of income, and
+expense deductions. Pick the table that matches your
+question:
+}
+\details{
+\itemize{
+\item \strong{snapshot} (T1): aggregate counts, total income, net tax
+across all companies (~1m entities)
+\item \strong{key_items_by_size} (T2): net tax by company size band
+\item \strong{entity_type} (T3): split by public/private/co-operative
+\item \strong{industry} (T4, default): key items by 2-digit ANZSIC
+subdivision
+\item \strong{industry_by_size} (T5): industry × turnover band
+\item \strong{sub_industry} (T6): 4-digit ANZSIC class detail
+\item \strong{taxable_status} (T7): items by taxable status
+\item \strong{source} (T8): source of income
+\item \strong{expenses} (T9): expense and deduction categories
+}
+
+Kate Griffiths' 2023 Grattan corporate tax paper used T2 and
+T3 cuts; these are now reachable by name.
 }
 \examples{
 \donttest{
 op <- options(ato.cache_dir = tempdir())
 try({
-  c <- ato_companies(year = "2022-23", industry = "mining")
-  head(c)
+  # Snapshot
+  s <- ato_companies(year = "2022-23", table = "snapshot")
+  head(s)
+  # Mining subset of industry detail
+  m <- ato_companies(year = "2022-23", industry = "mining")
+  head(m)
 })
 options(op)
 }

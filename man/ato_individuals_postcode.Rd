@@ -11,7 +11,10 @@ postcode release. Licensed CC BY 2.5 AU.
 ato_individuals_postcode(year = "latest", state = NULL, postcode = NULL)
 }
 \arguments{
-\item{year}{\code{"YYYY-YY"} or \code{"latest"}.}
+\item{year}{\code{"YYYY-YY"} or \code{"latest"}. Pass a vector of years
+(e.g. \code{c("2020-21", "2021-22", "2022-23")} or \code{2018:2022})
+to stack multiple years with a \code{year} column added to the
+output. Useful for time-series analysis.}
 
 \item{state}{Optional character vector of state codes (e.g.
 \code{"NSW"}, \code{c("VIC", "QLD")}).}
@@ -19,10 +22,11 @@ ato_individuals_postcode(year = "latest", state = NULL, postcode = NULL)
 \item{postcode}{Optional character vector of 4-digit postcodes.}
 }
 \value{
-An \code{ato_tbl} with one row per postcode, including
-state, return count, total income, taxable income, and tax
-payable. Schema drifts year to year (SA3/SA4 columns present
-from 2017 onwards).
+An \code{ato_tbl} with one row per postcode (or per postcode
+per year for multi-year queries), including state, return
+count, total income, taxable income, and tax payable. Schema
+drifts year to year (SA3/SA4 columns present from 2017
+onwards).
 }
 \description{
 Returns the Individuals Table 6 (or standalone postcode
@@ -44,8 +48,12 @@ Monetary values are nominal AUD of the reporting year. Use
 \donttest{
 op <- options(ato.cache_dir = tempdir())
 try({
+  # Single year
   p <- ato_individuals_postcode(year = "2022-23", state = "NSW")
   head(p)
+  # Multi-year stack with year column
+  panel <- ato_individuals_postcode(year = c("2020-21", "2021-22"),
+                                    state = "NSW")
 })
 options(op)
 }
