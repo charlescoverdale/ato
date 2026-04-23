@@ -1,107 +1,8 @@
-# ato 0.2.0
-
-Tier 2 of the policy-audit roadmap. Adds six new data-access
-functions covering the ATO datasets that Grattan, e61, Treasury,
-and the PBO use most heavily outside the headline Taxation
-Statistics release; expands `ato_companies()` across all nine
-Company Tables; adds multi-year panel support to
-`ato_individuals_postcode()`.
-
-## New functions
-
-* `ato_tax_gaps()`: annual ATO Tax Gap estimates across tax
-  heads (individuals, small business, large corporate, GST,
-  excise, PRRT, SG). Treasury cites this in every MYEFO.
-* `ato_rdti(year)`: Research and Development Tax Incentive
-  claimants, expenditure, and offset data. Used by Treasury and
-  DISR to evaluate the AUD 2 billion+ programme.
-* `ato_irpd(year, table)`: International Related Party Dealings
-  across the four annual packages (2019-20 to 2023-24), with
-  Table 1 (totals), Table 2 (by jurisdiction), and Table 3
-  (chart-data index). Core dataset for BEPS and transfer-pricing
-  research.
-* `ato_excise(table)`: Excise rates, fuel tax credit rates, and
-  beer and spirits clearances. Covers four sub-releases.
-* `ato_sme_benchmarks(year)`: Small Business Benchmarks
-  (industry-specific cost-to-turnover ratios). Releases from
-  2016-17 onwards.
-* `ato_help(scheme)`: Study and Training Support Loan statistics
-  covering HELP (~3m borrowers, AUD 80bn+ outstanding debt),
-  AASL (Australian Apprenticeship Support Loans), and VSL (VET
-  Student Loans).
-
-## Expanded functions
-
-* `ato_companies()` now accepts a `table` parameter dispatching
-  across the nine Company Tables: `snapshot` (T1),
-  `key_items_by_size` (T2), `entity_type` (T3),
-  `industry` (T4, default), `industry_by_size` (T5),
-  `sub_industry` (T6), `taxable_status` (T7), `source` (T8),
-  `expenses` (T9). Backwards-compatible default returns Table 4
-  as before.
-* `ato_individuals_postcode()` now accepts a vector of years
-  (e.g. `year = 2018:2022`) and returns a stacked panel with a
-  `year` column. Row-binds on the intersection of column names
-  to handle schema drift across releases.
-
-# ato 0.1.1
-
-## Bug fixes
-
-* `ato_fetch_csv()` and `ato_fetch_xlsx()` now coerce the ATO's
-  confidentiality-suppression tokens (`np`, `n.p.`, `*`, double
-  dagger, etc.) to `NA`. Previously these stayed as character
-  strings, silently coercing whole numeric columns to character
-  and breaking `sum(..., na.rm = TRUE)`. The full token list is
-  in the internal `ATO_SUPPRESSION_TOKENS` vector.
-* `ato_top_taxpayers(entity_type = "private")` regex fixed. The
-  prior `"private|australian.owned"` pattern contained a dead
-  alternative because the Corporate Tax Transparency data uses
-  the label "Australian private", not "Australian-owned". The
-  package now correctly returns private-company rows.
-* `ato_individuals(table = "all")` removed. The docstring
-  claimed to concatenate all per-year Individuals tables; the
-  implementation fell through `ato_ckan_resolve` which returns
-  only the first match. Users wanting detailed tables should
-  use the dedicated functions (postcode, occupation) or
-  `ato_download()` with a custom pattern.
-* `ato_individuals_occupation(sex = ...)` now matches full
-  tokens (`"male"`, `"female"`) rather than first-letter prefix,
-  and short forms `"m"`/`"f"` are normalised internally. The
-  prior prefix match silently dropped rows labelled
-  `"Not stated"`.
-
-## New features
-
-* `ato_top_taxpayers(sheet = "prrt")` exposes the Petroleum
-  Resource Rent Tax sheet in the Corporate Tax Transparency
-  XLSX. The default `sheet = "income_tax"` retains v0.1.0
-  behaviour.
-* `ato_cite(x)` produces a citation for any `ato_tbl` or URL in
-  plain-text (default), BibTeX, or APA style. Includes the
-  source URL, CC licence, retrieval date, and dataset title
-  from the `ato_tbl` provenance attributes.
-
-## Documentation
-
-* New package-level caveats section covering nominal AUD,
-  fiscal year convention (1 July to 30 June), confidentiality
-  suppression, schema drift, ANZSIC and ANZSCO classification
-  migrations, silent CKAN revisions, and microdata scope.
-* `ato_top_taxpayers` now documents the AUD 100 million
-  threshold (lowered from 200 million for private entities from
-  2022-23 onwards) and the Part 5-25 *Taxation Administration
-  Act 1953* statutory basis.
-* `ato_individuals_postcode` documents the 50-return privacy
-  suppression threshold.
-* `ato_individuals_occupation` documents the ANZSCO 2013 to
-  ANZSCO 2021 migration.
-
 # ato 0.1.0
 
 Initial CRAN submission. First public release.
 
-## New functions
+## Data-access functions
 
 ### Discovery
 
@@ -112,38 +13,80 @@ Initial CRAN submission. First public release.
 ### Individuals
 
 * `ato_individuals()`: Taxation Statistics Individual snapshot
-  (Table 1) or selected detailed tables.
+  (Table 1).
 * `ato_individuals_postcode()`: individual tax return items by
-  postcode and state (Individuals Table 6).
+  postcode and state (Individuals Table 6). Accepts a vector of
+  years (e.g. `year = 2018:2022`) and returns a stacked panel
+  with a `year` column.
 * `ato_individuals_occupation()`: individual tax return items by
-  occupation, sex, and income range (Individuals Table 14).
+  occupation (ANZSCO), sex, and income range.
 
 ### Companies and superannuation
 
-* `ato_companies()`: Company Taxation Statistics by industry
-  (ANZSIC), entity type, and turnover band.
+* `ato_companies()`: Company Taxation Statistics across all nine
+  Company Tables via `table = ...`: snapshot, key_items_by_size,
+  entity_type, industry (default), industry_by_size,
+  sub_industry, taxable_status, source, expenses.
 * `ato_super_funds()`: APRA-regulated superannuation fund and
   Self-Managed Superannuation Fund ('SMSF') aggregates.
 
-### Other entities and aggregates
+### Other entities, transparency, and aggregates
 
-* `ato_top_taxpayers()`: Corporate Tax Transparency release
-  (annual November/December).
-* `ato_gst()`: Goods and Services Tax Taxation Statistics and
-  Activity Statement Ratios.
+* `ato_top_taxpayers()`: Corporate Tax Transparency release with
+  sheet switch between `income_tax` and `prrt` (Petroleum
+  Resource Rent Tax filers).
+* `ato_gst()`: Goods and Services Tax tables and Activity
+  Statement Ratios.
 * `ato_industry()`: industry-level aggregates derived from
   Individual and Company tables.
 
-### Cache management
+### Integrity, incentives, and international
 
-* `ato_cache_info()`: inspect the local cache.
-* `ato_clear_cache()`: clear locally cached files.
+* `ato_tax_gaps()`: annual Tax Gap estimates across tax heads
+  (individuals, small business, large corporate, GST, excise,
+  PRRT, superannuation guarantee). Treasury cites this series in
+  every MYEFO.
+* `ato_rdti()`: Research and Development Tax Incentive
+  claimants, expenditure, and offset data.
+* `ato_irpd()`: International Related Party Dealings across
+  annual packages from 2019-20 (Table 1 totals, Table 2 by
+  jurisdiction, Table 3 chart-data index). Core BEPS and
+  transfer-pricing dataset.
+
+### Excise, small business, and education loans
+
+* `ato_excise()`: excise rate schedule, Fuel Tax Credit rates,
+  beer clearances, and spirits and other excisable beverages.
+* `ato_sme_benchmarks()`: Small Business Benchmarks
+  (industry-specific cost-to-turnover and related ratios).
+* `ato_help()`: Study and Training Support Loan statistics
+  covering HELP (around 3 million borrowers, AUD 80 billion-plus
+  outstanding debt), AASL (Australian Apprenticeship Support
+  Loans), and VSL (VET Student Loans).
+
+### Utilities
+
+* `ato_cite()`: citation helper producing plain text, BibTeX, or
+  APA output from an `ato_tbl` or URL.
+* `ato_cache_info()`, `ato_clear_cache()`: cache management.
+
+## Data handling
+
+* ATO confidentiality-suppression tokens (`np`, `n.p.`, `*`, and
+  others) are coerced to `NA` by both `ato_fetch_csv()` and
+  `ato_fetch_xlsx()` so numeric columns stay numeric.
+* XLSX header auto-detection: scans up to 15 rows to find the
+  column-header row, handling ATO workbooks that lead with a
+  title, narrative, or Notes sheet.
+* Every returned `ato_tbl` carries provenance attributes (source
+  URL, CC licence, retrieval time, title) exposed via `print()`
+  and `ato_cite()`.
 
 ## Data source
 
-Data is published by the Australian Taxation Office on data.gov.au
-and ato.gov.au. Most Taxation Statistics datasets are licensed
-under Creative Commons Attribution 2.5 Australia; Corporate Tax
-Transparency and the Voluntary Tax Transparency Code are licensed
-under Creative Commons Attribution 3.0 Australia. All downloads
-are cached locally on first use.
+Data is published by the Australian Taxation Office on
+data.gov.au and ato.gov.au. Most Taxation Statistics datasets
+are licensed under Creative Commons Attribution 2.5 Australia;
+Corporate Tax Transparency and the Voluntary Tax Transparency
+Code are licensed under Creative Commons Attribution 3.0
+Australia. All downloads are cached locally on first use.
