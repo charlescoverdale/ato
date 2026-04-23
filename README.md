@@ -2,15 +2,15 @@
 
 [![CRAN status](https://www.r-pkg.org/badges/version/ato)](https://CRAN.R-project.org/package=ato) [![CRAN downloads](https://cranlogs.r-pkg.org/badges/ato)](https://cran.r-project.org/package=ato) [![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/ato)](https://CRAN.R-project.org/package=ato) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-An R package for accessing statistical data published by the [Australian Taxation Office](https://www.ato.gov.au). Individual tax returns by postcode and occupation, company tax by industry, superannuation aggregates, Corporate Tax Transparency, GST, and more.
+An R package for accessing statistical data published by the [Australian Taxation Office](https://www.ato.gov.au). Individual tax returns by postcode and occupation, company tax by industry, superannuation aggregates, Corporate Tax Transparency, GST, tax gaps, R&D tax incentive, and more.
 
 ## What is the ATO?
 
-The Australian Taxation Office is the Commonwealth agency responsible for collecting federal taxes. In 2023-24 it collected AUD 612 billion in net tax revenue, about 80% of all federal government receipts. It administers personal income tax, company tax, GST, fringe benefits tax, fuel tax credits, the R&D tax incentive, superannuation policy, and the Corporate Tax Transparency regime that names the largest taxpayers every December.
+The Australian Taxation Office is the Commonwealth agency responsible for collecting federal taxes. In 2023-24 it collected **AUD 611 billion in net tax** (ATO Annual Report 2023-24), equivalent to around 87% of total Commonwealth receipts. It administers personal income tax, company tax, GST, fringe benefits tax, fuel tax credits, the Research and Development Tax Incentive, the Super Guarantee compliance regime, self-managed superannuation funds (SMSFs), and the Corporate Tax Transparency regime. Superannuation policy sits with Treasury; prudential regulation of APRA-regulated super funds is APRA's domain; conduct and disclosure are ASIC's.
 
-The ATO's flagship public data release is **Taxation Statistics**: an annual XLSX-heavy publication covering roughly 14 million individual tax returns, 1 million company returns, and all APRA-regulated and self-managed superannuation funds. Each release ships 90-plus tables across Individuals, Companies, Partnerships, Trusts, Super, GST, FBT, CGT, Excise, and Activity Statement Ratios, plus a separate Corporate Tax Transparency release and a multi-year postcode series.
+The ATO's flagship public data release is **Taxation Statistics**: an annual XLSX-heavy publication covering roughly 14 million individual tax returns, 1 million company returns, and all APRA-regulated and self-managed superannuation funds. Each release ships 90-plus tables across Individuals, Companies, Partnerships, Trusts, Super, GST, FBT, CGT, Excise, and Activity Statement Ratios, plus a separate Corporate Tax Transparency release and a multi-year postcode series. Beyond Taxation Statistics, the 42 ATO datasets on data.gov.au include Tax Gaps estimates, Small Business Benchmarks, International Related Party Dealings (IRPD), R&D Tax Incentive claimants, HELP repayments, and the foreign-ownership register.
 
-Taxation Statistics is the closest thing Australia has to a public microdata source. It anchors almost every income-distribution paper written by the Grattan Institute, e61, the Australia Institute, and the ANU Tax and Transfer Policy Institute, and the Corporate Tax Transparency release drives a December news cycle every year. The 2% Individual Sample File is used by the Parliamentary Budget Office to cost election commitments.
+Taxation Statistics underlies much of the public income-distribution and top-incomes literature in Australia. Atkinson and Leigh (2007) used the ATO aggregates to reconstruct century-long top-income shares; the Burkhauser-Hahn-Wilkins and Wilkins series followed. Work from the Grattan Institute, e61 Institute, the ANU Tax and Transfer Policy Institute, and the Australia Institute routinely draws on these tables, and the **Corporate Tax Transparency** release drives an October-November news cycle every year as journalists tally which large entities paid zero tax. Where longitudinal microdata is needed, researchers apply for access to **ALife** (the ATO Longitudinal Information Files) through the ATO's DataLab; the Parliamentary Budget Office accesses richer microdata through separate arrangements.
 
 ## Why does this package exist?
 
@@ -41,9 +41,9 @@ Hugh Parsonage and the Grattan Institute have done the most work on Australian t
 
 | Package | Role | Status |
 |---|---|---|
-| [**grattan**](https://github.com/HughParsonage/grattan) | Tax *calculator*. Computes income tax liabilities, transfer payments, CPI and wage inflators, and long-run fiscal projections under a given policy parameterisation | CRAN, active |
+| [**grattan**](https://github.com/HughParsonage/grattan) | Tax *calculator*. Computes income tax liabilities, transfer payments, CPI and wage inflators, and long-run fiscal projections under a given policy parameterisation | CRAN, active (v2026.1.1) |
 | [**taxstats**](https://github.com/HughParsonage/taxstats) | Ships the ATO's 2% individual sample files as lazy-loaded data objects | GitHub DRAT, dormant since 2019 |
-| **ato** | Data *access*. Fetches aggregate Taxation Statistics tables, postcode series, Corporate Tax Transparency, SMSF overviews | CRAN |
+| **ato** | Data *access*. Fetches aggregate Taxation Statistics tables, postcode series, Corporate Tax Transparency, SMSF overviews, tax gaps | CRAN |
 
 If you are modelling a policy change, use `grattan`. If you want to work with the 2% sample file, install `taxstats` from Hugh's DRAT. If you want the published aggregate statistics or the Corporate Tax Transparency release in a clean tidy data frame, use `ato`.
 
@@ -69,7 +69,7 @@ cat <- ato_catalog()
 p <- ato_individuals_postcode(year = "2022-23", state = "NSW")
 head(p)
 
-# Corporate Tax Transparency: Top 500/1000 entities
+# Corporate Tax Transparency (4,110 entities in 2023-24)
 top <- ato_top_taxpayers(year = "2023-24")
 head(top)
 
@@ -111,11 +111,12 @@ head(p[order(-p$taxable_income_average), cols], 10)
 
 ### Corporate Tax Transparency
 
-The Corporate Tax Transparency release names every Australian public company with more than AUD 100m total income, every foreign-owned company above AUD 100m, and every Australian-owned private company above AUD 200m. Published each November or December, each release generates a press cycle as journalists compute how many large entities paid zero tax in the prior year.
+The Corporate Tax Transparency release is mandated by Part 5-25 of the *Taxation Administration Act 1953*. It names every Australian public or foreign-owned company with more than AUD 100 million total income, and every Australian-owned private company above AUD 100 million (the private-company threshold was lowered from AUD 200 million to AUD 100 million for the 2022-23 income year onwards). The 2023-24 release published 1 October 2025 covered 4,110 entities. Each release generates a press cycle as journalists compute how many large entities paid zero tax in the prior year.
 
 ```r
-# 2023-24 release (published late 2025)
+# 2023-24 release (published 1 October 2025)
 top <- ato_top_taxpayers(year = "2023-24")
+nrow(top)  # 4,110
 
 # Ten largest taxpayers
 cols <- c("name", "total_income", "taxable_income", "tax_payable")
@@ -134,10 +135,19 @@ occ <- ato_individuals_occupation(year = "2022-23", occupation = "economist")
 head(occ)
 ```
 
+### Top-income shares (Atkinson-Leigh style)
+
+```r
+# Build a simple top-1% share estimate from the Individuals snapshot
+ind <- ato_individuals(year = "2022-23", table = "snapshot")
+head(ind)
+# (Pair with ABS SIH or ALife microdata for a full top-incomes analysis.)
+```
+
 ### Catalogue inspection
 
 ```r
-# Every ATO dataset on data.gov.au
+# Every ATO dataset on data.gov.au (42 packages)
 cat <- ato_catalog()
 
 # Filter to Taxation Statistics years
@@ -156,8 +166,8 @@ The mixed licence is preserved on each returned `ato_tbl`: the `ato_licence` att
 - **No DOIs.** None of the ATO's 42 data.gov.au packages carries a DOI. Citations use URL plus retrieval date instead.
 - **Silent updates.** `metadata_modified` changes without a version bump, so a 2022-23 release created in April 2025 can quietly become a different file by April 2026. The cache keys on URL only; run `ato_clear_cache()` to force a refresh.
 - **Schema drift.** Table numbers and column names change each year (e.g. occupation data has been T13, T14, and T15). `ato` cleans names to snake_case on ingestion but does not normalise schemas across years. A cross-year join requires you to inspect `names(df)` first.
-- **No microdata.** The 2% Individual Sample File is distributed separately via Hugh Parsonage's [taxstats](https://github.com/HughParsonage/taxstats) DRAT repo, not through data.gov.au. ALife (the ATO Longitudinal Information Files) is restricted and requires a researcher application.
-- **2023-24 Taxation Statistics release.** Expected Q1 to Q2 2026. Until published, `year = "latest"` resolves to 2022-23.
+- **No microdata via this package.** The ATO's 2% Individual Sample File is distributed separately via Hugh Parsonage's [taxstats](https://github.com/HughParsonage/taxstats) DRAT repo. **ALife** (the ATO Longitudinal Information Files, the standard restricted-access longitudinal product used by Treasury, the RBA, PBO, and academic researchers) is accessed through the ATO's DataLab under a researcher application: `ato` does not provide ALife access and users needing longitudinal microdata should apply directly to the ATO.
+- **2023-24 Taxation Statistics release.** Expected mid-2026 on the typical T+18-month cadence (the 2022-23 release landed in May 2025). Until published, `year = "latest"` resolves to 2022-23.
 
 ## Related packages
 
