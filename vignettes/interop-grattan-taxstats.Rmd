@@ -14,10 +14,10 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
 `ato` sits in a three-package constellation for Australian tax
 research:
 
-- `ato` — published aggregate data from ATO data.gov.au releases
-- `taxstats` / `taxstats2` (Hugh Parsonage, DRAT) — 2 per cent
+- `ato` : published aggregate data from ATO data.gov.au releases
+- `taxstats` / `taxstats2` (Hugh Parsonage, DRAT) : 2 per cent
   individual microdata sample
-- `grattan` (Hugh Parsonage, CRAN) — policy calculator
+- `grattan` (Hugh Parsonage, CRAN) : policy calculator
   (brackets, Medicare levy, LITO, LMITO, HELP repayments)
 
 `ato` provides `ato_to_taxstats()` to rename aggregate columns to

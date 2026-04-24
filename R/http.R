@@ -1,4 +1,4 @@
-# HTTP helpers — httr2 wrapper with local caching
+# HTTP helpers : httr2 wrapper with local caching
 
 #' @noRd
 ato_user_agent <- function() {

@@ -38,7 +38,9 @@
 #'
 #' ato_cite(x)
 #' ato_cite(x, style = "bibtex")
-#' ato_cite(x, style = "apa", doi = "10.5281/zenodo.12345678")
+#' # DOI style: supply any minted DOI (Zenodo, DataCite, etc.).
+#' # The placeholder below is illustrative only.
+#' ato_cite(x, style = "apa", doi = "10.5281/zenodo.XXXXXXXX")
 ato_cite <- function(x, style = c("text", "bibtex", "apa"),
                       doi = NULL) {
   style <- match.arg(style)

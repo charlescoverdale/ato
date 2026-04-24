@@ -46,7 +46,9 @@ x <- structure(x,
 
 ato_cite(x)
 ato_cite(x, style = "bibtex")
-ato_cite(x, style = "apa", doi = "10.5281/zenodo.12345678")
+# DOI style: supply any minted DOI (Zenodo, DataCite, etc.).
+# The placeholder below is illustrative only.
+ato_cite(x, style = "apa", doi = "10.5281/zenodo.XXXXXXXX")
 }
 \seealso{
 Other discovery: 

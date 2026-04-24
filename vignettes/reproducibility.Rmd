@@ -17,11 +17,11 @@ called `ato_individuals()` and summed column X." Reviewers need to
 verify that the data you used is exactly the data you say you used.
 `ato` provides four features to meet that bar:
 
-1. **Snapshot pin** — declare the intended vintage of the data.
-2. **SHA-256 integrity** — every cached file is hashed; drift warns.
-3. **Session manifest** — every fetch is recorded with URL, SHA,
+1. **Snapshot pin** : declare the intended vintage of the data.
+2. **SHA-256 integrity** : every cached file is hashed; drift warns.
+3. **Session manifest** : every fetch is recorded with URL, SHA,
    retrieval time, and snapshot pin.
-4. **Zenodo DOI** — mint a DOI for the manifest so a paper can cite
+4. **Zenodo DOI** : mint a DOI for the manifest so a paper can cite
    the exact data snapshot.
 
 ## Setup
@@ -85,7 +85,7 @@ dep$payload$metadata$title
 ## Citing a dataset with full provenance
 
 ```{r}
-ato_cite(ind, style = "bibtex", doi = "10.5281/zenodo.12345678")
+ato_cite(ind, style = "bibtex", doi = "10.5281/zenodo.XXXXXXXX")
 ```
 
 The BibTeX `note` field includes the snapshot date and first 12

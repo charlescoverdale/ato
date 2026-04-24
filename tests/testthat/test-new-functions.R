@@ -1,4 +1,4 @@
-# Tier 4 new functions — live tests only
+# Tier 4 new functions : live tests only
 
 test_that("live: ato_fbt fetches", {
   skip_on_cran()

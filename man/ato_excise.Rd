@@ -21,11 +21,11 @@ for tobacco); volumes are in megalitres or similar.
 \description{
 Returns ATO excise data, covering four sub-releases:
 \itemize{
-\item \strong{beer} — beer clearances summary (volumes by product class)
-\item \strong{spirits} — spirits and other excisable beverages clearances
-\item \strong{excise_rates} — historical excise rate schedule (all
+\item \strong{beer} : beer clearances summary (volumes by product class)
+\item \strong{spirits} : spirits and other excisable beverages clearances
+\item \strong{excise_rates} : historical excise rate schedule (all
 excise categories, quarterly indexed rates)
-\item \strong{ftc_rates} — historical Fuel Tax Credit rates
+\item \strong{ftc_rates} : historical Fuel Tax Credit rates
 }
 }
 \examples{

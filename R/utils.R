@@ -254,7 +254,7 @@ ato_stack_years <- function(fn, years, title_prefix = "ATO data") {
 #' - "2022-23"  (canonical)
 #' - "2022/23"
 #' - "2022-2023"
-#' - 2022 (numeric — interpreted as starting year)
+#' - 2022 (numeric : interpreted as starting year)
 #' - "latest" (resolved against the catalogue)
 #'
 #' Returns the canonical "YYYY-YY" slug used in CKAN package names.

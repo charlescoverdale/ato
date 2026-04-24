@@ -3,11 +3,11 @@
 #' Excise and fuel tax credit rates and clearances
 #'
 #' Returns ATO excise data, covering four sub-releases:
-#' - **beer** — beer clearances summary (volumes by product class)
-#' - **spirits** — spirits and other excisable beverages clearances
-#' - **excise_rates** — historical excise rate schedule (all
+#' - **beer** : beer clearances summary (volumes by product class)
+#' - **spirits** : spirits and other excisable beverages clearances
+#' - **excise_rates** : historical excise rate schedule (all
 #'   excise categories, quarterly indexed rates)
-#' - **ftc_rates** — historical Fuel Tax Credit rates
+#' - **ftc_rates** : historical Fuel Tax Credit rates
 #'
 #' @param table One of `"beer"`, `"spirits"`, `"excise_rates"`
 #'   (default), or `"ftc_rates"`.

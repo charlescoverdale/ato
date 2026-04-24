@@ -31,9 +31,9 @@ The IRPD data is published as a separate CKAN package per
 income year (2019-20 through 2023-24). Each annual package
 contains three tables:
 \itemize{
-\item \strong{Table 1} — IRPD totals from 2015-16 to the current year
-\item \strong{Table 2} — IRPDs by jurisdiction
-\item \strong{Table 3} — Index of chart data
+\item \strong{Table 1} : IRPD totals from 2015-16 to the current year
+\item \strong{Table 2} : IRPDs by jurisdiction
+\item \strong{Table 3} : Index of chart data
 }
 }
 \examples{
