@@ -1,0 +1,13 @@
+pandoc: 3.1.11
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  canonical-replications: canonical-replications.html
+  interop-grattan-taxstats: interop-grattan-taxstats.html
+  methodology: methodology.html
+  panel-and-reconcile: panel-and-reconcile.html
+  reproducibility: reproducibility.html
+last_built: 2026-04-24T13:44Z
+urls:
+  reference: https://charlescoverdale.github.io/ato/reference
+  article: https://charlescoverdale.github.io/ato/articles
