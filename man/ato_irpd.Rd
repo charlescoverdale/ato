@@ -48,9 +48,10 @@ options(op)
 }
 \references{
 Organisation for Economic Co-operation and Development (2015).
-\emph{OECD/G20 Base Erosion and Profit Shifting Project:
-Final Reports}. Paris.
-\doi{10.1787/9789264241046-en}
+\emph{Transfer Pricing Documentation and Country-by-Country
+Reporting, Action 13: 2015 Final Report}. OECD/G20 Base
+Erosion and Profit Shifting Project, Paris.
+\doi{10.1787/9789264241480-en}
 
 Commonwealth of Australia. \emph{Income Tax Assessment Act
 1997}, Subdivision 815-B (Transfer Pricing); \emph{Multinational

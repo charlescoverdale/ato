@@ -107,9 +107,9 @@ ato_individuals <- function(year = "latest") {
 #'   247-261. \doi{10.1111/j.1475-4932.2007.00412.x}
 #'
 #' Burkhauser, R.V., Hahn, M.H. and Wilkins, R. (2015). "Measuring
-#'   top incomes using tax record data: A cautionary tale from
+#'   top incomes using tax record data: a cautionary tale from
 #'   Australia." \emph{Journal of Economic Inequality}, 13(2),
-#'   181-205. \doi{10.1007/s10888-014-9292-9}
+#'   181-205. \doi{10.1007/s10888-014-9281-z}
 #'
 #' @family individuals
 #' @export

@@ -23,7 +23,7 @@ published tabulations; a postcode-based approximation is a cruder
 but data-only proxy. For rigorous top-share work use Pareto
 interpolation on the ATO top-percentile table or apply for ALife
 microdata access. See also Burkhauser, Hahn and Wilkins (2015)
-for caveats (<https://doi.org/10.1007/s10888-014-9292-9>).
+for caveats (<https://doi.org/10.1007/s10888-014-9281-z>).
 
 ```{r}
 library(ato)
