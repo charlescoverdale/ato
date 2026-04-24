@@ -13,7 +13,7 @@ ato_tax_expenditures(year = "latest")
 ## Source
 
 Treasury Tax Expenditures and Insights Statement
-<https://treasury.gov.au/tax-expenditures-insights-statement>.
+<https://treasury.gov.au/publication/p2025-721342>.
 
 ## Arguments
 
@@ -42,7 +42,7 @@ food exemption, and many more.
 
 Commonwealth of Australia (annual). *Tax Expenditures and Insights
 Statement*. The Treasury, Canberra.
-<https://treasury.gov.au/tax-expenditures-insights-statement>
+<https://treasury.gov.au/publication/p2025-721342>
 
 ## See also
 
@@ -65,7 +65,7 @@ op <- options(ato.cache_dir = tempdir())
 try(head(ato_tax_expenditures("latest")))
 #> Error in ato_tax_expenditures("latest") : 
 #>   TEIS not found on data.gov.au.
-#> ℹ Fetch manually from <https://treasury.gov.au/publication/tax-expenditures>
+#> ℹ Fetch manually from <https://treasury.gov.au/publication/p2025-721342>
 #> ℹ then pass the URL to `ato_download()`.
 options(op)
 # }

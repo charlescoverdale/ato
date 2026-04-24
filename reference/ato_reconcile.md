@@ -65,8 +65,7 @@ row.
 ## References
 
 Commonwealth of Australia (various years). *Final Budget Outcome*. The
-Treasury, Canberra.
-<https://treasury.gov.au/publication/final-budget-outcome>
+Treasury, Canberra. <https://budget.gov.au/content/fbo/index.htm>
 
 Australian Bureau of Statistics (various years). *Taxation Revenue,
 Australia*. Catalogue 5506.0.
