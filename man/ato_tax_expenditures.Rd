@@ -5,7 +5,7 @@
 \title{Tax Expenditures and Insights Statement (TEIS)}
 \source{
 Treasury Tax Expenditures and Insights Statement
-\url{https://treasury.gov.au/tax-expenditures-insights-statement}.
+\url{https://treasury.gov.au/publication/p2025-721342}.
 }
 \usage{
 ato_tax_expenditures(year = "latest")
@@ -44,7 +44,7 @@ options(op)
 \references{
 Commonwealth of Australia (annual). \emph{Tax Expenditures
 and Insights Statement}. The Treasury, Canberra.
-\url{https://treasury.gov.au/tax-expenditures-insights-statement}
+\url{https://treasury.gov.au/publication/p2025-721342}
 }
 \seealso{
 Other specialist: 

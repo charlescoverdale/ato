@@ -23,12 +23,12 @@
 #'   category, estimated revenue forgone in AUD millions by year.
 #'
 #' @source Treasury Tax Expenditures and Insights Statement
-#'   \url{https://treasury.gov.au/tax-expenditures-insights-statement}.
+#'   \url{https://treasury.gov.au/publication/p2025-721342}.
 #'
 #' @references
 #' Commonwealth of Australia (annual). \emph{Tax Expenditures
 #'   and Insights Statement}. The Treasury, Canberra.
-#'   \url{https://treasury.gov.au/tax-expenditures-insights-statement}
+#'   \url{https://treasury.gov.au/publication/p2025-721342}
 #'
 #' @family specialist
 #' @export
@@ -56,7 +56,7 @@ ato_tax_expenditures <- function(year = "latest") {
   if (is.null(hit)) {
     cli::cli_abort(c(
       "TEIS not found on data.gov.au.",
-      "i" = "Fetch manually from {.url https://treasury.gov.au/publication/tax-expenditures}",
+      "i" = "Fetch manually from {.url https://treasury.gov.au/publication/p2025-721342}",
       "i" = "then pass the URL to {.code ato_download()}."
     ))
   }

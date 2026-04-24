@@ -48,7 +48,7 @@
 #' @references
 #' Commonwealth of Australia (various years). \emph{Final Budget
 #'   Outcome}. The Treasury, Canberra.
-#'   \url{https://treasury.gov.au/publication/final-budget-outcome}
+#'   \url{https://budget.gov.au/content/fbo/index.htm}
 #'
 #' Australian Bureau of Statistics (various years).
 #'   \emph{Taxation Revenue, Australia}. Catalogue 5506.0.
