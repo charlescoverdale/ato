@@ -24,7 +24,12 @@ ato_download_cached <- function(url, cache = TRUE) {
   ext <- if (nzchar(ext)) paste0(".", ext) else ""
   file <- file.path(d, paste0(ato_digest_url(url), ext))
 
-  if (cache && file.exists(file)) return(file)
+  if (cache && file.exists(file)) {
+    # Verify SHA sidecar; warn on drift.
+    ato_sha_verify(file)
+    .ato_manifest_append(url = url, file = file)
+    return(file)
+  }
 
   cli::cli_progress_step("Downloading {.url {url}}")
 
@@ -46,6 +51,10 @@ ato_download_cached <- function(url, cache = TRUE) {
       "HTTP {httr2::resp_status(resp)} from {.url {url}}."
     ))
   }
+
+  # First download: write SHA sidecar, record in manifest.
+  ato_sha_write(file)
+  .ato_manifest_append(url = url, file = file)
   file
 }
 

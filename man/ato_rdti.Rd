@@ -39,6 +39,22 @@ try({
 options(op)
 }
 }
+\references{
+Commonwealth of Australia. \emph{Income Tax Assessment Act
+1997}, Division 355 (Research and Development Tax Incentive).
+
+Department of Industry, Science and Resources and Australian
+Taxation Office (annual). \emph{R&DTI Transparency Report}.
+Jointly administered programme methodology.
+
+Ferris, B., Finkel, A. and Fraser, J. (2016). \emph{Review of
+the R&D Tax Incentive}. Australian Government review
+(the "Three Fs review") informing subsequent programme design.
+
+Organisation for Economic Co-operation and Development (annual).
+\emph{R&D Tax Incentives Database}. International comparator
+data for R&D tax expenditures.
+}
 \seealso{
 Other discovery: 
 \code{\link{ato_catalog}()},

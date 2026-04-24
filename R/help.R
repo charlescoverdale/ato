@@ -22,6 +22,17 @@
 #' @source Australian Taxation Office Study and Training Support
 #'   Loans statistics. Licensed CC BY 2.5 AU.
 #'
+#' @references
+#' Commonwealth of Australia. \emph{Higher Education Support Act
+#'   2003}; \emph{VET Student Loans Act 2016}.
+#'
+#' Australian Department of Education (annual). \emph{Higher
+#'   Education Statistics: HELP statistics collection}.
+#'
+#' Norton, A. and Cherastidtham, I. (2018). \emph{Mapping
+#'   Australian higher education}. Grattan Institute.
+#'   Methodology reference for HELP repayment projections.
+#'
 #' @family discovery
 #' @export
 #' @examples

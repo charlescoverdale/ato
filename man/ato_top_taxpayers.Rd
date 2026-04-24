@@ -68,6 +68,18 @@ try({
 options(op)
 }
 }
+\references{
+Commonwealth of Australia. \emph{Taxation Administration Act
+1953}, Part 5-25 (Corporate Tax Transparency).
+
+Australian Taxation Office (annual). \emph{Report of entity
+tax information}. The statutory Corporate Tax Transparency
+release.
+
+Commonwealth Treasury (2013). \emph{Improving the transparency
+of Australia's business tax system: Exposure draft
+explanatory memorandum}. Rationale for the Part 5-25 regime.
+}
 \seealso{
 Other discovery: 
 \code{\link{ato_catalog}()},

@@ -33,4 +33,21 @@ try({
 options(op)
 }
 }
+\references{
+Australian Taxation Office (annual). \emph{Taxation Statistics:
+Super funds and SMSF explanatory notes}. Distinguishes
+reporting populations: APRA-regulated large funds, SMSFs,
+and Pooled Superannuation Trusts.
+
+Australian Prudential Regulation Authority (annual).
+\emph{Annual Superannuation Bulletin}. Complementary
+APRA-regulated fund statistics.
+
+Commonwealth of Australia. \emph{Superannuation Industry
+(Supervision) Act 1993} (SIS Act); \emph{Superannuation
+Guarantee (Administration) Act 1992} (SGAA).
+
+Productivity Commission (2018). \emph{Superannuation:
+Assessing Efficiency and Competitiveness}. Inquiry report.
+}
 \concept{super}

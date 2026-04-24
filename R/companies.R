@@ -40,6 +40,17 @@
 #' @source Australian Taxation Office Taxation Statistics Company
 #'   Tables. Licensed CC BY 2.5 AU.
 #'
+#' @references
+#' Australian Taxation Office (annual). \emph{Taxation Statistics:
+#'   Company tables explanatory notes}. Methodology notes on
+#'   lodgement cut-off, entity-type definitions, and turnover-band
+#'   thresholds. Accessible from
+#'   \url{https://www.ato.gov.au/about-ato/research-and-statistics/in-detail/taxation-statistics/}.
+#'
+#' Australian Bureau of Statistics (2020). \emph{Australian and
+#'   New Zealand Standard Industrial Classification (ANZSIC)},
+#'   2006 revision with 2020 update. Catalogue 1292.0.
+#'
 #' @family companies
 #' @export
 #' @examples

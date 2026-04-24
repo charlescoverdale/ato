@@ -38,6 +38,18 @@
 #' @source Australian Taxation Office Corporate Tax Transparency
 #'   release. Licensed CC BY 3.0 AU.
 #'
+#' @references
+#' Commonwealth of Australia. \emph{Taxation Administration Act
+#'   1953}, Part 5-25 (Corporate Tax Transparency).
+#'
+#' Australian Taxation Office (annual). \emph{Report of entity
+#'   tax information}. The statutory Corporate Tax Transparency
+#'   release.
+#'
+#' Commonwealth Treasury (2013). \emph{Improving the transparency
+#'   of Australia's business tax system: Exposure draft
+#'   explanatory memorandum}. Rationale for the Part 5-25 regime.
+#'
 #' @family discovery
 #' @export
 #' @examples

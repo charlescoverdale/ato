@@ -52,7 +52,10 @@ options(op)
 }
 \seealso{
 Other individuals: 
+\code{\link{ato_individuals_age}()},
 \code{\link{ato_individuals_occupation}()},
-\code{\link{ato_individuals_postcode}()}
+\code{\link{ato_individuals_postcode}()},
+\code{\link{ato_individuals_sex}()},
+\code{\link{ato_individuals_state}()}
 }
 \concept{individuals}

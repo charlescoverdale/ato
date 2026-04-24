@@ -15,6 +15,18 @@
 #' @source Australian Taxation Office Taxation Statistics.
 #'   Licensed CC BY 2.5 AU.
 #'
+#' @references
+#' Australian Taxation Office (annual). \emph{Taxation Statistics:
+#'   GST and Activity Statement Ratios explanatory notes}.
+#'
+#' Commonwealth of Australia. \emph{A New Tax System (Goods and
+#'   Services Tax) Act 1999}. Enabling legislation for the 10 per
+#'   cent value-added tax introduced 1 July 2000.
+#'
+#' Productivity Commission (2018). \emph{Horizontal Fiscal
+#'   Equalisation}. Background reference on the GST distribution
+#'   formula across states.
+#'
 #' @family gst
 #' @export
 #' @examples

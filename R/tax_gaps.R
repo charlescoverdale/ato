@@ -26,6 +26,20 @@
 #' @source Australian Taxation Office Tax Gaps publication,
 #'   CC BY 2.5 AU.
 #'
+#' @references
+#' Australian Taxation Office (annual). \emph{Australian tax gaps
+#'   -- overview}. Methodology notes on bottom-up, top-down, and
+#'   random-inquiry approaches to the tax-gap estimation.
+#'
+#' HMRC (annual). \emph{Measuring tax gaps}. Sister methodology
+#'   paper applied by HM Revenue and Customs in the UK; the ATO
+#'   series was partly inspired by this literature.
+#'
+#' Organisation for Economic Co-operation and Development (2017).
+#'   \emph{Shining Light on the Shadow Economy: Opportunities and
+#'   Threats}. Paris. Synthesises tax-gap measurement practice
+#'   across OECD member countries.
+#'
 #' @family discovery
 #' @export
 #' @examples

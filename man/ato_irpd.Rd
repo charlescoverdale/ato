@@ -46,6 +46,20 @@ try({
 options(op)
 }
 }
+\references{
+Organisation for Economic Co-operation and Development (2015).
+\emph{OECD/G20 Base Erosion and Profit Shifting Project:
+Final Reports}. Paris.
+\doi{10.1787/9789264241046-en}
+
+Commonwealth of Australia. \emph{Income Tax Assessment Act
+1997}, Subdivision 815-B (Transfer Pricing); \emph{Multinational
+Anti-Avoidance Law} (MAAL) and \emph{Diverted Profits Tax}.
+
+Australian Taxation Office (annual). \emph{International
+Dealings Schedule (IDS) instructions}. Reporting framework
+underlying the IRPD dataset.
+}
 \seealso{
 Other discovery: 
 \code{\link{ato_catalog}()},

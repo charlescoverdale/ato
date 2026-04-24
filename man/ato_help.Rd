@@ -43,6 +43,17 @@ try({
 options(op)
 }
 }
+\references{
+Commonwealth of Australia. \emph{Higher Education Support Act
+2003}; \emph{VET Student Loans Act 2016}.
+
+Australian Department of Education (annual). \emph{Higher
+Education Statistics: HELP statistics collection}.
+
+Norton, A. and Cherastidtham, I. (2018). \emph{Mapping
+Australian higher education}. Grattan Institute.
+Methodology reference for HELP repayment projections.
+}
 \seealso{
 Other discovery: 
 \code{\link{ato_catalog}()},

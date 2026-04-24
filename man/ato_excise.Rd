@@ -38,6 +38,20 @@ try({
 options(op)
 }
 }
+\references{
+Commonwealth of Australia. \emph{Excise Act 1901};
+\emph{Excise Tariff Act 1921}; \emph{Fuel Tax Act 2006}.
+
+Australian Taxation Office (annual). \emph{Excise data:
+methodology and indexation notes}. Excise rates are indexed
+to the Consumer Price Index twice a year (February and
+August) for most commodities.
+
+Productivity Commission (2016). \emph{Migrant Intake into
+Australia} (for tobacco excise distributional analysis);
+\emph{Harmful Drinking} inquiry (for alcohol excise
+distributional analysis).
+}
 \seealso{
 Other discovery: 
 \code{\link{ato_catalog}()},

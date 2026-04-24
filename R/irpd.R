@@ -24,6 +24,20 @@
 #' @source Australian Taxation Office International Related
 #'   Party Dealings release. Licensed CC BY 2.5 AU.
 #'
+#' @references
+#' Organisation for Economic Co-operation and Development (2015).
+#'   \emph{OECD/G20 Base Erosion and Profit Shifting Project:
+#'   Final Reports}. Paris.
+#'   \doi{10.1787/9789264241046-en}
+#'
+#' Commonwealth of Australia. \emph{Income Tax Assessment Act
+#'   1997}, Subdivision 815-B (Transfer Pricing); \emph{Multinational
+#'   Anti-Avoidance Law} (MAAL) and \emph{Diverted Profits Tax}.
+#'
+#' Australian Taxation Office (annual). \emph{International
+#'   Dealings Schedule (IDS) instructions}. Reporting framework
+#'   underlying the IRPD dataset.
+#'
 #' @family discovery
 #' @export
 #' @examples

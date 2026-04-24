@@ -4,7 +4,7 @@
 \alias{ato_cite}
 \title{Cite an ato_tbl (or URL) in BibTeX and plain-text form}
 \usage{
-ato_cite(x, style = c("text", "bibtex", "apa"))
+ato_cite(x, style = c("text", "bibtex", "apa"), doi = NULL)
 }
 \arguments{
 \item{x}{Either an \code{ato_tbl} (as returned by any \verb{ato_*} data
@@ -13,6 +13,9 @@ resource.}
 
 \item{style}{One of \code{"text"} (default, plain-text footnote),
 \code{"bibtex"}, or \code{"apa"}.}
+
+\item{doi}{Optional DOI (e.g. from \code{\link[=ato_deposit_zenodo]{ato_deposit_zenodo()}}) to
+include in BibTeX output as a \code{doi} field and APA suffix.}
 }
 \value{
 A character string. For \code{style = "bibtex"}, a complete
@@ -22,7 +25,13 @@ A character string. For \code{style = "bibtex"}, a complete
 Returns a citation suitable for footnotes, papers, and
 Treasury-grade briefs. Uses the provenance attributes
 attached to every \code{ato_tbl}: source URL, licence, retrieval
-date, and title.
+date, title, snapshot pin, and SHA-256 digest.
+}
+\details{
+BibTeX output includes the SHA-256 digest (first 12 hex chars)
+and snapshot pin (when set via \code{\link[=ato_snapshot]{ato_snapshot()}}) in the
+\code{note} field, which is what research reviewers need to verify
+the provenance of a downstream result.
 }
 \examples{
 x <- data.frame(a = 1)
@@ -31,11 +40,13 @@ x <- structure(x,
   ato_licence = "CC BY 2.5 AU",
   ato_retrieved = as.POSIXct("2026-04-23 00:00:00", tz = "UTC"),
   ato_title = "ATO individuals 2022-23",
+  ato_sha256 = "abc123def456",
+  ato_snapshot_date = "2026-04-23",
   class = c("ato_tbl", "data.frame"))
 
 ato_cite(x)
 ato_cite(x, style = "bibtex")
-ato_cite(x, style = "apa")
+ato_cite(x, style = "apa", doi = "10.5281/zenodo.12345678")
 }
 \seealso{
 Other discovery: 

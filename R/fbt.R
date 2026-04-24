@@ -17,6 +17,19 @@
 #' @source Australian Taxation Office FBT Taxation Statistics
 #'   on data.gov.au. Licensed CC BY 2.5 AU.
 #'
+#' @references
+#' Commonwealth of Australia. \emph{Fringe Benefits Tax Assessment
+#'   Act 1986}. Substantive FBT law; ATO rulings (TR series)
+#'   elaborate taxable-value methodology.
+#'
+#' Australian Taxation Office (annual). \emph{FBT explanatory
+#'   notes}. Definitions of reportable benefits, gross-up factors
+#'   (Type 1 and Type 2), and otherwise-deductible rule.
+#'
+#' Treasury (2022). \emph{Electric Car Discount Bill}.
+#'   Explanatory memorandum for the EV FBT exemption introduced
+#'   1 July 2022.
+#'
 #' @family discovery
 #' @export
 #' @examples

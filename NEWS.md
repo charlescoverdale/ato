@@ -1,3 +1,72 @@
+# ato 0.3.0
+
+Research-grade upgrade. Turns `ato` from a data-access layer into
+citable research infrastructure suitable for PBO, Grattan, or Tax
+Institute published work. Sixteen new exported functions, four
+vignettes, six bundled reference CSVs.
+
+## Reproducibility spine
+
+* `ato_snapshot()`: pin a session snapshot date, recorded in every
+  `ato_tbl` provenance header, manifest entry, and citation.
+* `ato_sha256()` and sidecar-based integrity verification: every
+  cached file is hashed at first download and verified on cache
+  hit; drift warns with both hash prefixes.
+* `ato_manifest()`, `ato_manifest_clear()`, `ato_manifest_write()`:
+  session registry of every fetch (URL, CKAN IDs, SHA-256, size,
+  timestamp, snapshot pin, R and `ato` versions). Output as data
+  frame, YAML, JSON, or CSV for paper appendices.
+* `ato_deposit_zenodo()`: stage a Zenodo deposit payload for the
+  session manifest, dry run by default; call with `upload = TRUE`
+  and a `ZENODO_TOKEN` to mint a DOI.
+* `ato_cite()` extended with SHA-256 digest, snapshot date, and
+  optional `doi =` argument across `text`, `apa`, and `bibtex`
+  styles.
+
+## Harmonisation and reconciliation
+
+* `ato_crosswalk()`: bundled classification and reference tables:
+  ANZSIC 2006 to 2020 (19 divisions), ANZSCO 2013 to 2021 (8
+  major groups), postcode-state anchors, ABS CPI annual, ABS ERP
+  annual, Final Budget Outcome reference totals.
+* `ato_harmonise()`: rename columns to canonical names across
+  multi-year panels using `ATO_COL_VARIANTS`.
+* `ato_reconcile()`: compare an aggregate against the published
+  Final Budget Outcome figure for the same year and measure;
+  warns on gaps above 5 per cent.
+* `ato_deflate()`: nominal AUD to real AUD in a base year using
+  bundled ABS CPI.
+* `ato_per_capita()`: divide by ABS ERP.
+
+## Coverage expansion
+
+New wrappers: `ato_tax_expenditures()` (Treasury TEIS),
+`ato_fuel_tax_credits()`, `ato_division293()`, `ato_prrt()`,
+`ato_compliance()`, `ato_medicare_levy()`, `ato_whm()`.
+
+New demographic cuts on individuals: `ato_individuals_age()`,
+`ato_individuals_sex()`, `ato_individuals_state()`.
+
+Sibling helpers for the complete tax-system picture:
+`ato_state_tax()` (ABS 5506.0), `ato_international()` (OECD
+Revenue Statistics), `ato_rba()` (RBA H1 Commonwealth receipts).
+
+## Microdata bridge
+
+* `ato_to_taxstats()`: rename columns between ATO aggregate schema
+  and the `taxstats` 2 per cent microdata sample schema, in either
+  direction.
+* `ato_schema_map()`: return the full column-name mapping.
+
+## Vignettes
+
+* Reproducibility workflow (snapshot, manifest, SHA-256, Zenodo).
+* Panels, harmonisation, reconciliation, real terms, per capita.
+* Interop with `grattan` and `taxstats`: costing a hypothetical
+  reform.
+* Canonical replications: top 1 per cent income share, corporate
+  ETR by industry, tax gap trend, HELP debt by age cohort.
+
 # ato 0.1.0
 
 Initial CRAN submission. First public release.
