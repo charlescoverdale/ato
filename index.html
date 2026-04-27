@@ -301,28 +301,6 @@
 <p>The mixed licence is preserved on each returned <code>ato_tbl</code>: the <code>ato_licence</code> attribute (inspectable via <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code>) reports CC BY 2.5 AU or 3.0 AU per table.</p>
 </div>
 <div class="section level2">
-<h2 id="known-limitations">Known limitations<a class="anchor" aria-label="anchor" href="#known-limitations"></a>
-</h2>
-<ul>
-<li>
-<strong>No DOIs.</strong> None of the ATO’s 42 data.gov.au packages carries a DOI. Citations use URL plus retrieval date instead.</li>
-<li>
-<strong>Silent updates.</strong> <code>metadata_modified</code> changes without a version bump, so a 2022-23 release created in April 2025 can quietly become a different file by April 2026. The cache keys on URL only; run <code><a href="reference/ato_clear_cache.html">ato_clear_cache()</a></code> to force a refresh.</li>
-<li>
-<strong>Schema drift.</strong> Table numbers and column names change each year (e.g. occupation data has been T13, T14, and T15). <code>ato</code> cleans names to snake_case on ingestion but does not normalise schemas across years. A cross-year join requires you to inspect <code>names(df)</code> first.</li>
-<li>
-<strong>No microdata via this package.</strong> The ATO’s 2% Individual Sample File is distributed separately via Hugh Parsonage’s <a href="https://github.com/HughParsonage/taxstats" class="external-link">taxstats</a> DRAT repo. <strong>ALife</strong> (the ATO Longitudinal Information Files, the standard restricted-access longitudinal product used by Treasury, the RBA, PBO, and academic researchers) is accessed through the ATO’s DataLab under a researcher application: <code>ato</code> does not provide ALife access and users needing longitudinal microdata should apply directly to the ATO.</li>
-<li>
-<strong>2023-24 Taxation Statistics release.</strong> Expected mid-2026 on the typical T+18-month cadence (the 2022-23 release landed in May 2025). Until published, <code>year = "latest"</code> resolves to 2022-23.</li>
-<li>
-<strong>Bundled reference data is frozen.</strong> <code>inst/extdata/abs_cpi_annual.csv</code>, <code>abs_erp_annual.csv</code>, and <code>budget_reference_totals.csv</code> are snapshots as of v0.3.0 (2026-04-24). For current-vintage analyses, fetch the live series from ABS via <a href="https://github.com/mattcowgill/readabs" class="external-link"><code>readabs</code></a> (cats. 6401.0 and 3101.0) or from Treasury’s Final Budget Outcome PDFs.</li>
-<li>
-<strong>No Python equivalent on PyPI.</strong> The closest Python access is the raw <a href="https://pypi.org/project/ckanapi/" class="external-link"><code>ckanapi</code></a> client against data.gov.au. There is no <code>ato-py</code> package.</li>
-<li>
-<strong>Proportional CPI deflation.</strong> <code><a href="reference/ato_deflate.html">ato_deflate()</a></code> applies a Laspeyres-style proportional adjustment, not a chain-linked index. This is standard for post-1949 Australian series and consistent with ABS SNA methodology (cat. 5204.0), but users comparing across major regime breaks (pre-1949, or across GST introduction) should deflate component-wise.</li>
-</ul>
-</div>
-<div class="section level2">
 <h2 id="related-packages">Related packages<a class="anchor" aria-label="anchor" href="#related-packages"></a>
 </h2>
 <table class="table">
@@ -375,6 +353,16 @@
 </h2>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"ato"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="issues">Issues<a class="anchor" aria-label="anchor" href="#issues"></a>
+</h2>
+<p>Please report bugs or requests at <a href="https://github.com/charlescoverdale/ato/issues" class="external-link uri">https://github.com/charlescoverdale/ato/issues</a>.</p>
+</div>
+<div class="section level2">
+<h2 id="keywords">Keywords<a class="anchor" aria-label="anchor" href="#keywords"></a>
+</h2>
+<p>ATO, Australian Taxation Office, Australian tax data, taxation statistics, individual tax, company tax, corporate tax, capital gains tax, GST, superannuation, excise duty, fringe benefits tax, R&amp;D tax incentive, HELP debt, Medicare levy, tax gap, compliance, data.gov.au, R package, Australian government data</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

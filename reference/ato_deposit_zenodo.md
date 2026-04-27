@@ -95,7 +95,7 @@ ato_deposit_zenodo(
 #> Warning: Session manifest is empty.
 #> ℹ Fetch some datasets (e.g. `ato_individuals()`) first.
 #> ✔ Dry run: payload built, manifest staged at
-#>   /tmp/RtmpLSwnwD/ato_manifest_20260424_134910.csv.
+#>   /tmp/Rtmp4rwvgf/ato_manifest_20260427_205127.csv.
 #> ℹ Call with `upload = TRUE` to deposit to Zenodo.
 # }
 ```
