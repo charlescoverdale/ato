@@ -161,17 +161,6 @@ Data is published by the ATO at <https://www.ato.gov.au/about-ato/research-and-s
 
 The mixed licence is preserved on each returned `ato_tbl`: the `ato_licence` attribute (inspectable via `print()`) reports CC BY 2.5 AU or 3.0 AU per table.
 
-## Known limitations
-
-- **No DOIs.** None of the ATO's 42 data.gov.au packages carries a DOI. Citations use URL plus retrieval date instead.
-- **Silent updates.** `metadata_modified` changes without a version bump, so a 2022-23 release created in April 2025 can quietly become a different file by April 2026. The cache keys on URL only; run `ato_clear_cache()` to force a refresh.
-- **Schema drift.** Table numbers and column names change each year (e.g. occupation data has been T13, T14, and T15). `ato` cleans names to snake_case on ingestion but does not normalise schemas across years. A cross-year join requires you to inspect `names(df)` first.
-- **No microdata via this package.** The ATO's 2% Individual Sample File is distributed separately via Hugh Parsonage's [taxstats](https://github.com/HughParsonage/taxstats) DRAT repo. **ALife** (the ATO Longitudinal Information Files, the standard restricted-access longitudinal product used by Treasury, the RBA, PBO, and academic researchers) is accessed through the ATO's DataLab under a researcher application: `ato` does not provide ALife access and users needing longitudinal microdata should apply directly to the ATO.
-- **2023-24 Taxation Statistics release.** Expected mid-2026 on the typical T+18-month cadence (the 2022-23 release landed in May 2025). Until published, `year = "latest"` resolves to 2022-23.
-- **Bundled reference data is frozen.** `inst/extdata/abs_cpi_annual.csv`, `abs_erp_annual.csv`, and `budget_reference_totals.csv` are snapshots as of v0.3.0 (2026-04-24). For current-vintage analyses, fetch the live series from ABS via [`readabs`](https://github.com/mattcowgill/readabs) (cats. 6401.0 and 3101.0) or from Treasury's Final Budget Outcome PDFs.
-- **No Python equivalent on PyPI.** The closest Python access is the raw [`ckanapi`](https://pypi.org/project/ckanapi/) client against data.gov.au. There is no `ato-py` package.
-- **Proportional CPI deflation.** `ato_deflate()` applies a Laspeyres-style proportional adjustment, not a chain-linked index. This is standard for post-1949 Australian series and consistent with ABS SNA methodology (cat. 5204.0), but users comparing across major regime breaks (pre-1949, or across GST introduction) should deflate component-wise.
-
 ## Related packages
 
 | Package | Description |
@@ -190,3 +179,11 @@ The mixed licence is preserved on each returned `ato_tbl`: the `ato_licence` att
 ```r
 citation("ato")
 ```
+
+## Issues
+
+Please report bugs or requests at <https://github.com/charlescoverdale/ato/issues>.
+
+## Keywords
+
+ATO, Australian Taxation Office, Australian tax data, taxation statistics, individual tax, company tax, corporate tax, capital gains tax, GST, superannuation, excise duty, fringe benefits tax, R&D tax incentive, HELP debt, Medicare levy, tax gap, compliance, data.gov.au, R package, Australian government data
