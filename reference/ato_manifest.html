@@ -105,13 +105,423 @@ with <code><a href="ato_manifest_write.html">ato_manifest_write()</a></code> for
 <span class="r-in"><span><span class="fu"><a href="ato_manifest_clear.html">ato_manifest_clear</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ato_snapshot.html">ato_snapshot</a></span><span class="op">(</span><span class="st">"2026-04-24"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu"><a href="ato_individuals.html">ato_individuals</a></span><span class="op">(</span>year <span class="op">=</span> <span class="st">"2022-23"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in ato_ckan_package(package_id) : </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Package not found: <span style="color: #0000BB;">"taxation-statistics-2022-23"</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # ato_tbl: ATO individuals snapshot 2022-23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/a5931887-8d4f-48a8-89ab-571ca0d56bc7/download/ts23snapshot01historicalratesofpersonalincometax.xlsx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Licence:  CC BY 2.5 AU</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Retrieved: 2026-04-28 19:14 UTC </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Snapshot: 2026-04-24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # SHA-256:  2e0efce4b93d9257...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Rows: 99  Cols: 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                               100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                               150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                               200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                               250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                               300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                               400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                                                               500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                                                                               600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                                                                              700</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                                                                              800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                                                                              900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                                                                             1000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                                                                             1200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                                                                             1400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                                                                             1600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                                                                             1800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18                                                                             2000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19                                                                             2400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20                                                                             2800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21                                                                             3200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22                                                                             3600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23                                                                             4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24                                                                             4400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25                                                                             5000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26                                                                             6000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27                                                                             8000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28                                                                            10000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29                                                                    Tax threshold</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31                      Further tax and contribution in respect of property income:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32                                                            Total Taxable income:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33                                                                         Not less</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34                                                                             than</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35                                                                                £</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36                                                                                0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37                                                                              100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38                                                                             1000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39                                                                             4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40                                                                             6000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41                                                                            10000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43                                    Further tax and contribution is not payable -</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49 Where the taxable income from all sources does not exceed £1000, the further tax</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50 and contribution is limited to 1s. in the £1 on the excess of the taxable income</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51                                                                       over £400.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53                                                            Dependant Deductions:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54                                                     Spouse, daughter/housekeeper</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55                                                                      Housekeeper</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56                                                            Parent, parent-in-law</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57                                                                 Invalid relative</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59                                                                           NOTE :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67                                              Zone and Overseas Locality Rebates:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72                                                                Overseas forces :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75                                                          Notional Child Rebates:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76                                          One child under 16, not being a student</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77                                   Each other child under 16, not being a student</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78                                                                    Student child</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81                                                 General Concessional Deductions:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83                                          (1) Medical expenses including optical,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84                                                               therapeutical, etc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86                                                              (2) Dental expenses</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90                                                             (3) Funeral expenses</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92                                            (4) Life assurance and superannuation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94                                                           (5) Education expenses</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96                                                         (6) Rates and land taxes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98                                       (7) Payments to medical and hospital funds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                       100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                       150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                       200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                       250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                       300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                       400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                       500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                                                       600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                                                                       700</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                                                                      800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                                                                      900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                                                                     1000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                                                                     1200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                                                                     1400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                                                                     1600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                                                                     1800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                                                                     2000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18                                                                     2400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19                                                                     2800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20                                                                     3200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21                                                                     3600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22                                                                     4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23                                                                     4400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24                                                                     5000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25                                                                     6000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26                                                                     8000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27                                                                    10000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28                                                                     over</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33                                                                 Not more</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34                                                                     than</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35                                                                        £</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36                                                                      100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37                                                                     1000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38                                                                     4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39                                                                     6000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40                                                                    10000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41                                                                     over</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44    where the taxable income from property is £100 or less - irrespective</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45                           of the amount of the total taxable income; and</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46   where the total taxable income is £400 or less even though the taxable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47                                       income from property exceeds £100.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59   If a dependant derives separate net income, the deduction is reduced -</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60 a. For spouse or daughter/housekeeper - by £2 for every £1 that separate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61                                                  net income exceeds £52.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62      b. For parent/parent-in-law - by the amount of separate net income.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63         c. For invalid relative - by the amount of pension or government</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64           assistance plus £2 for every £1 that other income exceeds £52.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68                                                                 Zone A :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70                                                                 Zone B :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                     s_d     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  &lt;NA&gt;                 Nil         +    1 d for each £ &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  &lt;NA&gt;     0    8  4 +     6 d for each £ over     100 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  &lt;NA&gt;       1  13  4 +   11 d for each £ over     150 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  &lt;NA&gt;       3  19  2 +   16 d for each £ over     200 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  &lt;NA&gt;       7   5 10 +   21 d for each £ over     250 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  &lt;NA&gt;      11  13  4 +   26 d for each £ over     300 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  &lt;NA&gt;      22  10  0 +   32 d for each £ over     400 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  &lt;NA&gt;      35  16  8 +   38 d for each £ over     500 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  &lt;NA&gt;      51  13  4 +   44 d for each £ over     600 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 &lt;NA&gt;     70    0  0 +   48 d for each £ over     700 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 &lt;NA&gt;     90    0  0 +   52 d for each £ over     800 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 &lt;NA&gt;     111  13  4 +   56 d for each £ over     900 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 &lt;NA&gt;     135    0  0 +   64 d for each £ over   1000 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 &lt;NA&gt;     188    6  8 +   72 d for each £ over   1200 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 &lt;NA&gt;     248    6  8 +   80 d for each £ over   1400 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 &lt;NA&gt;     315    0  0 +   88 d for each £ over   1600 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 &lt;NA&gt;     388    6  8 +   96 d for each £ over   1800 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 &lt;NA&gt;      468    6  8 + 104 d for each £ over   2000 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 &lt;NA&gt;       641  13  4 + 112 d for each £ over   2400 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 &lt;NA&gt;      828    6  8 + 120 d for each £ over   2800 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 &lt;NA&gt;     1028    6  8 + 128 d for each £ over   3200 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 &lt;NA&gt;      1241  13  4 + 136 d for each £ over   3600 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 &lt;NA&gt;     1468    6  8 + 144 d for each £ over   4000 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 &lt;NA&gt;     1708    6  8 + 152 d for each £ over   4400 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 &lt;NA&gt;     2088    6  8 + 160 d for each £ over   5000 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 &lt;NA&gt;     2755    0  0 + 168 d for each £ over   6000 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 &lt;NA&gt;     4155    0  0 + 176 d for each £ over   8000 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 &lt;NA&gt;       5621  13  4 + 180 d for each £ over 10000 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 £105                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 &lt;NA&gt; Further tax and contribution on property income &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35 &lt;NA&gt;                                          £ s.d. &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36 &lt;NA&gt;                                             Nil &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37 &lt;NA&gt;                Nil          +    8 d for each £ &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38 &lt;NA&gt;       30    0  0 +  16 d for each £ over   1000 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39 &lt;NA&gt;     230    0  0 +    8 d for each £ over   4000 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40 &lt;NA&gt;      296  13  4 +    4 d for each £ over   6000 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41 &lt;NA&gt;          363    6  8 +    (no rate over £10000) &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54 &lt;NA&gt;                                            &lt;NA&gt; £104</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55 &lt;NA&gt;                                            &lt;NA&gt; £104</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56 &lt;NA&gt;                                            &lt;NA&gt; £104</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57 &lt;NA&gt;                                            &lt;NA&gt;  £78</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68 £120                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70  £20                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72 £120                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76 &lt;NA&gt;                                            &lt;NA&gt;  £78</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77 &lt;NA&gt;                                            &lt;NA&gt;  £52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78 &lt;NA&gt;                                            &lt;NA&gt;  £78</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99 &lt;NA&gt;                                            &lt;NA&gt; &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82                               Limits</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84    £100 each taxpayer and dependants</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86 £20 for each taxpayer and dependant,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87 but included in the £100 for medical</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88                             expenses</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90                 £30 each bereavement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92                                 £200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94                                  Nil</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96                             No limit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98       Included in the £200 limit set</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99                   for Life Assurance</span>
 <span class="r-in"><span><span class="fu">ato_manifest</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] url           title         resource_id   package_id    licence      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] sha256        size_bytes    retrieved     snapshot_date r_version    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] ato_version  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;0 rows&gt; (or 0-length row.names)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                  url</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/a5931887-8d4f-48a8-89ab-571ca0d56bc7/download/ts23snapshot01historicalratesofpersonalincometax.xlsx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   title resource_id package_id licence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  &lt;NA&gt;        &lt;NA&gt;       &lt;NA&gt;    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                             sha256 size_bytes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2e0efce4b93d9257930ac7c1a0d6cda5aacb9849fdd1139ad4910559ce4510ec     535864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  retrieved snapshot_date r_version ato_version</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2026-04-28T19:14:01+0000    2026-04-24     4.6.0       0.1.0</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>

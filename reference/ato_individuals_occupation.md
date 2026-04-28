@@ -76,8 +76,27 @@ try({
 #> Warning: 2022-23 uses ANZSCO 2021 occupation codes.
 #> ℹ Releases before 2022-23 use ANZSCO 2013.
 #> ℹ Cross-year occupation joins need a concordance recode.
-#> Error in ato_ckan_package(package_id) : 
-#>   Package not found: "taxation-statistics-2022-23".
+#> ℹ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
+#> ✔ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
+#> 
+#> Warning: Could not find "occupation" column. Tried: "occupation" and
+#> "occupation_description".
+#> Warning: Could not find "sex" column. Tried: "sex" and "gender".
+#> Warning: Requested years span the ANZSCO 2013 → 2021 (occupation) reclassification in
+#> 2022-23.
+#> ℹ Cross-year comparisons across this boundary need a concordance recode.
+#> ℹ Downloading <https://data.gov.au/data/dataset/4be150cc-8f84-46b8-8c61-55ff1d4…
+#> ✔ Downloading <https://data.gov.au/data/dataset/4be150cc-8f84-46b8-8c61-55ff1d4…
+#> 
+#> Warning: Could not find "occupation" column. Tried: "occupation" and
+#> "occupation_description".
+#> Warning: Could not find "sex" column. Tried: "sex" and "gender".
+#> Warning: 2022-23 uses ANZSCO 2021 occupation codes.
+#> ℹ Releases before 2022-23 use ANZSCO 2013.
+#> ℹ Cross-year occupation joins need a concordance recode.
+#> Warning: Could not find "occupation" column. Tried: "occupation" and
+#> "occupation_description".
+#> Warning: Could not find "sex" column. Tried: "sex" and "gender".
 options(op)
 # }
 ```

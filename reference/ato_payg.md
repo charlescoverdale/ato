@@ -52,8 +52,9 @@ try({
   payg <- ato_payg(year = "2022-23")
   head(payg)
 })
-#> Error in ato_ckan_search(q = "pay-as-you-go", rows = 10L) : 
-#>   CKAN search failed (HTTP 403).
+#> Error in ato_payg(year = "2022-23") : 
+#>   Could not find a PAYG withholding package on data.gov.au.
+#> ℹ Browse: <https://data.gov.au/data/organization/australiantaxationoffice>
 options(op)
 # }
 ```

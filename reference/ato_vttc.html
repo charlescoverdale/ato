@@ -114,8 +114,12 @@ threshold.</p>
 <span class="r-in"><span>  <span class="va">vttc</span> <span class="op">&lt;-</span> <span class="fu">ato_vttc</span><span class="op">(</span>year <span class="op">=</span> <span class="st">"2022-23"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">vttc</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in ato_ckan_search(q = "voluntary tax transparency", rows = 10L) : </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   CKAN search failed (HTTP 403).</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting 2s for throttling delay <span style="color: #00BB00;">■■■■■■■■■■■■■■■                 </span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting 2s for throttling delay <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error in ato_ckan_resolve(pkg_id, year) : </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   No resource in <span style="color: #0000BB;">"voluntary-tax-transparency-code"</span> matches <span style="color: #0000BB;">"2022-23"</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Available: <span style="color: #0000BB;">"List of Voluntary Tax Transparency Code (VTTC) reports published</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">by signatories."</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>

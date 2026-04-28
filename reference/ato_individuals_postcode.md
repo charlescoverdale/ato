@@ -84,8 +84,12 @@ try({
   panel <- ato_individuals_postcode(year = c("2020-21", "2021-22"),
                                     state = "NSW")
 })
-#> Error in ato_ckan_package(package_id) : 
-#>   Package not found: "taxation-statistics-2022-23".
+#> Warning: Could not find "state" column. Tried: "state" and "state_territory".
+#> ℹ Downloading <https://data.gov.au/data/dataset/07b51b39-254a-4177-8b4c-497f17e…
+#> ✔ Downloading <https://data.gov.au/data/dataset/07b51b39-254a-4177-8b4c-497f17e…
+#> 
+#> Warning: Could not find "state" column. Tried: "state" and "state_territory".
+#> Warning: Could not find "state" column. Tried: "state" and "state_territory".
 options(op)
 # }
 ```

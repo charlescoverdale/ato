@@ -68,8 +68,11 @@ Other specialist:
 # \donttest{
 op <- options(ato.cache_dir = tempdir())
 try(head(ato_fuel_tax_credits(year = "latest", by = "industry")))
-#> Error in ato_ckan_package(ATO_PACKAGE_IDS$excise) : 
-#>   Package not found: "excise-data".
+#> Error in ato_ckan_resolve(ATO_PACKAGE_IDS$excise, pattern) : 
+#>   No resource in "excise-data" matches
+#> "fuel.*(credit|ftc).*industry|ftc.*industry".
+#> ℹ Available: "Spirits and other excisable beverage clearances", "Historical
+#>   Excise Rates", "Historical FTC rates", and "Beer Clearance Summary Data"
 options(op)
 # }
 ```

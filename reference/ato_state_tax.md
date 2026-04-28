@@ -54,7 +54,7 @@ try(ato_state_tax(year = "latest"))
 #> # ato_tbl: ABS 5506.0 State tax latest
 #> # Source:   https://www.abs.gov.au/statistics/economy/government/taxation-revenue-australia/latest-release
 #> # Licence:  CC BY 4.0
-#> # Retrieved: 2026-04-27 20:51 UTC 
+#> # Retrieved: 2026-04-28 19:14 UTC 
 #> # Rows: 0  Cols: 4
 #> 
 #> [1] jurisdiction      tax_type          value_aud_million year             

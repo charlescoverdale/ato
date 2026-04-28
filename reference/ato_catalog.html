@@ -103,8 +103,33 @@ returns the full ATO catalogue.</p></dd>
 <span class="r-in"><span>  <span class="va">cat</span> <span class="op">&lt;-</span> <span class="fu">ato_catalog</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="st">"title"</span>, <span class="st">"licence"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in ato_ckan_search(q = q, rows = 200L) : </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   CKAN search failed (HTTP 403).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # ato_tbl: ATO data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Source:   https://data.gov.au</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Licence:  CC BY 2.5 AU</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Retrieved: - </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Rows: 6  Cols: 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                          id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2019-20_report_of_entity_tax_information</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                      ad-hoc-data-requests</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3               ato-business-industry-codes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      ato-salary-and-wage-occupation-codes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 ato-web-analytics-july-2013-to-april-2014</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                       australian-tax-gaps</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                       title</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2019-20 Report of Entity Tax Information</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                     Ad-hoc requested data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3               ATO Business Industry codes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      ATO Salary and Wage Occupation Codes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 ATO Web Analytics July 2013 to April 2014</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                       Australian Tax Gaps</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                      licence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Creative Commons Attribution 2.5 Australia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Creative Commons Attribution 3.0 Australia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Creative Commons Attribution 2.5 Australia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Creative Commons Attribution 2.5 Australia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Creative Commons Attribution 3.0 Australia</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 Creative Commons Attribution 2.5 Australia</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>

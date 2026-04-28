@@ -25,7 +25,7 @@ Other configuration:
 op <- options(ato.cache_dir = tempdir())
 ato_cache_info()
 #> $dir
-#> [1] "/tmp/Rtmp4rwvgf"
+#> [1] "/tmp/RtmpiVpGVb"
 #> 
 #> $n_files
 #> [1] 4
@@ -38,10 +38,10 @@ ato_cache_info()
 #> 
 #> $files
 #>                                     name size_bytes            modified
-#> 1 bslib-8a92d22979ec96a3105b4f8cbcdeeec5       4096 2026-04-27 20:51:22
-#> 2                                downlit       4096 2026-04-27 20:51:25
-#> 3                       file1a2f6f46e6f3        435 2026-04-27 20:51:25
-#> 4                       file1a2f4d14b4fc        310 2026-04-27 20:51:25
+#> 1 bslib-8a92d22979ec96a3105b4f8cbcdeeec5       4096 2026-04-28 19:13:24
+#> 2                                downlit       4096 2026-04-28 19:13:27
+#> 3                       file19ef5a3c74db        435 2026-04-28 19:13:27
+#> 4                       file19ef33ca0169        310 2026-04-28 19:13:27
 #> 
 options(op)
 # }

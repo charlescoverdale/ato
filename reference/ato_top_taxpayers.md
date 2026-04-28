@@ -104,8 +104,26 @@ try({
   prrt <- ato_top_taxpayers(year = "2023-24", sheet = "prrt")
   head(prrt)
 })
-#> Error in ato_ckan_package(package_id) : 
-#>   Package not found: "corporate-transparency".
+#> Warning: Could not find "entity" column. Tried: "entity_type", "tax_entity_type", and
+#> "company_type".
+#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■                 
+#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
+#> Warning: Could not find "entity" column. Tried: "entity_type", "tax_entity_type", and
+#> "company_type".
+#> # ato_tbl: ATO Corporate Tax Transparency 2023-24 (prrt)
+#> # Source:   https://data.gov.au/data/dataset/c2524c87-cea4-4636-acac-599a82048a26/resource/491b366b-aa6f-4b1c-b39d-cebaeeb6f874/download/2023-24-corporate-report-of-entity-tax-information.xlsx
+#> # Licence:  CC BY 3.0 AU
+#> # Retrieved: 2026-04-28 19:14 UTC 
+#> # SHA-256:  6b47837efab92e1e...
+#> # Rows: 6  Cols: 3
+#> 
+#>                                            name         abn prrt_payable
+#> 1                  COOPER ENERGY (CH) PTY. LTD. 70615355023      3210449
+#> 2 ESSO AUSTRALIA RESOURCES PTY LTD- BASS STRAIT 62091829819    351898218
+#> 3       KANSAI ELECTRIC POWER AUSTRALIA PTY LTD 32126720732      7237704
+#> 4            KUFPEC AUSTRALIA (JULIMAR) PTY LTD 38139500502     21404964
+#> 5                     MEPAU OTWAY BASIN PTY LTD 17009363820      3202743
+#> 6                        MIDOCEAN PLUTO PTY LTD 23126462744      7418023
 options(op)
 # }
 ```

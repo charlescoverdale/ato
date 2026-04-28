@@ -2,6 +2,8 @@
 
 ## ato 0.1.0
 
+CRAN release: 2026-04-28
+
 Initial CRAN submission. First public release. Provides R access to
 Australian Taxation Office public datasets via the data.gov.au
 Comprehensive Knowledge Archive Network (CKAN) API, with

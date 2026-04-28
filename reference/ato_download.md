@@ -66,8 +66,16 @@ try({
                       pattern = "2023",
                       parse = "csv")
 })
-#> Error in ato_ckan_package(package_id) : 
-#>   Package not found: "corporate-transparency".
+#> ℹ Downloading <https://data.gov.au/data/dataset/c2524c87-cea4-4636-acac-599a820…
+#> ✔ Downloading <https://data.gov.au/data/dataset/c2524c87-cea4-4636-acac-599a820…
+#> 
+#> Warning: line 1 appears to contain embedded nulls
+#> Warning: line 2 appears to contain embedded nulls
+#> Warning: line 3 appears to contain embedded nulls
+#> Warning: line 4 appears to contain embedded nulls
+#> Warning: line 5 appears to contain embedded nulls
+#> Error in read.table(file = file, header = header, sep = sep, quote = quote,  : 
+#>   more columns than column names
 options(op)
 # }
 ```

@@ -160,8 +160,26 @@ explanatory memorandum</em>. Rationale for the Part 5-25 regime.</p>
 <span class="r-in"><span>  <span class="va">prrt</span> <span class="op">&lt;-</span> <span class="fu">ato_top_taxpayers</span><span class="op">(</span>year <span class="op">=</span> <span class="st">"2023-24"</span>, sheet <span class="op">=</span> <span class="st">"prrt"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">prrt</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in ato_ckan_package(package_id) : </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Package not found: <span style="color: #0000BB;">"corporate-transparency"</span>.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Could not find <span style="color: #0000BB;">"entity"</span> column. Tried: <span style="color: #0000BB;">"entity_type"</span>, <span style="color: #0000BB;">"tax_entity_type"</span>, and</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">"company_type"</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting 2s for throttling delay <span style="color: #00BB00;">■■■■■■■■■■■■■■■                 </span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting 2s for throttling delay <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  </span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Could not find <span style="color: #0000BB;">"entity"</span> column. Tried: <span style="color: #0000BB;">"entity_type"</span>, <span style="color: #0000BB;">"tax_entity_type"</span>, and</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">"company_type"</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # ato_tbl: ATO Corporate Tax Transparency 2023-24 (prrt)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Source:   https://data.gov.au/data/dataset/c2524c87-cea4-4636-acac-599a82048a26/resource/491b366b-aa6f-4b1c-b39d-cebaeeb6f874/download/2023-24-corporate-report-of-entity-tax-information.xlsx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Licence:  CC BY 3.0 AU</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Retrieved: 2026-04-28 19:14 UTC </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # SHA-256:  6b47837efab92e1e...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # Rows: 6  Cols: 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                            name         abn prrt_payable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                  COOPER ENERGY (CH) PTY. LTD. 70615355023      3210449</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 ESSO AUSTRALIA RESOURCES PTY LTD- BASS STRAIT 62091829819    351898218</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       KANSAI ELECTRIC POWER AUSTRALIA PTY LTD 32126720732      7237704</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4            KUFPEC AUSTRALIA (JULIMAR) PTY LTD 38139500502     21404964</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                     MEPAU OTWAY BASIN PTY LTD 17009363820      3202743</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                        MIDOCEAN PLUTO PTY LTD 23126462744      7418023</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>

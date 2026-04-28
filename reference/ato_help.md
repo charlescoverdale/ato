@@ -76,8 +76,31 @@ try({
   help <- ato_help(scheme = "help")
   head(help)
 })
-#> Error in ato_ckan_package(package_id) : 
-#>   Package not found: "higher-education-loan-program-help".
+#> ℹ Downloading <https://data.gov.au/data/dataset/ce4c58ec-c930-4a05-8a37-f244d96…
+#> ✔ Downloading <https://data.gov.au/data/dataset/ce4c58ec-c930-4a05-8a37-f244d96…
+#> 
+#> # ato_tbl: ATO HELP statistics
+#> # Source:   https://data.gov.au/data/dataset/ce4c58ec-c930-4a05-8a37-f244d960e5f8/resource/0661912a-d114-4155-8b42-63ab1417adea/download/help-statistics-2024-25.xlsx
+#> # Licence:  CC BY 2.5 AU
+#> # Retrieved: 2026-04-28 19:13 UTC 
+#> # Snapshot: 2026-04-24
+#> # SHA-256:  70c7ebc3840087c7...
+#> # Rows: 6  Cols: 2
+#> 
+#>                         higher_education_loan_program
+#> 1 HELP statistics, 2005–06 to 2024–25 financial years
+#> 2                                                <NA>
+#> 3                                              Notes:
+#> 4                                                <NA>
+#> 5                                                <NA>
+#> 6                                                <NA>
+#>                                                                                                                                     
+#> 1                                                                                                                               <NA>
+#> 2                                                                                                                               <NA>
+#> 3                                                                                                                               <NA>
+#> 4                                                   The symbol 'n/a' used in this publication means not applicable or not available.
+#> 5                                                                        Totals may not equal the sum of components due to rounding.
+#> 6 In order to meet privacy regulations, some items may not be included, or data for some groups may be aggregated with other groups.
 options(op)
 # }
 ```

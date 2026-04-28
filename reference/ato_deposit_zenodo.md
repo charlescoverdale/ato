@@ -92,10 +92,8 @@ ato_deposit_zenodo(
   creators = list(list(name = "Coverdale, Charles")),
   upload = FALSE
 )
-#> Warning: Session manifest is empty.
-#> ℹ Fetch some datasets (e.g. `ato_individuals()`) first.
 #> ✔ Dry run: payload built, manifest staged at
-#>   /tmp/Rtmp4rwvgf/ato_manifest_20260427_205127.csv.
+#>   /tmp/RtmpiVpGVb/ato_manifest_20260428_191337.csv.
 #> ℹ Call with `upload = TRUE` to deposit to Zenodo.
 # }
 ```

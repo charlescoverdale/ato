@@ -54,8 +54,30 @@ try({
   s <- ato_super_funds(year = "2022-23", type = "apra")
   head(s)
 })
-#> Error in ato_ckan_package(package_id) : 
-#>   Package not found: "taxation-statistics-2022-23".
+#> ℹ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
+#> ✔ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
+#> 
+#> # ato_tbl: ATO super funds 2022-23 (apra)
+#> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/a286ac7c-9adb-444b-9bb1-ef2814552f21/download/ts23fund01aprasbyyear.xlsx
+#> # Licence:  CC BY 2.5 AU
+#> # Retrieved: 2026-04-28 19:14 UTC 
+#> # SHA-256:  c274d3cbbe6a6a14...
+#> # Rows: 6  Cols: 2
+#> 
+#>                                                                  taxation_statistics_2022_23
+#> 1                                                                             Table 1: Funds
+#> 2 Selected items, for APRA regulated and other funds, for income years 1989–90 to 2022–231,5
+#> 3                                                                                       <NA>
+#> 4                                                                                     Notes:
+#> 5                                                                                       <NA>
+#> 6                                                                                       <NA>
+#>                                                                                             
+#> 1                                                                                       <NA>
+#> 2                                                                                       <NA>
+#> 3                                                                                       <NA>
+#> 4                                                                                       <NA>
+#> 5                                Totals may not equal the sum of components due to rounding.
+#> 6 To meet privacy regulations, some items may be combined with other groups or not included.
 options(op)
 # }
 ```

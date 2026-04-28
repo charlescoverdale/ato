@@ -52,8 +52,20 @@ Other specialist:
 # \donttest{
 op <- options(ato.cache_dir = tempdir())
 try(ato_whm(year = "2022-23"))
-#> Error in ato_ckan_package(package_id) : 
-#>   Package not found: "taxation-statistics-2022-23".
+#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■                 
+#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
+#> Error in ato_ckan_resolve(id, "working.holiday.maker|whm|backpacker") : 
+#>   No resource in "taxation-statistics-2022-23" matches
+#> "working.holiday.maker|whm|backpacker".
+#> ℹ Available: "Detailed table Index", "Snapshot - Table 1", "Snapshot - Table
+#>   2", "Snapshot - Table 3", "Snapshot - Table 4", "Snapshot - Table 5",
+#>   "Snapshot – Table 6", "Snapshot – Table 7", "Industry Benchmarks", "Table F1:
+#>   Individual Financial Ratios", "Table F2: Company financial ratios", "Table
+#>   F3: Partnerships financial ratios", "Table F4: Trusts financial ratios",
+#>   "Table F5: All entities financial ratios", "Table A1: Individual activity
+#>   statement ratios", "Table A2: Company activity statement ratios", "Table A3:
+#>   Partnership activity statement ratios", "Table A4: Trust activity statement
+#>   ratios", …, "Charities - Table 3", and "Charities - Table 4"
 options(op)
 # }
 ```

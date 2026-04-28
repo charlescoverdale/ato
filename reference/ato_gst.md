@@ -55,8 +55,31 @@ try({
   g <- ato_gst(year = "2022-23", table = "industry")
   head(g)
 })
-#> Error in ato_ckan_package(package_id) : 
-#>   Package not found: "taxation-statistics-2022-23".
+#> ℹ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
+#> ✔ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
+#> 
+#> # ato_tbl: ATO GST 2022-23 (industry)
+#> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/678e9689-38b9-49ae-b149-58378e5bf8f1/download/ts23gst04byindustry.xlsx
+#> # Licence:  CC BY 2.5 AU
+#> # Retrieved: 2026-04-28 19:13 UTC 
+#> # Snapshot: 2026-04-24
+#> # SHA-256:  b0f9b0f583c3d03e...
+#> # Rows: 6  Cols: 2
+#> 
+#>                                      taxation_statistics_2022_23
+#> 1                                   Table 4: GST and other taxes
+#> 2 Selected GST items, by fine industry2, 2023–24 financial year1
+#> 3                                                           <NA>
+#> 4                                                         Notes:
+#> 5                                                           <NA>
+#> 6                                                           <NA>
+#>                                                                                                                                     
+#> 1                                                                                                                               <NA>
+#> 2                                                                                                                               <NA>
+#> 3                                                                                                                               <NA>
+#> 4                                                                                                                               <NA>
+#> 5                                                                        Totals may not equal the sum of components due to rounding.
+#> 6 In order to meet privacy regulations, some items may not be included, or data for some groups may be aggregated with other groups.
 options(op)
 # }
 ```

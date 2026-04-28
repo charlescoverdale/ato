@@ -73,8 +73,21 @@ try({
   rdti <- ato_rdti(year = "2022-23")
   head(rdti)
 })
-#> Error in ato_ckan_package(package_id) : 
-#>   Package not found: "research-and-development-tax-incentive".
+#> ℹ Downloading <https://data.gov.au/data/dataset/7c356598-b048-4c1e-862f-c936041…
+#> ✔ Downloading <https://data.gov.au/data/dataset/7c356598-b048-4c1e-862f-c936041…
+#> 
+#> # ato_tbl: ATO R&D Tax Incentive 2022-23
+#> # Source:   https://data.gov.au/data/dataset/7c356598-b048-4c1e-862f-c936041e3d81/resource/e9c059c8-a801-4068-844e-9d4ee84a1d81/download/report-of-information-about-research-and-development-tax-incentive-entities.xlsx
+#> # Licence:  CC BY 2.5 AU
+#> # Retrieved: 2026-04-28 19:14 UTC 
+#> # Snapshot: 2026-04-24
+#> # SHA-256:  a2a05ddfacba0840...
+#> # Rows: 3  Cols: 1
+#> 
+#>                                                                                                                                                                                                                                                                      research_and_development_tax_transparency_report_of_data_about_research_and_development_tax_incentive_entities
+#> 1 This annual report contains data about Research and Development (R&D) tax incentive claims reported by companies for the 2022-23 income year. This report also includes amendments from previously published companies, along with information from late lodging companies for the 2021-22 income year that were not available by the cut-off date to produce the 2021-22 report.
+#> 2                                                                                                                                                                                                            This report is intended to be read in conjunction with guidance material available from the link below which provides context around the data included in this report.
+#> 3                                                                                                                                                                                                                                                                                                  R&D tax incentive transparency reports | Australian Taxation Office (ato.gov.au)
 options(op)
 # }
 ```

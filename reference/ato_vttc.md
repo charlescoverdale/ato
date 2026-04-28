@@ -61,8 +61,12 @@ try({
   vttc <- ato_vttc(year = "2022-23")
   head(vttc)
 })
-#> Error in ato_ckan_search(q = "voluntary tax transparency", rows = 10L) : 
-#>   CKAN search failed (HTTP 403).
+#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■                 
+#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
+#> Error in ato_ckan_resolve(pkg_id, year) : 
+#>   No resource in "voluntary-tax-transparency-code" matches "2022-23".
+#> ℹ Available: "List of Voluntary Tax Transparency Code (VTTC) reports published
+#>   by signatories."
 options(op)
 # }
 ```

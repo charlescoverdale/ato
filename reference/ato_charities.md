@@ -58,8 +58,9 @@ try({
   ch <- ato_charities(year = "2021-22")
   head(ch)
 })
-#> Error in ato_ckan_search(q = "charity tax", rows = 10L) : 
-#>   CKAN search failed (HTTP 403).
+#> Error in ato_charities(year = "2021-22") : 
+#>   Could not find a charity / DGR package on data.gov.au.
+#> ℹ Browse: <https://data.gov.au/data/organization/australiantaxationoffice>
 options(op)
 # }
 ```

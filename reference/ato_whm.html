@@ -101,8 +101,20 @@ Australia</em>. Includes WHM labour-market analysis.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>ato.cache_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">ato_whm</span><span class="op">(</span>year <span class="op">=</span> <span class="st">"2022-23"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in ato_ckan_package(package_id) : </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Package not found: <span style="color: #0000BB;">"taxation-statistics-2022-23"</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting 2s for throttling delay <span style="color: #00BB00;">■■■■■■■■■■■■■■■                 </span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting 2s for throttling delay <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error in ato_ckan_resolve(id, "working.holiday.maker|whm|backpacker") : </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   No resource in <span style="color: #0000BB;">"taxation-statistics-2022-23"</span> matches</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">"working.holiday.maker|whm|backpacker"</span>.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Available: <span style="color: #0000BB;">"Detailed table Index"</span>, <span style="color: #0000BB;">"Snapshot - Table 1"</span>, <span style="color: #0000BB;">"Snapshot - Table</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">2"</span>, <span style="color: #0000BB;">"Snapshot - Table 3"</span>, <span style="color: #0000BB;">"Snapshot - Table 4"</span>, <span style="color: #0000BB;">"Snapshot - Table 5"</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"Snapshot – Table 6"</span>, <span style="color: #0000BB;">"Snapshot – Table 7"</span>, <span style="color: #0000BB;">"Industry Benchmarks"</span>, <span style="color: #0000BB;">"Table F1:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">Individual Financial Ratios"</span>, <span style="color: #0000BB;">"Table F2: Company financial ratios"</span>, <span style="color: #0000BB;">"Table</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">F3: Partnerships financial ratios"</span>, <span style="color: #0000BB;">"Table F4: Trusts financial ratios"</span>,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"Table F5: All entities financial ratios"</span>, <span style="color: #0000BB;">"Table A1: Individual activity</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">statement ratios"</span>, <span style="color: #0000BB;">"Table A2: Company activity statement ratios"</span>, <span style="color: #0000BB;">"Table A3:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">Partnership activity statement ratios"</span>, <span style="color: #0000BB;">"Table A4: Trust activity statement</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">ratios"</span>, …, <span style="color: #0000BB;">"Charities - Table 3"</span>, and <span style="color: #0000BB;">"Charities - Table 4"</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>

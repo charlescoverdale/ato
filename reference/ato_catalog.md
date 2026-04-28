@@ -52,8 +52,33 @@ try({
   cat <- ato_catalog()
   head(cat[, c("id", "title", "licence")])
 })
-#> Error in ato_ckan_search(q = q, rows = 200L) : 
-#>   CKAN search failed (HTTP 403).
+#> # ato_tbl: ATO data
+#> # Source:   https://data.gov.au
+#> # Licence:  CC BY 2.5 AU
+#> # Retrieved: - 
+#> # Rows: 6  Cols: 3
+#> 
+#>                                          id
+#> 1  2019-20_report_of_entity_tax_information
+#> 2                      ad-hoc-data-requests
+#> 3               ato-business-industry-codes
+#> 4      ato-salary-and-wage-occupation-codes
+#> 5 ato-web-analytics-july-2013-to-april-2014
+#> 6                       australian-tax-gaps
+#>                                       title
+#> 1  2019-20 Report of Entity Tax Information
+#> 2                     Ad-hoc requested data
+#> 3               ATO Business Industry codes
+#> 4      ATO Salary and Wage Occupation Codes
+#> 5 ATO Web Analytics July 2013 to April 2014
+#> 6                       Australian Tax Gaps
+#>                                      licence
+#> 1 Creative Commons Attribution 2.5 Australia
+#> 2 Creative Commons Attribution 3.0 Australia
+#> 3 Creative Commons Attribution 2.5 Australia
+#> 4 Creative Commons Attribution 2.5 Australia
+#> 5 Creative Commons Attribution 3.0 Australia
+#> 6 Creative Commons Attribution 2.5 Australia
 options(op)
 # }
 ```

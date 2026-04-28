@@ -50,8 +50,36 @@ try({
                     anzsic = "manufacturing")
   head(i)
 })
-#> Error in ato_ckan_package(package_id) : 
-#>   Package not found: "taxation-statistics-2022-23".
+#> Warning: Could not find "industry" column. Tried: "industry", "industry_description",
+#> "broad_industry", and "anzsic_industry".
+#> # ato_tbl: ATO industry 2022-23 (company)
+#> # Source:   https://data.gov.au/data/organization/australiantaxationoffice
+#> # Licence:  CC BY 2.5 AU
+#> # Retrieved: 2026-04-28 19:14 UTC 
+#> # Snapshot: 2026-04-24
+#> # Rows: 6  Cols: 3
+#> 
+#>                          taxation_statistics_2022_23
+#> 1                                 Table 4: Companies
+#> 2 Selected items, by industry2, 2022–23 income year1
+#> 3                                               <NA>
+#> 4                                             Notes:
+#> 5                                               <NA>
+#> 6                                               <NA>
+#>                                                                                             
+#> 1                                                                                       <NA>
+#> 2                                                                                       <NA>
+#> 3                                                                                       <NA>
+#> 4                                                                                       <NA>
+#> 5                                Totals may not equal the sum of components due to rounding.
+#> 6 To meet privacy regulations, some items may be combined with other groups or not included.
+#>    entity
+#> 1 company
+#> 2 company
+#> 3 company
+#> 4 company
+#> 5 company
+#> 6 company
 options(op)
 # }
 ```

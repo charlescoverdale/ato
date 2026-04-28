@@ -66,8 +66,9 @@ try({
   fbt <- ato_fbt(year = "2022-23")
   head(fbt)
 })
-#> Error in ato_ckan_search(q = "fringe-benefits-tax", rows = 10L) : 
-#>   CKAN search failed (HTTP 403).
+#> Error in ato_fbt(year = "2022-23") : 
+#>   Could not find a Fringe Benefits Tax package on data.gov.au.
+#> ℹ Browse: <https://data.gov.au/data/organization/australiantaxationoffice>
 options(op)
 # }
 ```
