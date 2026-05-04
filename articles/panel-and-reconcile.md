@@ -16,6 +16,7 @@ take raw ATO fetches to a defensible longitudinal analysis:
 ## Build a multi-year panel
 
 ``` r
+
 library(ato)
 
 pc <- ato_individuals_postcode(
@@ -36,6 +37,7 @@ in others; `state` vs `state_territory`.
 renames columns to canonical names from `ATO_COL_VARIANTS`.
 
 ``` r
+
 pc <- ato_harmonise(pc)
 names(pc)
 ```
@@ -47,6 +49,7 @@ Budget Outcome. A 1-3 per cent accrual-vs-cash gap is expected; larger
 gaps warrant investigation.
 
 ``` r
+
 ind_2223 <- ato_individuals(year = "2022-23")
 total_tax <- sum(ind_2223$tax_payable, na.rm = TRUE)
 
@@ -64,6 +67,7 @@ comparison, deflate to a common base year using the bundled ABS CPI
 series.
 
 ``` r
+
 panel_annual <- aggregate(taxable_income ~ year, data = pc, FUN = sum,
                           na.rm = TRUE)
 panel_annual$real_2022_23 <- ato_deflate(
@@ -77,6 +81,7 @@ panel_annual
 ## Per-capita normalisation
 
 ``` r
+
 panel_annual$per_capita <- ato_per_capita(
   panel_annual$real_2022_23,
   year = panel_annual$year

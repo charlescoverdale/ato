@@ -68,7 +68,7 @@ try(ato_division293(year = "2022-23"))
 #> # ato_tbl: ATO Division 293 2022-23
 #> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/a7f8226a-af03-431a-80f3-cdca85a9d63e/download/ts23individual03sextaxablestatusagerangetaxableincomerange.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-04-28 19:13 UTC 
+#> # Retrieved: 2026-05-04 19:14 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  ad75d24e07f2aad7...
 #> # Rows: 16  Cols: 2

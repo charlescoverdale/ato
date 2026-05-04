@@ -61,7 +61,6 @@ try({
   vttc <- ato_vttc(year = "2022-23")
   head(vttc)
 })
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■                 
 #> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
 #> Error in ato_ckan_resolve(pkg_id, year) : 
 #>   No resource in "voluntary-tax-transparency-code" matches "2022-23".

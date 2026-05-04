@@ -106,14 +106,13 @@ try({
 })
 #> Warning: Could not find "entity" column. Tried: "entity_type", "tax_entity_type", and
 #> "company_type".
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■                 
 #> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
 #> Warning: Could not find "entity" column. Tried: "entity_type", "tax_entity_type", and
 #> "company_type".
 #> # ato_tbl: ATO Corporate Tax Transparency 2023-24 (prrt)
 #> # Source:   https://data.gov.au/data/dataset/c2524c87-cea4-4636-acac-599a82048a26/resource/491b366b-aa6f-4b1c-b39d-cebaeeb6f874/download/2023-24-corporate-report-of-entity-tax-information.xlsx
 #> # Licence:  CC BY 3.0 AU
-#> # Retrieved: 2026-04-28 19:14 UTC 
+#> # Retrieved: 2026-05-04 19:15 UTC 
 #> # SHA-256:  6b47837efab92e1e...
 #> # Rows: 6  Cols: 3
 #> 

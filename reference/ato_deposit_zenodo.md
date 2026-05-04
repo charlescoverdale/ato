@@ -93,7 +93,7 @@ ato_deposit_zenodo(
   upload = FALSE
 )
 #> ✔ Dry run: payload built, manifest staged at
-#>   /tmp/RtmpiVpGVb/ato_manifest_20260428_191337.csv.
+#>   /tmp/Rtmp7jztdZ/ato_manifest_20260504_191420.csv.
 #> ℹ Call with `upload = TRUE` to deposit to Zenodo.
 # }
 ```

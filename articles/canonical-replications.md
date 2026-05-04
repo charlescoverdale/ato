@@ -15,6 +15,7 @@ Burkhauser, Hahn and Wilkins (2015) for caveats
 (<https://doi.org/10.1007/s10888-014-9281-z>).
 
 ``` r
+
 library(ato)
 ato_snapshot("2026-04-24")
 
@@ -42,6 +43,7 @@ shares
 ## 2. Corporate effective tax rate by industry (transparency data)
 
 ``` r
+
 ctt <- ato_top_taxpayers(year = "2022-23")
 
 # Effective tax rate = tax payable / taxable income, for entities
@@ -57,6 +59,7 @@ by_industry[order(-by_industry$etr), ]
 ## 3. Tax gap trend and confidence context
 
 ``` r
+
 tg <- ato_tax_gaps()
 
 library(ggplot2)
@@ -73,6 +76,7 @@ ggplot(tg, aes(x = year, y = tax_gap_estimate,
 ## 4. HELP debt by age cohort
 
 ``` r
+
 help_data <- ato_help()
 
 # Bucketed by age range; real-terms deflation to 2022-23

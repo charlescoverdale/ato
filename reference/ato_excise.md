@@ -78,18 +78,18 @@ try({
 #> # ato_tbl: ATO Excise data (excise_rates)
 #> # Source:   https://data.gov.au/data/dataset/0aa77454-d0f6-4499-b0a4-88dbdeee95d1/resource/b9227cdf-4c04-492d-bd84-65031adc408e/download/historical-excise-rates-1-april-2026.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-04-28 19:13 UTC 
+#> # Retrieved: 2026-05-04 19:14 UTC 
 #> # Snapshot: 2026-04-24
-#> # SHA-256:  23f8d4653dc5e837...
+#> # SHA-256:  b185d4f671179951...
 #> # Rows: 6  Cols: 2
 #> 
-#>   historical_excise_rates_1965_through_to_29_september_2022
-#> 1                                                      <NA>
-#> 2                                              Excise rates
-#> 3                                                      <NA>
-#> 4                                              Tariff Items
-#> 5                                   Historical excise rates
-#> 6                                        Petroleum pre 2000
+#>   historical_excise_rates_1965_through_to_1_april_2026
+#> 1                                                 <NA>
+#> 2                                         Excise rates
+#> 3                                                 <NA>
+#> 4                                         Tariff Items
+#> 5                              Historical excise rates
+#> 6                                   Petroleum pre 2000
 #>                                                                  
 #> 1                                                            <NA>
 #> 2                                 Excise rates, July 2006 onwards

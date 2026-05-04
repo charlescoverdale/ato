@@ -16,6 +16,7 @@ move cleanly between views.
 ## Schema map
 
 ``` r
+
 library(ato)
 head(ato_schema_map(), 15)
 ```
@@ -33,6 +34,7 @@ income threshold by AUD 10,000. Workflow:
 4.  Use `grattan::income_tax()` for the new-regime liability.
 
 ``` r
+
 library(ato)
 
 ato_snapshot("2026-04-24")
@@ -50,6 +52,7 @@ ato_reconcile(ind_total, "2022-23", "individuals_income_tax_net")
 ## Bridge to microdata
 
 ``` r
+
 # Rename columns to taxstats schema
 mls_ts <- ato_to_taxstats(mls)
 

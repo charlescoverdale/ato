@@ -68,6 +68,7 @@ years), and the historical series from 1994-95 to 2008-09 is a ZIP
 bundle of legacy `.xls` files.
 
 ``` r
+
 # Without this package
 api  <- "https://data.gov.au/data/api/3/action/package_show?id=taxation-statistics-2022-23"
 resp <- jsonlite::fromJSON(api)
@@ -96,11 +97,11 @@ Hugh Parsonage and the Grattan Institute have done the most work on
 Australian tax in R. Their contributions sit alongside this package
 rather than compete:
 
-| Package                                                   | Role                                                                                                                                                                | Status                          |
-|-----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------|
-| [**grattan**](https://github.com/HughParsonage/grattan)   | Tax *calculator*. Computes income tax liabilities, transfer payments, CPI and wage inflators, and long-run fiscal projections under a given policy parameterisation | CRAN, active (v2026.1.1)        |
-| [**taxstats**](https://github.com/HughParsonage/taxstats) | Ships the ATO’s 2% individual sample files as lazy-loaded data objects                                                                                              | GitHub DRAT, dormant since 2019 |
-| **ato**                                                   | Data *access*. Fetches aggregate Taxation Statistics tables, postcode series, Corporate Tax Transparency, SMSF overviews, tax gaps                                  | CRAN                            |
+| Package | Role | Status |
+|----|----|----|
+| [**grattan**](https://github.com/HughParsonage/grattan) | Tax *calculator*. Computes income tax liabilities, transfer payments, CPI and wage inflators, and long-run fiscal projections under a given policy parameterisation | CRAN, active (v2026.1.1) |
+| [**taxstats**](https://github.com/HughParsonage/taxstats) | Ships the ATO’s 2% individual sample files as lazy-loaded data objects | GitHub DRAT, dormant since 2019 |
+| **ato** | Data *access*. Fetches aggregate Taxation Statistics tables, postcode series, Corporate Tax Transparency, SMSF overviews, tax gaps | CRAN |
 
 If you are modelling a policy change, use `grattan`. If you want to work
 with the 2% sample file, install `taxstats` from Hugh’s DRAT. If you
@@ -110,6 +111,7 @@ Transparency release in a clean tidy data frame, use `ato`.
 ## Installation
 
 ``` r
+
 install.packages("ato")
 
 # Or install the development version from GitHub
@@ -120,6 +122,7 @@ devtools::install_github("charlescoverdale/ato")
 ## Quick start
 
 ``` r
+
 library(ato)
 
 # All 42 ATO datasets on data.gov.au
@@ -140,26 +143,27 @@ head(c)
 
 ## Functions
 
-| Function                                                                                                         | Description                                                                                    | Coverage          |
-|------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|-------------------|
-| [`ato_catalog()`](https://charlescoverdale.github.io/ato/reference/ato_catalog.md)                               | Summary of every ATO dataset on data.gov.au: id, title, licence, resource count, last modified | Current (live)    |
-| [`ato_download()`](https://charlescoverdale.github.io/ato/reference/ato_download.md)                             | Generic CKAN resource downloader with auto CSV or XLSX parsing                                 | Any dataset       |
-| [`ato_individuals()`](https://charlescoverdale.github.io/ato/reference/ato_individuals.md)                       | Individuals Table 1 snapshot (counts, taxable income, tax payable, deductions)                 | 1994-95 - present |
-| [`ato_individuals_postcode()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_postcode.md)     | Individual tax return items by 4-digit postcode and state                                      | 1994-95 - present |
-| [`ato_individuals_occupation()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_occupation.md) | Individuals by occupation, sex, and taxable income range (~1,000 occupations)                  | 1994-95 - present |
-| [`ato_companies()`](https://charlescoverdale.github.io/ato/reference/ato_companies.md)                           | Company tax aggregates by ANZSIC industry, turnover band, entity type                          | 1994-95 - present |
-| [`ato_super_funds()`](https://charlescoverdale.github.io/ato/reference/ato_super_funds.md)                       | APRA-regulated fund aggregates plus SMSF statistical overview                                  | 1994-95 - present |
-| [`ato_top_taxpayers()`](https://charlescoverdale.github.io/ato/reference/ato_top_taxpayers.md)                   | Corporate Tax Transparency release: income, taxable income, tax payable for large entities     | 2013-14 - present |
-| [`ato_gst()`](https://charlescoverdale.github.io/ato/reference/ato_gst.md)                                       | GST and Activity Statement Ratios tables                                                       | 2000-01 - present |
-| [`ato_industry()`](https://charlescoverdale.github.io/ato/reference/ato_industry.md)                             | Industry aggregates joined across Individual and Company tables                                | 1994-95 - present |
-| [`ato_cache_info()`](https://charlescoverdale.github.io/ato/reference/ato_cache_info.md)                         | Inspect the local cache                                                                        | \-                |
-| [`ato_clear_cache()`](https://charlescoverdale.github.io/ato/reference/ato_clear_cache.md)                       | Clear locally cached files                                                                     | \-                |
+| Function | Description | Coverage |
+|----|----|----|
+| [`ato_catalog()`](https://charlescoverdale.github.io/ato/reference/ato_catalog.md) | Summary of every ATO dataset on data.gov.au: id, title, licence, resource count, last modified | Current (live) |
+| [`ato_download()`](https://charlescoverdale.github.io/ato/reference/ato_download.md) | Generic CKAN resource downloader with auto CSV or XLSX parsing | Any dataset |
+| [`ato_individuals()`](https://charlescoverdale.github.io/ato/reference/ato_individuals.md) | Individuals Table 1 snapshot (counts, taxable income, tax payable, deductions) | 1994-95 - present |
+| [`ato_individuals_postcode()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_postcode.md) | Individual tax return items by 4-digit postcode and state | 1994-95 - present |
+| [`ato_individuals_occupation()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_occupation.md) | Individuals by occupation, sex, and taxable income range (~1,000 occupations) | 1994-95 - present |
+| [`ato_companies()`](https://charlescoverdale.github.io/ato/reference/ato_companies.md) | Company tax aggregates by ANZSIC industry, turnover band, entity type | 1994-95 - present |
+| [`ato_super_funds()`](https://charlescoverdale.github.io/ato/reference/ato_super_funds.md) | APRA-regulated fund aggregates plus SMSF statistical overview | 1994-95 - present |
+| [`ato_top_taxpayers()`](https://charlescoverdale.github.io/ato/reference/ato_top_taxpayers.md) | Corporate Tax Transparency release: income, taxable income, tax payable for large entities | 2013-14 - present |
+| [`ato_gst()`](https://charlescoverdale.github.io/ato/reference/ato_gst.md) | GST and Activity Statement Ratios tables | 2000-01 - present |
+| [`ato_industry()`](https://charlescoverdale.github.io/ato/reference/ato_industry.md) | Industry aggregates joined across Individual and Company tables | 1994-95 - present |
+| [`ato_cache_info()`](https://charlescoverdale.github.io/ato/reference/ato_cache_info.md) | Inspect the local cache | \- |
+| [`ato_clear_cache()`](https://charlescoverdale.github.io/ato/reference/ato_clear_cache.md) | Clear locally cached files | \- |
 
 ## Examples
 
 ### Individual tax by postcode
 
 ``` r
+
 library(ato)
 
 p <- ato_individuals_postcode(year = "2022-23", state = "NSW")
@@ -182,6 +186,7 @@ a press cycle as journalists compute how many large entities paid zero
 tax in the prior year.
 
 ``` r
+
 # 2023-24 release (published 1 October 2025)
 top <- ato_top_taxpayers(year = "2023-24")
 nrow(top)  # 4,110
@@ -198,6 +203,7 @@ nrow(zero)
 ### Occupation-level tax returns
 
 ``` r
+
 # All economists (any occupation with "economist" in the name)
 occ <- ato_individuals_occupation(year = "2022-23", occupation = "economist")
 head(occ)
@@ -206,6 +212,7 @@ head(occ)
 ### Top-income shares (Atkinson-Leigh style)
 
 ``` r
+
 # Build a simple top-1% share estimate from the Individuals snapshot
 ind <- ato_individuals(year = "2022-23", table = "snapshot")
 head(ind)
@@ -215,6 +222,7 @@ head(ind)
 ### Catalogue inspection
 
 ``` r
+
 # Every ATO dataset on data.gov.au (42 packages)
 cat <- ato_catalog()
 
@@ -240,20 +248,21 @@ The mixed licence is preserved on each returned `ato_tbl`: the
 
 ## Related packages
 
-| Package                                                    | Description                                                                                                                             |
-|------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| [`hmrc`](https://github.com/charlescoverdale/hmrc)         | UK parallel: HM Revenue and Customs tax receipts, VAT, fuel and tobacco duties, stamp duty, R&D tax credits, Income Tax by income range |
-| [`grattan`](https://github.com/HughParsonage/grattan)      | Australian tax calculator (Parsonage, Coates, Cowgill)                                                                                  |
-| [`readabs`](https://github.com/mattcowgill/readabs)        | Australian Bureau of Statistics economic data                                                                                           |
-| [`readrba`](https://github.com/mattcowgill/readrba)        | Reserve Bank of Australia statistical tables                                                                                            |
-| [`readaec`](https://github.com/charlescoverdale/readaec)   | Australian Electoral Commission                                                                                                         |
-| [`aemo`](https://github.com/charlescoverdale/aemo)         | Australian Energy Market Operator (NEM prices, demand, dispatch)                                                                        |
-| [`cer`](https://github.com/charlescoverdale/cer)           | Australian Clean Energy Regulator (carbon, renewables)                                                                                  |
-| [`inflateR`](https://github.com/charlescoverdale/inflateR) | Inflation adjustment for price series (useful for real-term income distributions)                                                       |
+| Package | Description |
+|----|----|
+| [`hmrc`](https://github.com/charlescoverdale/hmrc) | UK parallel: HM Revenue and Customs tax receipts, VAT, duties, R&D tax credits, Income Tax by income range |
+| [`cer`](https://github.com/charlescoverdale/cer) | Australian Clean Energy Regulator (carbon, renewables) |
+| [`aemo`](https://github.com/charlescoverdale/aemo) | Australian Energy Market Operator (NEM prices, demand, dispatch) |
+| [`inflateR`](https://github.com/charlescoverdale/inflateR) | Inflation adjustment for price series (useful for real-term income distributions) |
+| [`inequality`](https://github.com/charlescoverdale/inequality) | Inequality and poverty measurement |
+| [`grattan`](https://github.com/HughParsonage/grattan) | Australian tax calculator (Parsonage, Coates, Cowgill) |
+| [`readabs`](https://github.com/mattcowgill/readabs) | Australian Bureau of Statistics economic data |
+| [`readrba`](https://github.com/mattcowgill/readrba) | Reserve Bank of Australia statistical tables |
 
 ## Citation
 
 ``` r
+
 citation("ato")
 ```
 

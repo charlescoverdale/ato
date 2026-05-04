@@ -48,7 +48,7 @@ try(ato_individuals_state(year = "2022-23"))
 #> # ato_tbl: ATO individuals by state 2022-23
 #> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/1dfcc611-9f62-4679-a4cb-d4c3df8af4b4/download/ts23snapshot07stateindividualsstatepostcodeoccupationstats.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-04-28 19:13 UTC 
+#> # Retrieved: 2026-05-04 19:14 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  a2f3aa6d7bb97fcc...
 #> # Rows: 20  Cols: 2

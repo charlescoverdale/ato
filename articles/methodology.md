@@ -11,7 +11,9 @@ against the package can use this page as the reference implementation.
 
 Proportional (Laspeyres-style) adjustment:
 
-$${real}_{t}\; = \;{nominal}_{t} \times \frac{CPI_{\text{base}}}{CPI_{t}}$$
+``` math
+\mathrm{real}_t \;=\; \mathrm{nominal}_t \times \frac{CPI_{\text{base}}}{CPI_t}
+```
 
 Source: Diewert (1998), ; ABS cat. 6461.0, Concepts, Sources and
 Methods.
@@ -23,6 +25,7 @@ Take AUD 100 in 2012-13 nominal and deflate to 2022-23 real AUD.
 From `ato_crosswalk("cpi")`:
 
 ``` r
+
 cpi <- ato_crosswalk("cpi")
 cpi[cpi$financial_year %in% c("2012-13", "2022-23"), ]
 #>    financial_year cpi_all_groups_australia base_2011_12
@@ -30,16 +33,19 @@ cpi[cpi$financial_year %in% c("2012-13", "2022-23"), ]
 #> 29        2022-23                    132.9        1.339
 ```
 
-Reading off the table: - $CPI_{2012\text{-}13} = 101.7$ -
-$CPI_{2022\text{-}23} = 132.9$
+Reading off the table: - $`CPI_{2012\text{-}13} = 101.7`$ -
+$`CPI_{2022\text{-}23} = 132.9`$
 
 Hand calculation:
 
-$$100 \times \frac{132.9}{101.7}\; = \; 100 \times 1.30678\; = \; 130.68$$
+``` math
+100 \times \frac{132.9}{101.7} \;=\; 100 \times 1.30678 \;=\; 130.68
+```
 
 Package output:
 
 ``` r
+
 ato_deflate(100, year = "2012-13", base = "2022-23")
 #> [1] 130.6785
 ```
@@ -50,6 +56,7 @@ the hand calculation to within rounding.
 ### Sanity: identity at the base year
 
 ``` r
+
 ato_deflate(100, year = "2022-23", base = "2022-23")
 #> [1] 100
 ```
@@ -61,9 +68,11 @@ is 1 and the real-term value equals the nominal value.
 
 ### Formula
 
-$$\Delta\; = \; V - R,\qquad\pi\; = \;\frac{V - R}{R}$$
+``` math
+\Delta \;=\; V - R, \qquad \pi \;=\; \frac{V - R}{R}
+```
 
-where $V$ is the value from Taxation Statistics and $R$ is the Final
+where $`V`$ is the value from Taxation Statistics and $`R`$ is the Final
 Budget Outcome reference total for the same year and measure.
 
 ### Hand calculation
@@ -71,6 +80,7 @@ Budget Outcome reference total for the same year and measure.
 From `ato_crosswalk("budget")`:
 
 ``` r
+
 bud <- ato_crosswalk("budget")
 bud[bud$financial_year == "2022-23" &
     bud$measure == "individuals_income_tax_net", ]
@@ -84,22 +94,27 @@ bud[bud$financial_year == "2022-23" &
 #> 3 <NA>
 ```
 
-Reference: $R = 316.4 \times 10^{9}$ AUD.
+Reference: $`R = 316.4 \times 10^9`$ AUD.
 
 Suppose we fetch the ATO 2022-23 Individuals snapshot and sum the
-`tax_payable` column. Say our sum is $V = 310.0 \times 10^{9}$
+`tax_payable` column. Say our sum is $`V = 310.0 \times 10^9`$
 (hypothetical; real sums typically fall 1 to 3 per cent below the
 cash-basis FBO).
 
 Hand:
 
-$$\Delta = 310.0 - 316.4 = - 6.4{\mspace{6mu}\text{(AUD billion)}}$$
+``` math
+\Delta = 310.0 - 316.4 = -6.4 \text{ (AUD billion)}
+```
 
-$$\pi = \frac{- 6.4}{316.4} = - 0.02023 = - 2.02\%$$
+``` math
+\pi = \frac{-6.4}{316.4} = -0.02023 = -2.02\%
+```
 
 Package output:
 
 ``` r
+
 res <- ato_reconcile(310.0e9, "2022-23", "individuals_income_tax_net")
 res[, c("diff_aud", "pct_diff")]
 #>   diff_aud    pct_diff
@@ -113,6 +128,7 @@ Agrees with hand calculation.
 The package warns when `abs(pct_diff) > 0.05`. Test:
 
 ``` r
+
 res <- tryCatch(
   ato_reconcile(400e9, "2022-23", "individuals_income_tax_net"),
   warning = function(w) {
@@ -126,23 +142,26 @@ res <- tryCatch(
 #> ℹ Expected 1-3% accrual-vs-cash gap; investigate larger.
 ```
 
-At $V = 400{\mspace{6mu}\text{AUD billion}}$, the diff is +83.6 billion
-and $\pi = 26.4\%$ which exceeds the 5% threshold, so the warning fires.
+At $`V = 400 \text{ AUD billion}`$, the diff is +83.6 billion and
+$`\pi = 26.4\%`$ which exceeds the 5% threshold, so the warning fires.
 
 ## 3. `ato_per_capita()`
 
 ### Formula
 
-$${per\_ capita}_{t}\; = \;\frac{x_{t}}{{ERP}_{t}}$$
+``` math
+\mathrm{per\_capita}_t \;=\; \frac{x_t}{\mathrm{ERP}_t}
+```
 
-where ${ERP}_{t}$ is the ABS Estimated Resident Population at 30 June of
-the financial year end (cat. 3101.0).
+where $`\mathrm{ERP}_t`$ is the ABS Estimated Resident Population at 30
+June of the financial year end (cat. 3101.0).
 
 ### Hand calculation
 
 From `ato_crosswalk("erp")`:
 
 ``` r
+
 erp <- ato_crosswalk("erp")
 erp[erp$financial_year == "2022-23", ]
 #>    financial_year erp_june_australia_thousands note
@@ -157,11 +176,14 @@ reference).
 
 Hand:
 
-$$\frac{316.4 \times 10^{9}}{26.638 \times 10^{6}}\; = \; 11,878{\mspace{6mu}\text{AUD per person}}$$
+``` math
+\frac{316.4 \times 10^9}{26.638 \times 10^6} \;=\; 11{,}878 \text{ AUD per person}
+```
 
 Package output:
 
 ``` r
+
 ato_per_capita(316.4e9, "2022-23")
 #> [1] 11877.77
 ```
@@ -180,6 +202,7 @@ published digest is:
 ### Verification
 
 ``` r
+
 f <- tempfile()
 file.create(f)
 #> [1] TRUE

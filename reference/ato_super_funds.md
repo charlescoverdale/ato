@@ -60,7 +60,7 @@ try({
 #> # ato_tbl: ATO super funds 2022-23 (apra)
 #> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/a286ac7c-9adb-444b-9bb1-ef2814552f21/download/ts23fund01aprasbyyear.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-04-28 19:14 UTC 
+#> # Retrieved: 2026-05-04 19:15 UTC 
 #> # SHA-256:  c274d3cbbe6a6a14...
 #> # Rows: 6  Cols: 2
 #> 

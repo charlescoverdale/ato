@@ -69,7 +69,7 @@ try({
 #> # ato_tbl: ATO individuals snapshot 2022-23
 #> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/a5931887-8d4f-48a8-89ab-571ca0d56bc7/download/ts23snapshot01historicalratesofpersonalincometax.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-04-28 19:13 UTC 
+#> # Retrieved: 2026-05-04 19:14 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  2e0efce4b93d9257...
 #> # Rows: 6  Cols: 6

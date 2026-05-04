@@ -17,6 +17,7 @@ that bar:
 ## Setup
 
 ``` r
+
 library(ato)
 
 ato_snapshot("2026-04-24")
@@ -26,6 +27,7 @@ ato_manifest_clear()
 ## Fetch your datasets
 
 ``` r
+
 ind <- ato_individuals_postcode(
   year = c("2020-21", "2021-22", "2022-23"),
   state = "NSW"
@@ -41,6 +43,7 @@ provenance header.
 ## Inspect the session manifest
 
 ``` r
+
 man <- ato_manifest()
 man[, c("title", "sha256", "retrieved", "snapshot_date")]
 ```
@@ -48,6 +51,7 @@ man[, c("title", "sha256", "retrieved", "snapshot_date")]
 ## Export the manifest for your paper appendix
 
 ``` r
+
 ato_manifest_write("appendix/ato_manifest.csv")
 ato_manifest_write("appendix/ato_manifest.yaml")
 ```
@@ -59,6 +63,7 @@ immutable. Your paper then cites `doi:10.5281/zenodo.XXXXXXXX` instead
 of a URL that might rotate.
 
 ``` r
+
 dep <- ato_deposit_zenodo(
   title = "ATO data snapshot for working paper v1",
   creators = list(list(name = "Author, A.", orcid = "0000-0000-0000-0000")),
@@ -75,6 +80,7 @@ dep$payload$metadata$title
 ## Citing a dataset with full provenance
 
 ``` r
+
 ato_cite(ind, style = "bibtex", doi = "10.5281/zenodo.XXXXXXXX")
 ```
 

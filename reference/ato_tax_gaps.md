@@ -76,15 +76,13 @@ try({
   gaps <- ato_tax_gaps()
   head(gaps)
 })
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■                 
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
 #> ℹ Downloading <https://data.gov.au/data/dataset/f627f458-7d5a-450d-9f62-45d6983…
 #> ✔ Downloading <https://data.gov.au/data/dataset/f627f458-7d5a-450d-9f62-45d6983…
 #> 
 #> # ato_tbl: ATO Tax Gaps (sheet: 1)
 #> # Source:   https://data.gov.au/data/dataset/f627f458-7d5a-450d-9f62-45d6983961da/resource/59a43b92-26d9-451e-822a-ab437f5a4742/download/australian-tax-gaps-2024-publication.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-04-28 19:14 UTC 
+#> # Retrieved: 2026-05-04 19:15 UTC 
 #> # SHA-256:  35a8fec971481e27...
 #> # Rows: 6  Cols: 1
 #> 
