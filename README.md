@@ -165,14 +165,14 @@ The mixed licence is preserved on each returned `ato_tbl`: the `ato_licence` att
 
 | Package | Description |
 |---|---|
-| [`hmrc`](https://github.com/charlescoverdale/hmrc) | UK parallel: HM Revenue and Customs tax receipts, VAT, fuel and tobacco duties, stamp duty, R&D tax credits, Income Tax by income range |
+| [`hmrc`](https://github.com/charlescoverdale/hmrc) | UK parallel: HM Revenue and Customs tax receipts, VAT, duties, R&D tax credits, Income Tax by income range |
+| [`cer`](https://github.com/charlescoverdale/cer) | Australian Clean Energy Regulator (carbon, renewables) |
+| [`aemo`](https://github.com/charlescoverdale/aemo) | Australian Energy Market Operator (NEM prices, demand, dispatch) |
+| [`inflateR`](https://github.com/charlescoverdale/inflateR) | Inflation adjustment for price series (useful for real-term income distributions) |
+| [`inequality`](https://github.com/charlescoverdale/inequality) | Inequality and poverty measurement |
 | [`grattan`](https://github.com/HughParsonage/grattan) | Australian tax calculator (Parsonage, Coates, Cowgill) |
 | [`readabs`](https://github.com/mattcowgill/readabs) | Australian Bureau of Statistics economic data |
 | [`readrba`](https://github.com/mattcowgill/readrba) | Reserve Bank of Australia statistical tables |
-| [`readaec`](https://github.com/charlescoverdale/readaec) | Australian Electoral Commission |
-| [`aemo`](https://github.com/charlescoverdale/aemo) | Australian Energy Market Operator (NEM prices, demand, dispatch) |
-| [`cer`](https://github.com/charlescoverdale/cer) | Australian Clean Energy Regulator (carbon, renewables) |
-| [`inflateR`](https://github.com/charlescoverdale/inflateR) | Inflation adjustment for price series (useful for real-term income distributions) |
 
 ## Citation
 
