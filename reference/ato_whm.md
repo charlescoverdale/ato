@@ -1,8 +1,11 @@
-# Working Holiday Maker tax data
+# Working Holiday Maker tax data (not available)
 
-Returns aggregate Working Holiday Maker tax data: number of backpackers,
-total earnings, tax paid. Relevant for migration and labour-market
-policy analysis.
+**Defunct.** The ATO does not publish Working Holiday Maker aggregates
+as open data. No resource matching working holiday makers, WHM or
+backpackers exists in any ATO package on data.gov.au, in the current
+Taxation Statistics release or in the archived ones. This function was
+shipped in 0.1.0 on the assumption that such a table existed; it never
+returned WHM data.
 
 ## Usage
 
@@ -18,11 +21,16 @@ Australian Taxation Office Taxation Statistics. Licensed CC BY 2.5 AU.
 
 - year:
 
-  `"YYYY-YY"` or `"latest"`.
+  `"YYYY-YY"` or `"latest"`. Ignored.
 
 ## Value
 
-An `ato_tbl`.
+Never returns; always aborts.
+
+## Details
+
+It now aborts with a pointer to the published source rather than
+resolving to an unrelated table. It will be removed in a future release.
 
 ## References
 
@@ -49,23 +57,10 @@ Other specialist:
 ## Examples
 
 ``` r
-# \donttest{
-op <- options(ato.cache_dir = tempdir())
-try(ato_whm(year = "2022-23"))
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■                 
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
-#> Error in ato_ckan_resolve(id, "working.holiday.maker|whm|backpacker") : 
-#>   No resource in "taxation-statistics-2022-23" matches
-#> "working.holiday.maker|whm|backpacker".
-#> ℹ Available: "Detailed table Index", "Snapshot - Table 1", "Snapshot - Table
-#>   2", "Snapshot - Table 3", "Snapshot - Table 4", "Snapshot - Table 5",
-#>   "Snapshot – Table 6", "Snapshot – Table 7", "Industry Benchmarks", "Table F1:
-#>   Individual Financial Ratios", "Table F2: Company financial ratios", "Table
-#>   F3: Partnerships financial ratios", "Table F4: Trusts financial ratios",
-#>   "Table F5: All entities financial ratios", "Table A1: Individual activity
-#>   statement ratios", "Table A2: Company activity statement ratios", "Table A3:
-#>   Partnership activity statement ratios", "Table A4: Trust activity statement
-#>   ratios", …, "Charities - Table 3", and "Charities - Table 4"
-options(op)
-# }
+try(ato_whm())
+#> Error in ato_whm() : 
+#>   Working Holiday Maker aggregates are not published as open data.
+#> ℹ No ATO package on data.gov.au contains a WHM resource.
+#> ℹ See <https://www.ato.gov.au/about-ato/research-and-statistics/>
+#> ℹ Use `ato_individuals(year)` for all-individuals aggregates.
 ```

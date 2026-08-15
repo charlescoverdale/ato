@@ -61,25 +61,32 @@ try({
 #> # ato_tbl: ATO GST 2022-23 (industry)
 #> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/678e9689-38b9-49ae-b149-58378e5bf8f1/download/ts23gst04byindustry.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-05-04 19:14 UTC 
+#> # Retrieved: 2026-08-15 17:27 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  b0f9b0f583c3d03e...
-#> # Rows: 6  Cols: 2
+#> # Rows: 6  Cols: 7
 #> 
-#>                                      taxation_statistics_2022_23
-#> 1                                   Table 4: GST and other taxes
-#> 2 Selected GST items, by fine industry2, 2023–24 financial year1
-#> 3                                                           <NA>
-#> 4                                                         Notes:
-#> 5                                                           <NA>
-#> 6                                                           <NA>
-#>                                                                                                                                     
-#> 1                                                                                                                               <NA>
-#> 2                                                                                                                               <NA>
-#> 3                                                                                                                               <NA>
-#> 4                                                                                                                               <NA>
-#> 5                                                                        Totals may not equal the sum of components due to rounding.
-#> 6 In order to meet privacy regulations, some items may not be included, or data for some groups may be aggregated with other groups.
+#>                        broad_industry2                           fine_industry2
+#> 1 A. Agriculture, Forestry and Fishing  011 Nursery and Floriculture Production
+#> 2 A. Agriculture, Forestry and Fishing       012 Mushroom and Vegetable Growing
+#> 3 A. Agriculture, Forestry and Fishing           013 Fruit and Tree Nut Growing
+#> 4 A. Agriculture, Forestry and Fishing 014 Sheep, Beef Cattle and Grain Farming
+#> 5 A. Agriculture, Forestry and Fishing                   015 Other Crop Growing
+#> 6 A. Agriculture, Forestry and Fishing                 016 Dairy Cattle Farming
+#>   gst_records_no_3 gross_gst_payable input_tax_credits
+#> 1             3033         227336270         194494967
+#> 2             4874         106962347         447412588
+#> 3            10264         248478755         835402253
+#> 4            97297        5958111511        5362720345
+#> 5             6125         599950489         492579919
+#> 6             5955         745010758         601682320
+#>   deferred_gst_payments_on_imports    net_gst
+#> 1                           406502   33247805
+#> 2                          1217550 -339232691
+#> 3                          6232079 -580691419
+#> 4                          1233428  596624594
+#> 5                          7360205  114730775
+#> 6                                0  143328438
 options(op)
 # }
 ```

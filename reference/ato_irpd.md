@@ -88,25 +88,25 @@ try({
 #> # ato_tbl: ATO IRPD 2023-24 (Table 2)
 #> # Source:   https://data.gov.au/data/dataset/cee66e72-94aa-436a-b4ed-b186204a443a/resource/cd82e606-3131-49d3-962e-5d18ad83f748/download/table_2_irpds_by_jurisdiction_2017-2024.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-05-04 19:14 UTC 
+#> # Retrieved: 2026-08-15 17:27 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  b41894d320ec379c...
-#> # Rows: 6  Cols: 2
+#> # Rows: 6  Cols: 6
 #> 
-#>                                       table_2_international_related_party_dealings_irpds
-#> 1 IRP expenditure and revenue by country / jurisdiction, 2016–17 to 2023–24 income years
-#> 2                                                                                   <NA>
-#> 3                                                                                 Notes:
-#> 4                                                                                   <NA>
-#> 5                                                                                   <NA>
-#> 6                                                                                   <NA>
-#>                                                                                                                                                                                                                                                                                                                                              
-#> 1                                                                                                                                                                                                                                                                                                                                        <NA>
-#> 2                                                                                                                                                                                                                                                                                                                                        <NA>
-#> 3                                                                                                                                                                                                                                                                                                                                        <NA>
-#> 4                                                                                                                                                                                                                      To meet privacy and confidentiality requirements, some items may be aggregated into geographic groups or not included.
-#> 5                                                                                                                                                                                                                                       The statistics exclude authorised deposit-taking institutions (ADIs), and foreign banks and branches.
-#> 6 The statistics for the 2019–20 to 2023–24 income years are sourced from International Dealings Schedules (IDS) and Local File Part A (LFPA) statements as at 3 November 2025. The statistics are not necessarily complete and may not match previous editions of International related party dealings statistics as they have been updated.
+#>   country_jurisdiction income_year expenditure1no expenditure revenue1_no
+#> 1              Algeria     2017–18              5      356004           6
+#> 2              Algeria     2023–24              5       43233           5
+#> 3               Angola     2016–17              9    14497346          22
+#> 4               Angola     2017–18              9     2742601          15
+#> 5               Angola     2018–19             10     6445177          19
+#> 6               Angola     2019–20             10     2867773          16
+#>    revenue
+#> 1   776186
+#> 2    98159
+#> 3 21043038
+#> 4 13511348
+#> 5 12134017
+#> 6 16249781
 options(op)
 # }
 ```

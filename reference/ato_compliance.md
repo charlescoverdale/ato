@@ -51,7 +51,10 @@ op <- options(ato.cache_dir = tempdir())
 try(ato_compliance(year = "2022-23", metric = "debt"))
 #> Error in ato_compliance(year = "2022-23", metric = "debt") : 
 #>   No compliance dataset found for metric "debt".
-#> ℹ Try `ato_catalog()` to browse available datasets.
+#> ℹ The ATO annual report is published as PDF on ato.gov.au, not as open data on
+#>   data.gov.au.
+#> ℹ Closest published series: `ato_tax_gaps()`.
+#> ℹ Browse the full catalogue with `ato_catalog()`.
 options(op)
 # }
 ```

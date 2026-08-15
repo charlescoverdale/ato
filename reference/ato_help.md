@@ -82,25 +82,32 @@ try({
 #> # ato_tbl: ATO HELP statistics
 #> # Source:   https://data.gov.au/data/dataset/ce4c58ec-c930-4a05-8a37-f244d960e5f8/resource/0661912a-d114-4155-8b42-63ab1417adea/download/help-statistics-2024-25.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-05-04 19:14 UTC 
+#> # Retrieved: 2026-08-15 17:27 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  70c7ebc3840087c7...
-#> # Rows: 6  Cols: 2
+#> # Rows: 6  Cols: 9
 #> 
-#>                         higher_education_loan_program
-#> 1 HELP statistics, 2005–06 to 2024–25 financial years
-#> 2                                                <NA>
-#> 3                                              Notes:
-#> 4                                                <NA>
-#> 5                                                <NA>
-#> 6                                                <NA>
-#>                                                                                                                                     
-#> 1                                                                                                                               <NA>
-#> 2                                                                                                                               <NA>
-#> 3                                                                                                                               <NA>
-#> 4                                                   The symbol 'n/a' used in this publication means not applicable or not available.
-#> 5                                                                        Totals may not equal the sum of components due to rounding.
-#> 6 In order to meet privacy regulations, some items may not be included, or data for some groups may be aggregated with other groups.
+#>        year total_incurred_debt  indexation compulsory_repayments
+#> 1 2024 - 25        125251399147 21763364029           52074318471
+#> 2 2023 - 24        117375745777 22738937830           47159248822
+#> 3 2022 - 23        110986721147 19414461563           42268924994
+#> 4 2021 - 22        104208138430 14626155953           37502763659
+#> 5 2020 - 21         96045556864 12095461165           33341893327
+#> 6 2019 - 20         89776126934 11801063634           29694321686
+#>   os_levy_compulsory_repayments voluntary_repayments_made_no
+#> 1                     349395427                      9171881
+#> 2                     332870086                      8083651
+#> 3                     318659937                      6713781
+#> 4                     302333633                      5213288
+#> 5                     236119824                      4443015
+#> 6                     163554681                      3775400
+#>   voluntary_repayments bonus_on_voluntary_repayments value_of_debts_writen_off
+#> 1          11822045033                     342171959                 238859490
+#> 2          10829889333                     342171864                 240857626
+#> 3           8866027613                     342171864                 234307019
+#> 4           5965448979                     342172108                 227504659
+#> 5           5185902618                     342171567                 167630700
+#> 6           4647376988                     342171043                 159810005
 options(op)
 # }
 ```

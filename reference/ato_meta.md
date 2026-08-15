@@ -70,7 +70,7 @@ try({
 #> [1] "Creative Commons Attribution 2.5 Australia"
 #> 
 #> $metadata_modified
-#> [1] "2026-04-22T01:04:01.567536"
+#> [1] "2026-05-29T00:55:29.927386"
 #> 
 #> $n_resources
 #> [1] 96

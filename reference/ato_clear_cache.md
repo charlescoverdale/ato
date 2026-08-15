@@ -25,7 +25,7 @@ Other configuration:
 # \donttest{
 op <- options(ato.cache_dir = tempdir())
 ato_clear_cache()
-#> Removed 4 cached files from /tmp/Rtmp7jztdZ.
+#> Removed 6 cached files from /tmp/RtmprEXEY3.
 options(op)
 # }
 ```

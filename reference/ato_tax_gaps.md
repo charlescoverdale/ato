@@ -80,19 +80,61 @@ try({
 #> ✔ Downloading <https://data.gov.au/data/dataset/f627f458-7d5a-450d-9f62-45d6983…
 #> 
 #> # ato_tbl: ATO Tax Gaps (sheet: 1)
-#> # Source:   https://data.gov.au/data/dataset/f627f458-7d5a-450d-9f62-45d6983961da/resource/59a43b92-26d9-451e-822a-ab437f5a4742/download/australian-tax-gaps-2024-publication.xlsx
+#> # Source:   https://data.gov.au/data/dataset/f627f458-7d5a-450d-9f62-45d6983961da/resource/59a43b92-26d9-451e-822a-ab437f5a4742/download/australian-tax-gaps-2025-publication.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-05-04 19:15 UTC 
-#> # SHA-256:  35a8fec971481e27...
-#> # Rows: 6  Cols: 1
+#> # Retrieved: 2026-08-15 17:27 UTC 
+#> # SHA-256:  107fd0e9e1e0b9e0...
+#> # Rows: 6  Cols: 25
 #> 
-#>   australian_tax_gapsthe_tax_gap_is_an_estimate_of_the_difference_between_the_amount_the_ato_collects_and_what_we_would_have_collected_if_every_taxpayer_was_fully_compliant_with_tax_law_this_file_includes_current_and_historical_tax_gap_estimates_publis ...
-#> 1                                                                                                                                                                                                                                           \r\nMore information
-#> 2                                                                                                                                                                                                                                     Australian Taxation Office
-#> 3                                                                                                                                                                                                                                 Australian tax gaps - overview
-#> 4                                                                                                                                                                                                                                       Tax gap research program
-#> 5                                                                                                                                                                                                                    Principles and approaches to measuring gaps
-#> 6                                                                                                                                                                                                For feedback or inquiries please email us at: Taxgap@ato.gov.au
+#>   program_population  program_type                   tax_type data_type
+#> 1            Alcohol Transactional Alcohol Excise (Beer only)      Main
+#> 2            Alcohol Transactional Alcohol Excise (Beer only)      Main
+#> 3            Alcohol Transactional Alcohol Excise (Beer only)      Main
+#> 4            Alcohol Transactional Alcohol Excise (Beer only)      Main
+#> 5     Alcohol Excise Transactional            Indirect Excise      Main
+#> 6     Alcohol Excise Transactional            Indirect Excise      Main
+#>   publish_year reliability financial_year population theoretical_liability_m
+#> 1         2015         Low        2008-09         NA                2500.000
+#> 2         2015         Low        2009-10         NA                2000.000
+#> 3         2015         Low        2010-11         NA                2000.000
+#> 4         2015         Low        2011-12         NA                2000.000
+#> 5         2020 Medium (16)        2015-16       6116                5936.183
+#> 6         2020 Medium (16)        2016-17       6313                5932.585
+#>   assured_amount_m voluntary_amounts_m amendments_m net_gap_m
+#> 1               NA            2495.000           NA     5.000
+#> 2               NA            1990.000           NA    10.000
+#> 3               NA            1980.000           NA    20.000
+#> 4               NA            1980.000           NA    20.000
+#> 5               NA            5367.742        3.258   565.183
+#> 6               NA            5360.711        3.489   568.385
+#>   unreported_amount_m non_detection_m non_pursuable_debt_m gross_gap net_gap
+#> 1                  NA              NA                   NA        NA   0.002
+#> 2                  NA              NA                   NA        NA   0.005
+#> 3                  NA              NA                   NA        NA   0.010
+#> 4                  NA              NA                   NA        NA   0.010
+#> 5             562.183              NA                  3.0     0.096   0.095
+#> 6             566.585              NA                  1.8     0.096   0.096
+#>   voluntary_performance overall_performance tax_expected_to_be_collected_m
+#> 1                 0.998               0.998                             NA
+#> 2                 0.995               0.995                             NA
+#> 3                 0.990               0.990                             NA
+#> 4                 0.990               0.990                             NA
+#> 5                 0.904               0.905                             NA
+#> 6                 0.904               0.904                             NA
+#>   gross_gap_m shadow_economy_m tax_impact_of_hidden_wages_ind_gap_m
+#> 1          NA               NA                                   NA
+#> 2          NA               NA                                   NA
+#> 3          NA               NA                                   NA
+#> 4          NA               NA                                   NA
+#> 5          NA               NA                                   NA
+#> 6          NA               NA                                   NA
+#>   tax_impact_of_hidden_wages_sb_gap_m
+#> 1                                  NA
+#> 2                                  NA
+#> 3                                  NA
+#> 4                                  NA
+#> 5                                  NA
+#> 6                                  NA
 options(op)
 # }
 ```

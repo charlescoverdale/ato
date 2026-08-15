@@ -96,29 +96,21 @@ try({
 #> ℹ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
 #> ✔ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
 #> 
-#> Warning: Could not find "industry" column. Tried: "industry", "industry_description",
-#> "broad_industry", and "anzsic_industry".
 #> Warning: 2022-23 uses ANZSIC 2020 industry codes.
 #> ℹ Releases before 2022-23 use ANZSIC 2006.
 #> ℹ Cross-year industry joins need a concordance recode.
 #> ℹ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
 #> ✔ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
 #> 
-#> Warning: Could not find "industry" column. Tried: "industry", "industry_description",
-#> "broad_industry", and "anzsic_industry".
 #> Warning: Requested years span the ANZSIC 2006 → 2020 (industry) reclassification in
 #> 2022-23.
 #> ℹ Cross-year comparisons across this boundary need a concordance recode.
 #> ℹ Downloading <https://data.gov.au/data/dataset/4be150cc-8f84-46b8-8c61-55ff1d4…
 #> ✔ Downloading <https://data.gov.au/data/dataset/4be150cc-8f84-46b8-8c61-55ff1d4…
 #> 
-#> Warning: Could not find "industry" column. Tried: "industry", "industry_description",
-#> "broad_industry", and "anzsic_industry".
 #> Warning: 2022-23 uses ANZSIC 2020 industry codes.
 #> ℹ Releases before 2022-23 use ANZSIC 2006.
 #> ℹ Cross-year industry joins need a concordance recode.
-#> Warning: Could not find "industry" column. Tried: "industry", "industry_description",
-#> "broad_industry", and "anzsic_industry".
 options(op)
 # }
 ```

@@ -79,15 +79,39 @@ try({
 #> # ato_tbl: ATO R&D Tax Incentive 2022-23
 #> # Source:   https://data.gov.au/data/dataset/7c356598-b048-4c1e-862f-c936041e3d81/resource/e9c059c8-a801-4068-844e-9d4ee84a1d81/download/report-of-information-about-research-and-development-tax-incentive-entities.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-05-04 19:14 UTC 
+#> # Retrieved: 2026-08-15 17:27 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  a2a05ddfacba0840...
-#> # Rows: 3  Cols: 1
+#> # Rows: 6  Cols: 5
 #> 
-#>                                                                                                                                                                                                                                                                      research_and_development_tax_transparency_report_of_data_about_research_and_development_tax_incentive_entities
-#> 1 This annual report contains data about Research and Development (R&D) tax incentive claims reported by companies for the 2022-23 income year. This report also includes amendments from previously published companies, along with information from late lodging companies for the 2021-22 income year that were not available by the cut-off date to produce the 2021-22 report.
-#> 2                                                                                                                                                                                                            This report is intended to be read in conjunction with guidance material available from the link below which provides context around the data included in this report.
-#> 3                                                                                                                                                                                                                                                                                                  R&D tax incentive transparency reports | Australian Taxation Office (ato.gov.au)
+#>                        company_name     abn_acn
+#> 1 (UI!) THE URBAN INSTITUTE PTY LTD 95608464535
+#> 2        @HOME ARCHITECTURE PTY LTD 53666147271
+#> 3                      @PAY PTY LTD 87644546770
+#> 4                   02 FARM PTY LTD 42656444674
+#> 5                108 DEV CO PTY LTD 96659942060
+#> 6     128 TRADING COMPANY PTY. LTD. 72606263656
+#>   total_r_d_expenditure_notional_deductions_less_feedstock_adjustments
+#> 1                                                               449266
+#> 2                                                                70421
+#> 3                                                              1074917
+#> 4                                                               404507
+#> 5                                                               303491
+#> 6                                                                38481
+#>   total_amended_r_d_expenditure_notional_deductions_less_feedstock_adjustments
+#> 1                                                                           NA
+#> 2                                                                           NA
+#> 3                                                                           NA
+#> 4                                                                           NA
+#> 5                                                                           NA
+#> 6                                                                           NA
+#>   income_year
+#> 1     2022-23
+#> 2     2022-23
+#> 3     2022-23
+#> 4     2022-23
+#> 5     2022-23
+#> 6     2022-23
 options(op)
 # }
 ```

@@ -101,6 +101,6 @@
 - [`ato_vttc()`](https://charlescoverdale.github.io/ato/reference/ato_vttc.md)
   : Voluntary Tax Transparency Code disclosures
 - [`ato_whm()`](https://charlescoverdale.github.io/ato/reference/ato_whm.md)
-  : Working Holiday Maker tax data
+  : Working Holiday Maker tax data (not available)
 - [`print(`*`<ato_tbl>`*`)`](https://charlescoverdale.github.io/ato/reference/print.ato_tbl.md)
   : Print an ato_tbl

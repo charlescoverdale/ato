@@ -52,9 +52,31 @@ try({
   payg <- ato_payg(year = "2022-23")
   head(payg)
 })
-#> Error in ato_payg(year = "2022-23") : 
-#>   Could not find a PAYG withholding package on data.gov.au.
-#> ℹ Browse: <https://data.gov.au/data/organization/australiantaxationoffice>
+#> ℹ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
+#> ✔ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
+#> 
+#> # ato_tbl: ATO PAYG withholding 2022-23
+#> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/db302f15-59e7-409f-807a-82c808e1d04e/download/ts23payg01payasyougowitholding.xlsx
+#> # Licence:  CC BY 2.5 AU
+#> # Retrieved: 2026-08-15 17:27 UTC 
+#> # Snapshot: 2026-04-24
+#> # SHA-256:  e38a7df80538703b...
+#> # Rows: 6  Cols: 6
+#> 
+#>     year1 entity_type                      broad_industry2 withholder_type3
+#> 1 2010–11   Companies a. Agriculture, Forestry and Fishing            Large
+#> 2 2010–11   Companies a. Agriculture, Forestry and Fishing           Medium
+#> 3 2010–11   Companies a. Agriculture, Forestry and Fishing            Small
+#> 4 2010–11   Companies                            b. Mining            Large
+#> 5 2010–11   Companies                            b. Mining           Medium
+#> 6 2010–11   Companies                            b. Mining            Small
+#>   clients_no      paygw
+#> 1        107  435887418
+#> 2       3537  358024692
+#> 3       5837   73324091
+#> 4        505 5288532146
+#> 5       2056  516111203
+#> 6       1233   42913188
 options(op)
 # }
 ```

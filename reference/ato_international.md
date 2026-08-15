@@ -14,8 +14,10 @@ ato_international(country = "AUS", year = "latest")
 
 ## Source
 
-OECD Revenue Statistics
-<https://www.oecd.org/tax/tax-policy/revenue-statistics.htm>.
+OECD Revenue Statistics 2025
+<https://www.oecd.org/en/publications/revenue-statistics-2025_3a264267-en.html>.
+The former `oecd.org/tax/tax-policy/revenue-statistics.htm` landing page
+now returns HTTP 410.
 
 ## Arguments
 
@@ -35,6 +37,12 @@ An `ato_tbl` with columns `country`, `year`, `tax`, `pct_gdp`.
 
 Thin wrapper pointing users to `readoecd::` for full OECD API access;
 returns a minimal tax-to-GDP slice here for convenience.
+
+**Data vintage.** The bundled headline ratios are hardcoded and
+currently run to 2023 (Australia reports to the OECD a year behind most
+members). They are not refreshed automatically. For anything
+load-bearing use `readoecd::` against the live OECD Data Explorer rather
+than this convenience slice.
 
 ## See also
 
@@ -58,9 +66,9 @@ try(ato_international(country = "AUS"))
 #> ℹ For full OECD Revenue Statistics access, install readoecd.
 #> ℹ This wrapper returns bundled headline tax-to-GDP ratios only.
 #> # ato_tbl: OECD tax-to-GDP AUS latest
-#> # Source:   https://www.oecd.org/tax/tax-policy/revenue-statistics.htm
+#> # Source:   https://www.oecd.org/en/publications/revenue-statistics-2025_3a264267-en.html
 #> # Licence:  OECD terms
-#> # Retrieved: 2026-05-04 19:14 UTC 
+#> # Retrieved: 2026-08-15 17:27 UTC 
 #> # Snapshot: 2026-04-24
 #> # Rows: 3  Cols: 4
 #> 

@@ -37,7 +37,7 @@ self-managed superannuation funds. Each release ships 90-plus tables
 across Individuals, Companies, Partnerships, Trusts, Super, GST, FBT,
 CGT, Excise, and Activity Statement Ratios, plus a separate Corporate
 Tax Transparency release and a multi-year postcode series. Beyond
-Taxation Statistics, the 42 ATO datasets on data.gov.au include Tax Gaps
+Taxation Statistics, the 43 ATO datasets on data.gov.au include Tax Gaps
 estimates, Small Business Benchmarks, International Related Party
 Dealings (IRPD), R&D Tax Incentive claimants, HELP repayments, and the
 foreign-ownership register.
@@ -70,7 +70,7 @@ bundle of legacy `.xls` files.
 ``` r
 
 # Without this package
-api  <- "https://data.gov.au/data/api/3/action/package_show?id=taxation-statistics-2022-23"
+api  <- "https://data.gov.au/data/api/3/action/package_show?id=taxation-statistics-2023-24"
 resp <- jsonlite::fromJSON(api)
 res  <- resp$result$resources
 url  <- res$url[grep("postcode", res$name, ignore.case = TRUE)][1]
@@ -82,7 +82,7 @@ names(df) <- tolower(gsub("[^a-z0-9]+", "_", tolower(names(df))))
 
 # With this package
 library(ato)
-ato_individuals_postcode(year = "2022-23", state = "NSW")
+ato_individuals_postcode(year = "2023-24", state = "NSW")
 ```
 
 Resource URLs are resolved at runtime via `package_show`, so the package
@@ -125,11 +125,11 @@ devtools::install_github("charlescoverdale/ato")
 
 library(ato)
 
-# All 42 ATO datasets on data.gov.au
+# All 43 ATO datasets on data.gov.au
 cat <- ato_catalog()
 
-# Individual tax returns by NSW postcode for 2022-23
-p <- ato_individuals_postcode(year = "2022-23", state = "NSW")
+# Individual tax returns by NSW postcode for 2023-24
+p <- ato_individuals_postcode(year = "2023-24", state = "NSW")
 head(p)
 
 # Corporate Tax Transparency (4,110 entities in 2023-24)
@@ -137,7 +137,7 @@ top <- ato_top_taxpayers(year = "2023-24")
 head(top)
 
 # Company tax by industry
-c <- ato_companies(year = "2022-23", industry = "mining")
+c <- ato_companies(year = "2023-24", industry = "mining")
 head(c)
 ```
 
@@ -147,16 +147,27 @@ head(c)
 |----|----|----|
 | [`ato_catalog()`](https://charlescoverdale.github.io/ato/reference/ato_catalog.md) | Summary of every ATO dataset on data.gov.au: id, title, licence, resource count, last modified | Current (live) |
 | [`ato_download()`](https://charlescoverdale.github.io/ato/reference/ato_download.md) | Generic CKAN resource downloader with auto CSV or XLSX parsing | Any dataset |
-| [`ato_individuals()`](https://charlescoverdale.github.io/ato/reference/ato_individuals.md) | Individuals Table 1 snapshot (counts, taxable income, tax payable, deductions) | 1994-95 - present |
-| [`ato_individuals_postcode()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_postcode.md) | Individual tax return items by 4-digit postcode and state | 1994-95 - present |
-| [`ato_individuals_occupation()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_occupation.md) | Individuals by occupation, sex, and taxable income range (~1,000 occupations) | 1994-95 - present |
-| [`ato_companies()`](https://charlescoverdale.github.io/ato/reference/ato_companies.md) | Company tax aggregates by ANZSIC industry, turnover band, entity type | 1994-95 - present |
-| [`ato_super_funds()`](https://charlescoverdale.github.io/ato/reference/ato_super_funds.md) | APRA-regulated fund aggregates plus SMSF statistical overview | 1994-95 - present |
+| [`ato_individuals()`](https://charlescoverdale.github.io/ato/reference/ato_individuals.md) | Individuals Table 1 snapshot (counts, taxable income, tax payable, deductions) | 2011-12 - present |
+| [`ato_individuals_postcode()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_postcode.md) | Individual tax return items by 4-digit postcode and state | 2011-12 - present |
+| [`ato_individuals_occupation()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_occupation.md) | Individuals by occupation, sex, and taxable income range (~1,000 occupations) | 2011-12 - present |
+| [`ato_companies()`](https://charlescoverdale.github.io/ato/reference/ato_companies.md) | Company tax aggregates by ANZSIC industry, turnover band, entity type | 2011-12 - present |
+| [`ato_super_funds()`](https://charlescoverdale.github.io/ato/reference/ato_super_funds.md) | APRA-regulated fund aggregates plus SMSF statistical overview | 2011-12 - present |
 | [`ato_top_taxpayers()`](https://charlescoverdale.github.io/ato/reference/ato_top_taxpayers.md) | Corporate Tax Transparency release: income, taxable income, tax payable for large entities | 2013-14 - present |
-| [`ato_gst()`](https://charlescoverdale.github.io/ato/reference/ato_gst.md) | GST and Activity Statement Ratios tables | 2000-01 - present |
-| [`ato_industry()`](https://charlescoverdale.github.io/ato/reference/ato_industry.md) | Industry aggregates joined across Individual and Company tables | 1994-95 - present |
-| [`ato_cache_info()`](https://charlescoverdale.github.io/ato/reference/ato_cache_info.md) | Inspect the local cache | \- |
-| [`ato_clear_cache()`](https://charlescoverdale.github.io/ato/reference/ato_clear_cache.md) | Clear locally cached files | \- |
+| [`ato_gst()`](https://charlescoverdale.github.io/ato/reference/ato_gst.md) | GST and Activity Statement Ratios tables | 2011-12 - present |
+| [`ato_industry()`](https://charlescoverdale.github.io/ato/reference/ato_industry.md) | Industry aggregates joined across Individual and Company tables | 2011-12 - present |
+
+Coverage starts at 2011-12 because that is the earliest Taxation
+Statistics release on data.gov.au that ships individual tables as
+separate resources. The 2009-10 and 2010-11 packages hold only a PDF, an
+index and a ZIP, and 1994-95 to 2008-09 lives in one legacy bundle
+(`taxation-statstics-1994-95-to-2008-09`) of `.xls` files. Reach those
+with
+[`ato_download()`](https://charlescoverdale.github.io/ato/reference/ato_download.md)
+directly. \|
+[`ato_cache_info()`](https://charlescoverdale.github.io/ato/reference/ato_cache_info.md)
+\| Inspect the local cache \| - \| \|
+[`ato_clear_cache()`](https://charlescoverdale.github.io/ato/reference/ato_clear_cache.md)
+\| Clear locally cached files \| - \|
 
 ## Examples
 
@@ -166,11 +177,18 @@ head(c)
 
 library(ato)
 
-p <- ato_individuals_postcode(year = "2022-23", state = "NSW")
+p <- ato_individuals_postcode(year = "2023-24", state = "NSW")
 
-# Top 10 postcodes by average taxable income
-cols <- c("postcode", "number_of_individuals", "taxable_income_average")
-head(p[order(-p$taxable_income_average), cols], 10)
+# Table 6 reports counts and totals, not averages, and carries the
+# ATO's footnote digits in the column names. Find the two columns
+# you need rather than hardcoding a year's spelling of them.
+n_col  <- grep("^individuals_no$", names(p), value = TRUE)
+inc_col <- grep("^taxable_income_or_loss[0-9]*$", names(p), value = TRUE)[1]
+
+# Top 10 postcodes by mean taxable income per individual
+p$mean_taxable_income <- p[[inc_col]] / p[[n_col]]
+cols <- c("postcode", n_col, inc_col, "mean_taxable_income")
+head(p[order(-p$mean_taxable_income), cols], 10)
 ```
 
 ### Corporate Tax Transparency
@@ -205,7 +223,7 @@ nrow(zero)
 ``` r
 
 # All economists (any occupation with "economist" in the name)
-occ <- ato_individuals_occupation(year = "2022-23", occupation = "economist")
+occ <- ato_individuals_occupation(year = "2023-24", occupation = "economist")
 head(occ)
 ```
 
@@ -213,8 +231,8 @@ head(occ)
 
 ``` r
 
-# Build a simple top-1% share estimate from the Individuals snapshot
-ind <- ato_individuals(year = "2022-23", table = "snapshot")
+# Build a simple top-1% share estimate from Individuals Table 1
+ind <- ato_individuals(year = "2023-24")
 head(ind)
 # (Pair with ABS SIH or ALife microdata for a full top-incomes analysis.)
 ```
@@ -223,7 +241,7 @@ head(ind)
 
 ``` r
 
-# Every ATO dataset on data.gov.au (42 packages)
+# Every ATO dataset on data.gov.au (43 packages)
 cat <- ato_catalog()
 
 # Filter to Taxation Statistics years

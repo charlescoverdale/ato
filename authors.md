@@ -10,13 +10,13 @@ Source:
 [`inst/CITATION`](https://github.com/charlescoverdale/ato/blob/main/inst/CITATION)
 
 Coverdale, C. (2026). ato: Download and Tidy Australian Taxation Office
-Data. R package version 0.1.0. https://cran.r-project.org/package=ato
+Data. R package version 0.1.1. https://cran.r-project.org/package=ato
 
     @Manual{,
       title = {ato: Download and Tidy Australian Taxation Office Data},
       author = {Charles Coverdale},
       year = {2026},
-      note = {R package version 0.1.0},
+      note = {R package version 0.1.1},
       url = {https://cran.r-project.org/package=ato},
     }
 

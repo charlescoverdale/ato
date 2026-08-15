@@ -1,5 +1,157 @@
 # Changelog
 
+## ato 0.1.1
+
+Bug-fix release. Version 0.1.0 could not reach the current ATO release,
+and several functions returned the wrong table without saying so.
+Everything below is a fix; no user-facing arguments changed except where
+noted.
+
+### Data currency
+
+- The ATO published Taxation Statistics 2023-24 in June 2026.
+  `year = "latest"` now resolves to it. Documentation that named 2022-23
+  as the newest release has been updated, and the “latest” wording no
+  longer hardcodes a year.
+
+### Resolution fixes
+
+- `ato_ckan_search()` joined the organisation filter and the query terms
+  with a `+`, which `URLencode(reserved = TRUE)` escaped to `%2B`. Solr
+  read that as a literal character, so every filtered catalogue search
+  returned zero results. This broke `year = "latest"`, the default
+  argument on 27 exported functions, for every one of them. The terms
+  are now joined with a space.
+
+- `ato_fetch_xlsx()` read sheet 1 of each workbook. Nearly every ATO
+  workbook opens with a “Notes” or “Information” sheet and puts the
+  table on the second, so most functions returned front matter rather
+  than data. Front-matter sheets are now detected by name and skipped.
+  [`ato_individuals()`](https://charlescoverdale.github.io/ato/reference/ato_individuals.md)
+  returns 846 rows instead of 17;
+  [`ato_individuals_occupation()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_occupation.md)
+  3,771 instead of 16;
+  [`ato_tax_gaps()`](https://charlescoverdale.github.io/ato/reference/ato_tax_gaps.md)
+  1,187 instead of 16.
+
+- `ato_ckan_resolve()` returned the first resource matching a single
+  regex, in package order. The Snapshot workbooks sit at positions 2 to
+  8 of a Taxation Statistics package and their filenames contain
+  “postcode” and “occupation”, so they shadowed the detailed Individuals
+  tables at positions 20 to 47. It now accepts a priority vector of
+  patterns plus an `exclude` regex. Affected functions and the tables
+  they were returning:
+
+  | Function | Was | Now |
+  |----|----|----|
+  | [`ato_individuals()`](https://charlescoverdale.github.io/ato/reference/ato_individuals.md) | Snapshot 1 (historical tax rates) | Individuals 1 |
+  | [`ato_individuals_postcode()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_postcode.md) | Snapshot 7 (49 rows) | Individuals 6 (5,254 rows) |
+  | [`ato_individuals_occupation()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_occupation.md) | Snapshot 7 | Individuals 14 |
+  | [`ato_individuals_sex()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_sex.md) | Individuals 2 (matched “…method**sex**…”) | Individuals 3 |
+  | [`ato_individuals_state()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_state.md) | Snapshot 7 | Individuals 4 |
+  | [`ato_medicare_levy()`](https://charlescoverdale.github.io/ato/reference/ato_medicare_levy.md) | Individuals 1 (no Medicare columns) | Individuals 3 |
+
+### Column matching
+
+- `ato_find_col()` matched column names exactly, so ATO footnote markers
+  defeated it: the postcode table’s state column is `state_territory1`,
+  not `state_territory`. Filters therefore did nothing and returned
+  unfiltered data with only a warning. Matching now also accepts a
+  trailing footnote digit (`broad_industry2`) and the variant as a
+  leading token (`occupation_unit_group1`).
+  `ato_individuals_postcode(state = "NSW")` returns 1,250 rows rather
+  than all 5,254.
+
+- Column lookups now happen only when a filter is actually requested,
+  and a requested filter that cannot be applied warns that the data is
+  being returned unfiltered rather than reporting a missing column and
+  continuing quietly.
+
+### Datasets that moved
+
+- [`ato_fbt()`](https://charlescoverdale.github.io/ato/reference/ato_fbt.md),
+  [`ato_payg()`](https://charlescoverdale.github.io/ato/reference/ato_payg.md)
+  and
+  [`ato_charities()`](https://charlescoverdale.github.io/ato/reference/ato_charities.md)
+  searched for standalone packages that have never existed on
+  data.gov.au. All three are table families inside Taxation Statistics
+  and now resolve there.
+
+- `ato_fuel_tax_credits(by = "industry")` looked in the Excise Data
+  package, which has never carried the industry table. It now reads
+  Excise Table 4 of Taxation Statistics. `by = "fuel"` and
+  `by = "period"` read the historical FTC rate schedule from Excise
+  Data.
+
+- [`ato_vttc()`](https://charlescoverdale.github.io/ato/reference/ato_vttc.md)
+  looked for a resource named after the year. The ATO has replaced the
+  per-year workbooks with a single dated notifications register covering
+  all signatories and years, which is now returned, with a message when
+  a requested year cannot be honoured.
+
+### Functions that never had a data source
+
+These aborted or returned an unrelated table. They now abort with an
+accurate explanation and a pointer to the real source, and are
+candidates for removal in a later release.
+
+- [`ato_whm()`](https://charlescoverdale.github.io/ato/reference/ato_whm.md):
+  no Working Holiday Maker resource exists in any ATO package on
+  data.gov.au, current or archived.
+- [`ato_division293()`](https://charlescoverdale.github.io/ato/reference/ato_division293.md):
+  Division 293 is not published as a labelled series. 0.1.0 fell back to
+  Individuals Table 3 and titled the result “ATO Division 293”.
+- [`ato_compliance()`](https://charlescoverdale.github.io/ato/reference/ato_compliance.md):
+  the ATO annual report is a PDF on ato.gov.au, not open data.
+
+### Corporate Tax Transparency
+
+- [`ato_top_taxpayers()`](https://charlescoverdale.github.io/ato/reference/ato_top_taxpayers.md)
+  ignored its `year` argument when reading the workbook. Each CTT
+  release carries late amendments for earlier income years alongside the
+  headline year, so the 2023-24 request returned 4,198 rows spanning
+  2023-24, 2022-23 and 2021-22. It now filters on `income_year` and
+  returns the 4,110 rows the ATO published for 2023-24, reporting how
+  many amendment rows were dropped.
+
+### Metadata and links
+
+- `Language` in DESCRIPTION was `en-US` while the prose is British
+  English throughout. Set to `en-GB`, which clears 53 spurious
+  spell-check hits (behaviour, catalogue, harmonisation, licence,
+  modelling, organisation and similar). `inst/WORDLIST` refreshed
+  against the remaining acronyms, surnames and package names;
+  `spelling::spell_check_package()` is now clean.
+
+- [`ato_international()`](https://charlescoverdale.github.io/ato/reference/ato_international.md)
+  cited `oecd.org/tax/tax-policy/revenue-statistics.htm`, which OECD has
+  since deleted (HTTP 410). Repointed at Revenue Statistics 2025. The
+  410 was invisible to automated URL checking because oecd.org returns
+  403 to every request from a non-browser client, valid path or not.
+
+### README
+
+- Every code example is now executed against live data before release.
+  The postcode example referenced `number_of_individuals` and
+  `taxable_income_average`, neither of which exists in Individuals Table
+  6, so it could never have run; it now uses the real columns and
+  derives the mean.
+- Dataset count corrected from 42 to 43.
+- Coverage corrected from “1994-95 - present” to “2011-12 - present”.
+  The 2009-10 and 2010-11 packages ship only a PDF, an index and a ZIP,
+  and 1994-95 to 2008-09 is a separate legacy bundle, so the
+  detailed-table functions cannot reach any of them.
+
+### Tests
+
+- Added `test-resolution.R`. Most of it is offline: query encoding,
+  resource-resolution priority and exclusion against a mocked package,
+  and column matching. One live test asserts that `year = "latest"`
+  resolves to a well-formed, current release slug. It is deliberately
+  not behind `ATO_LIVE_TESTS`, because every existing live test pinned
+  an explicit year and sat behind that opt-in gate, which is why none of
+  them noticed that the default argument was broken.
+
 ## ato 0.1.0
 
 CRAN release: 2026-04-28
