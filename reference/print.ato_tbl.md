@@ -35,7 +35,7 @@ print(x)
 #> # ato_tbl: Demo
 #> # Source:   https://data.gov.au
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-08-15 17:28 UTC 
+#> # Retrieved: 2026-08-15 19:07 UTC 
 #> # Rows: 1  Cols: 2
 #> 
 #>   postcode taxable_income

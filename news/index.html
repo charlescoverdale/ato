@@ -98,6 +98,12 @@
 <code><a href="../reference/ato_compliance.html">ato_compliance()</a></code>: the ATO annual report is a PDF on ato.gov.au, not open data.</li>
 </ul></div>
 <div class="section level3">
+<h3 id="back-catalogue-0-1-1">Back catalogue<a class="anchor" aria-label="anchor" href="#back-catalogue-0-1-1"></a></h3>
+<ul><li><p>The front-matter sheet test matched the whole sheet name, so it caught “Notes” (28 workbooks) but not “Title &amp; notes” (6) or “Individuals Tax Title &amp; Notes” (2). Every release up to 2015-16 was therefore still parsing its title page instead of the data. Now matched as whole words anywhere in the name, which leaves genuine data sheets alone (the pre-2010 GST workbooks open on a sheet named for the income year, e.g. “2000-01”). <code>ato_individuals_postcode(year = "2011-12")</code> returns 5,067 rows instead of 14.</p></li>
+<li><p><code><a href="../reference/ato_super_funds.html">ato_super_funds()</a></code> matched <code>fund0[1-4]</code> only. Releases up to 2012-13 used a single unpadded digit (<code>taxstats2012fund1apraselecteditemsbyyear.xls</code>), so those two years errored. Both now return ~200 rows.</p></li>
+<li><p>Net effect: all six core series now resolve across every release from 2011-12 to 2023-24, verified year by year.</p></li>
+</ul></div>
+<div class="section level3">
 <h3 id="corporate-tax-transparency-0-1-1">Corporate Tax Transparency<a class="anchor" aria-label="anchor" href="#corporate-tax-transparency-0-1-1"></a></h3>
 <ul><li>
 <code><a href="../reference/ato_top_taxpayers.html">ato_top_taxpayers()</a></code> ignored its <code>year</code> argument when reading the workbook. Each CTT release carries late amendments for earlier income years alongside the headline year, so the 2023-24 request returned 4,198 rows spanning 2023-24, 2022-23 and 2021-22. It now filters on <code>income_year</code> and returns the 4,110 rows the ATO published for 2023-24, reporting how many amendment rows were dropped.</li>
