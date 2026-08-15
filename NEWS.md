@@ -96,6 +96,45 @@ and are candidates for removal in a later release.
 * `ato_compliance()`: the ATO annual report is a PDF on
   ato.gov.au, not open data.
 
+## Corporate Tax Transparency
+
+* `ato_top_taxpayers()` ignored its `year` argument when reading
+  the workbook. Each CTT release carries late amendments for
+  earlier income years alongside the headline year, so the
+  2023-24 request returned 4,198 rows spanning 2023-24, 2022-23
+  and 2021-22. It now filters on `income_year` and returns the
+  4,110 rows the ATO published for 2023-24, reporting how many
+  amendment rows were dropped.
+
+## Metadata and links
+
+* `Language` in DESCRIPTION was `en-US` while the prose is British
+  English throughout. Set to `en-GB`, which clears 53 spurious
+  spell-check hits (behaviour, catalogue, harmonisation, licence,
+  modelling, organisation and similar). `inst/WORDLIST` refreshed
+  against the remaining acronyms, surnames and package names;
+  `spelling::spell_check_package()` is now clean.
+
+* `ato_international()` cited
+  `oecd.org/tax/tax-policy/revenue-statistics.htm`, which OECD has
+  since deleted (HTTP 410). Repointed at Revenue Statistics 2025.
+  The 410 was invisible to automated URL checking because
+  oecd.org returns 403 to every request from a non-browser client,
+  valid path or not.
+
+## README
+
+* Every code example is now executed against live data before
+  release. The postcode example referenced
+  `number_of_individuals` and `taxable_income_average`, neither of
+  which exists in Individuals Table 6, so it could never have run;
+  it now uses the real columns and derives the mean.
+* Dataset count corrected from 42 to 43.
+* Coverage corrected from "1994-95 - present" to "2011-12 -
+  present". The 2009-10 and 2010-11 packages ship only a PDF, an
+  index and a ZIP, and 1994-95 to 2008-09 is a separate legacy
+  bundle, so the detailed-table functions cannot reach any of them.
+
 ## Tests
 
 * Added `test-resolution.R`. Most of it is offline: query

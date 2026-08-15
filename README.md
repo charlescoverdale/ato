@@ -8,7 +8,7 @@ An R package for accessing statistical data published by the [Australian Taxatio
 
 The Australian Taxation Office is the Commonwealth agency responsible for collecting federal taxes. In 2023-24 it collected **AUD 611 billion in net tax** (ATO Annual Report 2023-24), equivalent to around 87% of total Commonwealth receipts. It administers personal income tax, company tax, GST, fringe benefits tax, fuel tax credits, the Research and Development Tax Incentive, the Super Guarantee compliance regime, self-managed superannuation funds (SMSFs), and the Corporate Tax Transparency regime. Superannuation policy sits with Treasury; prudential regulation of APRA-regulated super funds is APRA's domain; conduct and disclosure are ASIC's.
 
-The ATO's flagship public data release is **Taxation Statistics**: an annual XLSX-heavy publication covering roughly 14 million individual tax returns, 1 million company returns, and all APRA-regulated and self-managed superannuation funds. Each release ships 90-plus tables across Individuals, Companies, Partnerships, Trusts, Super, GST, FBT, CGT, Excise, and Activity Statement Ratios, plus a separate Corporate Tax Transparency release and a multi-year postcode series. Beyond Taxation Statistics, the 42 ATO datasets on data.gov.au include Tax Gaps estimates, Small Business Benchmarks, International Related Party Dealings (IRPD), R&D Tax Incentive claimants, HELP repayments, and the foreign-ownership register.
+The ATO's flagship public data release is **Taxation Statistics**: an annual XLSX-heavy publication covering roughly 14 million individual tax returns, 1 million company returns, and all APRA-regulated and self-managed superannuation funds. Each release ships 90-plus tables across Individuals, Companies, Partnerships, Trusts, Super, GST, FBT, CGT, Excise, and Activity Statement Ratios, plus a separate Corporate Tax Transparency release and a multi-year postcode series. Beyond Taxation Statistics, the 43 ATO datasets on data.gov.au include Tax Gaps estimates, Small Business Benchmarks, International Related Party Dealings (IRPD), R&D Tax Incentive claimants, HELP repayments, and the foreign-ownership register.
 
 Taxation Statistics underlies much of the public income-distribution and top-incomes literature in Australia. Atkinson and Leigh (2007) used the ATO aggregates to reconstruct century-long top-income shares; the Burkhauser-Hahn-Wilkins and Wilkins series followed. Work from the Grattan Institute, e61 Institute, the ANU Tax and Transfer Policy Institute, and the Australia Institute routinely draws on these tables, and the **Corporate Tax Transparency** release drives an October-November news cycle every year as journalists tally which large entities paid zero tax. Where longitudinal microdata is needed, researchers apply for access to **ALife** (the ATO Longitudinal Information Files) through the ATO's DataLab; the Parliamentary Budget Office accesses richer microdata through separate arrangements.
 
@@ -62,7 +62,7 @@ devtools::install_github("charlescoverdale/ato")
 ```r
 library(ato)
 
-# All 42 ATO datasets on data.gov.au
+# All 43 ATO datasets on data.gov.au
 cat <- ato_catalog()
 
 # Individual tax returns by NSW postcode for 2023-24
@@ -84,14 +84,21 @@ head(c)
 |---|---|---|
 | `ato_catalog()` | Summary of every ATO dataset on data.gov.au: id, title, licence, resource count, last modified | Current (live) |
 | `ato_download()` | Generic CKAN resource downloader with auto CSV or XLSX parsing | Any dataset |
-| `ato_individuals()` | Individuals Table 1 snapshot (counts, taxable income, tax payable, deductions) | 1994-95 - present |
-| `ato_individuals_postcode()` | Individual tax return items by 4-digit postcode and state | 1994-95 - present |
-| `ato_individuals_occupation()` | Individuals by occupation, sex, and taxable income range (~1,000 occupations) | 1994-95 - present |
-| `ato_companies()` | Company tax aggregates by ANZSIC industry, turnover band, entity type | 1994-95 - present |
-| `ato_super_funds()` | APRA-regulated fund aggregates plus SMSF statistical overview | 1994-95 - present |
+| `ato_individuals()` | Individuals Table 1 snapshot (counts, taxable income, tax payable, deductions) | 2011-12 - present |
+| `ato_individuals_postcode()` | Individual tax return items by 4-digit postcode and state | 2011-12 - present |
+| `ato_individuals_occupation()` | Individuals by occupation, sex, and taxable income range (~1,000 occupations) | 2011-12 - present |
+| `ato_companies()` | Company tax aggregates by ANZSIC industry, turnover band, entity type | 2011-12 - present |
+| `ato_super_funds()` | APRA-regulated fund aggregates plus SMSF statistical overview | 2011-12 - present |
 | `ato_top_taxpayers()` | Corporate Tax Transparency release: income, taxable income, tax payable for large entities | 2013-14 - present |
-| `ato_gst()` | GST and Activity Statement Ratios tables | 2000-01 - present |
-| `ato_industry()` | Industry aggregates joined across Individual and Company tables | 1994-95 - present |
+| `ato_gst()` | GST and Activity Statement Ratios tables | 2011-12 - present |
+| `ato_industry()` | Industry aggregates joined across Individual and Company tables | 2011-12 - present |
+
+Coverage starts at 2011-12 because that is the earliest Taxation
+Statistics release on data.gov.au that ships individual tables as
+separate resources. The 2009-10 and 2010-11 packages hold only a
+PDF, an index and a ZIP, and 1994-95 to 2008-09 lives in one
+legacy bundle (`taxation-statstics-1994-95-to-2008-09`) of `.xls`
+files. Reach those with `ato_download()` directly.
 | `ato_cache_info()` | Inspect the local cache | - |
 | `ato_clear_cache()` | Clear locally cached files | - |
 
@@ -104,9 +111,16 @@ library(ato)
 
 p <- ato_individuals_postcode(year = "2023-24", state = "NSW")
 
-# Top 10 postcodes by average taxable income
-cols <- c("postcode", "number_of_individuals", "taxable_income_average")
-head(p[order(-p$taxable_income_average), cols], 10)
+# Table 6 reports counts and totals, not averages, and carries the
+# ATO's footnote digits in the column names. Find the two columns
+# you need rather than hardcoding a year's spelling of them.
+n_col  <- grep("^individuals_no$", names(p), value = TRUE)
+inc_col <- grep("^taxable_income_or_loss[0-9]*$", names(p), value = TRUE)[1]
+
+# Top 10 postcodes by mean taxable income per individual
+p$mean_taxable_income <- p[[inc_col]] / p[[n_col]]
+cols <- c("postcode", n_col, inc_col, "mean_taxable_income")
+head(p[order(-p$mean_taxable_income), cols], 10)
 ```
 
 ### Corporate Tax Transparency
@@ -147,7 +161,7 @@ head(ind)
 ### Catalogue inspection
 
 ```r
-# Every ATO dataset on data.gov.au (42 packages)
+# Every ATO dataset on data.gov.au (43 packages)
 cat <- ato_catalog()
 
 # Filter to Taxation Statistics years

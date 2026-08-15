@@ -27,7 +27,7 @@ Description: Fetch Australian Taxation Office (ATO) Taxation
 Depends: R (>= 4.1.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
-Language: en-US
+Language: en-GB
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Imports:

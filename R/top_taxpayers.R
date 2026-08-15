@@ -99,6 +99,22 @@ ato_top_taxpayers <- function(year = "latest",
     )
   }
 
+  # Each CTT workbook carries late amendments for prior income
+  # years alongside the headline year: the 2023-24 release holds
+  # 4,110 rows for 2023-24 plus 88 amendment rows for 2022-23 and
+  # 2021-22. Honour the requested year rather than returning the
+  # mixture.
+  if ("income_year" %in% names(df)) {
+    keep <- as.character(df$income_year) == year
+    if (any(keep) && !all(keep)) {
+      cli::cli_inform(c(
+        "i" = "Dropped {sum(!keep)} prior-year amendment row{?s} from the \\
+               {year} workbook."
+      ))
+      df <- df[keep, , drop = FALSE]
+    }
+  }
+
   if (entity_type != "all") {
     type_col <- ato_find_col(df, "entity")
     if (is.na(type_col)) {
