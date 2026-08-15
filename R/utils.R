@@ -71,6 +71,12 @@ ato_fetch_csv <- function(url, ...) {
 #' finding the first row that looks like a header (three or more
 #' non-empty string cells). This handles ATO workbooks that lead
 #' with a title or narrative block before the data table.
+#'
+#' Almost every ATO workbook opens with a "Notes" or "Information"
+#' sheet and puts the data on the second, so `sheet = 1` returned
+#' the front matter rather than the table. When the caller asks
+#' for sheet 1 and that sheet is front matter, the first data
+#' sheet is used instead. See [ato_front_matter_sheet()].
 #' @noRd
 ato_fetch_xlsx <- function(url, sheet = 1, skip = NULL) {
   if (!requireNamespace("readxl", quietly = TRUE)) {
@@ -79,6 +85,7 @@ ato_fetch_xlsx <- function(url, sheet = 1, skip = NULL) {
     ))
   }
   file <- ato_download_cached(url)
+  sheet <- ato_resolve_sheet(file, sheet)
   if (is.null(skip)) {
     skip <- ato_detect_header_row(file, sheet = sheet)
   }
@@ -90,6 +97,43 @@ ato_fetch_xlsx <- function(url, sheet = 1, skip = NULL) {
   )
   names(df) <- ato_clean_names(names(df))
   df
+}
+
+#' Sheet names that hold front matter rather than data
+#'
+#' ATO workbooks lead with a notes sheet under a handful of names:
+#' "Notes", "Information", "Cover", "Contents", "Index",
+#' "Explanatory notes", "Version control".
+#' @noRd
+ATO_FRONT_MATTER_SHEETS <- paste0(
+  "^\\s*(notes?|information|info|cover(\\s*page)?|contents|index|",
+  "explanatory(\\s*notes?)?|version\\s*control|about|disclaimer)\\s*$"
+)
+
+#' Is a sheet name front matter rather than data?
+#' @noRd
+ato_front_matter_sheet <- function(x) {
+  grepl(ATO_FRONT_MATTER_SHEETS, x, ignore.case = TRUE)
+}
+
+#' Pick the sheet to read
+#'
+#' Only intervenes when the caller asked for sheet 1 (the default
+#' across the package). Returns the index of the first sheet that
+#' is not front matter, or 1 if every sheet looks like front
+#' matter. Callers that name a sheet, or ask for any sheet other
+#' than the first, are left alone.
+#' @noRd
+ato_resolve_sheet <- function(file, sheet = 1) {
+  if (!is.numeric(sheet) || length(sheet) != 1L || !identical(as.integer(sheet), 1L)) {
+    return(sheet)
+  }
+  sheets <- tryCatch(readxl::excel_sheets(file), error = function(e) character(0))
+  if (length(sheets) < 2L) return(sheet)
+  if (!ato_front_matter_sheet(sheets[1L])) return(sheet)
+  data_sheets <- which(!ato_front_matter_sheet(sheets))
+  if (length(data_sheets) == 0L) return(sheet)
+  data_sheets[1L]
 }
 
 #' Auto-detect the first row of an XLSX sheet that looks like a
@@ -132,18 +176,42 @@ ato_detect_header_row <- function(file, sheet = 1, max_scan = 15L) {
 #'
 #' Uses ATO_COL_VARIANTS to handle cross-year column renames. Returns
 #' NA_character_ and emits a warning if no variant is found.
+#'
+#' ATO workbooks carry footnote markers in the header row, so
+#' `"State/ Territory1"` cleans to `state_territory1` and
+#' `"Taxable income or loss4"` to `taxable_income_or_loss4`. Each
+#' variant is therefore matched as `^variant[0-9]*$`: exact names
+#' win, then footnote-suffixed ones. Without this the filters in
+#' [ato_individuals_postcode()] and friends silently no-op and
+#' return unfiltered data.
 #' @noRd
 ato_find_col <- function(df, key) {
   variants <- ATO_COL_VARIANTS[[key]]
   if (is.null(variants)) return(NA_character_)
+
+  # Exact match first, in variant priority order.
   hit <- intersect(variants, names(df))
-  if (length(hit) == 0L) {
-    cli::cli_warn(
-      "Could not find {.val {key}} column. Tried: {.val {variants}}."
-    )
-    return(NA_character_)
+  if (length(hit) > 0L) return(hit[1L])
+
+  # Then the same variants with a trailing footnote digit:
+  # "State/ Territory1" -> state_territory1, "Broad industry2" ->
+  # broad_industry2.
+  for (v in variants) {
+    fuzzy <- grep(paste0("^", v, "[0-9]*$"), names(df), value = TRUE)
+    if (length(fuzzy) > 0L) return(fuzzy[1L])
   }
-  hit[1L]
+
+  # Finally the variant as a leading token, for names that qualify
+  # the role: "Occupation - unit group1" -> occupation_unit_group1.
+  for (v in variants) {
+    fuzzy <- grep(paste0("^", v, "_[a-z0-9_]*$"), names(df), value = TRUE)
+    if (length(fuzzy) > 0L) return(fuzzy[1L])
+  }
+
+  cli::cli_warn(
+    "Could not find {.val {key}} column. Tried: {.val {variants}}."
+  )
+  NA_character_
 }
 
 #' Warn if a resolved year is at or after the classification break

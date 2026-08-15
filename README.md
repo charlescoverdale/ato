@@ -18,7 +18,7 @@ The ATO's annual **Taxation Statistics** publication is free and available under
 
 ```r
 # Without this package
-api  <- "https://data.gov.au/data/api/3/action/package_show?id=taxation-statistics-2022-23"
+api  <- "https://data.gov.au/data/api/3/action/package_show?id=taxation-statistics-2023-24"
 resp <- jsonlite::fromJSON(api)
 res  <- resp$result$resources
 url  <- res$url[grep("postcode", res$name, ignore.case = TRUE)][1]
@@ -30,7 +30,7 @@ names(df) <- tolower(gsub("[^a-z0-9]+", "_", tolower(names(df))))
 
 # With this package
 library(ato)
-ato_individuals_postcode(year = "2022-23", state = "NSW")
+ato_individuals_postcode(year = "2023-24", state = "NSW")
 ```
 
 Resource URLs are resolved at runtime via `package_show`, so the package doesn't break when CKAN UUIDs rotate. Year is accepted in any sensible form (`"2022-23"`, `"2022/23"`, `2022`, `"latest"`). Column names are cleaned to snake_case. Data frames carry provenance (source URL, retrieval date, licence) in a lightweight `ato_tbl` S3 class.
@@ -65,8 +65,8 @@ library(ato)
 # All 42 ATO datasets on data.gov.au
 cat <- ato_catalog()
 
-# Individual tax returns by NSW postcode for 2022-23
-p <- ato_individuals_postcode(year = "2022-23", state = "NSW")
+# Individual tax returns by NSW postcode for 2023-24
+p <- ato_individuals_postcode(year = "2023-24", state = "NSW")
 head(p)
 
 # Corporate Tax Transparency (4,110 entities in 2023-24)
@@ -74,7 +74,7 @@ top <- ato_top_taxpayers(year = "2023-24")
 head(top)
 
 # Company tax by industry
-c <- ato_companies(year = "2022-23", industry = "mining")
+c <- ato_companies(year = "2023-24", industry = "mining")
 head(c)
 ```
 
@@ -102,7 +102,7 @@ head(c)
 ```r
 library(ato)
 
-p <- ato_individuals_postcode(year = "2022-23", state = "NSW")
+p <- ato_individuals_postcode(year = "2023-24", state = "NSW")
 
 # Top 10 postcodes by average taxable income
 cols <- c("postcode", "number_of_individuals", "taxable_income_average")
@@ -131,15 +131,15 @@ nrow(zero)
 
 ```r
 # All economists (any occupation with "economist" in the name)
-occ <- ato_individuals_occupation(year = "2022-23", occupation = "economist")
+occ <- ato_individuals_occupation(year = "2023-24", occupation = "economist")
 head(occ)
 ```
 
 ### Top-income shares (Atkinson-Leigh style)
 
 ```r
-# Build a simple top-1% share estimate from the Individuals snapshot
-ind <- ato_individuals(year = "2022-23", table = "snapshot")
+# Build a simple top-1% share estimate from Individuals Table 1
+ind <- ato_individuals(year = "2023-24")
 head(ind)
 # (Pair with ABS SIH or ALife microdata for a full top-incomes analysis.)
 ```

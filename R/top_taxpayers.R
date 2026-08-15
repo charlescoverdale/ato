@@ -99,16 +99,23 @@ ato_top_taxpayers <- function(year = "latest",
     )
   }
 
-  type_col <- ato_find_col(df, "entity")
-  if (entity_type != "all" && !is.na(type_col)) {
-    # CTT column values: "Australian public", "Australian private",
-    # "Foreign-owned". Match the substantive token only.
-    etype_pattern <- switch(entity_type,
-      public  = "public",
-      private = "private",
-      foreign = "foreign"
-    )
-    df <- df[grepl(etype_pattern, tolower(df[[type_col]])), , drop = FALSE]
+  if (entity_type != "all") {
+    type_col <- ato_find_col(df, "entity")
+    if (is.na(type_col)) {
+      cli::cli_warn(c(
+        "Cannot filter by entity type: no entity-type column in this release.",
+        "i" = "Returning all rows unfiltered."
+      ))
+    } else {
+      # CTT column values: "Australian public", "Australian private",
+      # "Foreign-owned". Match the substantive token only.
+      etype_pattern <- switch(entity_type,
+        public  = "public",
+        private = "private",
+        foreign = "foreign"
+      )
+      df <- df[grepl(etype_pattern, tolower(df[[type_col]])), , drop = FALSE]
+    }
   }
 
   ato_warn_suppression(df, context = "CTT entity cells")

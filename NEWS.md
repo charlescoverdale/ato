@@ -1,3 +1,112 @@
+# ato 0.1.1
+
+Bug-fix release. Version 0.1.0 could not reach the current ATO
+release, and several functions returned the wrong table without
+saying so. Everything below is a fix; no user-facing arguments
+changed except where noted.
+
+## Data currency
+
+* The ATO published Taxation Statistics 2023-24 in June 2026.
+  `year = "latest"` now resolves to it. Documentation that named
+  2022-23 as the newest release has been updated, and the
+  "latest" wording no longer hardcodes a year.
+
+## Resolution fixes
+
+* `ato_ckan_search()` joined the organisation filter and the
+  query terms with a `+`, which `URLencode(reserved = TRUE)`
+  escaped to `%2B`. Solr read that as a literal character, so
+  every filtered catalogue search returned zero results. This
+  broke `year = "latest"`, the default argument on 27 exported
+  functions, for every one of them. The terms are now joined
+  with a space.
+
+* `ato_fetch_xlsx()` read sheet 1 of each workbook. Nearly every
+  ATO workbook opens with a "Notes" or "Information" sheet and
+  puts the table on the second, so most functions returned front
+  matter rather than data. Front-matter sheets are now detected
+  by name and skipped. `ato_individuals()` returns 846 rows
+  instead of 17; `ato_individuals_occupation()` 3,771 instead of
+  16; `ato_tax_gaps()` 1,187 instead of 16.
+
+* `ato_ckan_resolve()` returned the first resource matching a
+  single regex, in package order. The Snapshot workbooks sit at
+  positions 2 to 8 of a Taxation Statistics package and their
+  filenames contain "postcode" and "occupation", so they shadowed
+  the detailed Individuals tables at positions 20 to 47. It now
+  accepts a priority vector of patterns plus an `exclude` regex.
+  Affected functions and the tables they were returning:
+
+  | Function | Was | Now |
+  |---|---|---|
+  | `ato_individuals()` | Snapshot 1 (historical tax rates) | Individuals 1 |
+  | `ato_individuals_postcode()` | Snapshot 7 (49 rows) | Individuals 6 (5,254 rows) |
+  | `ato_individuals_occupation()` | Snapshot 7 | Individuals 14 |
+  | `ato_individuals_sex()` | Individuals 2 (matched "...method**sex**...") | Individuals 3 |
+  | `ato_individuals_state()` | Snapshot 7 | Individuals 4 |
+  | `ato_medicare_levy()` | Individuals 1 (no Medicare columns) | Individuals 3 |
+
+## Column matching
+
+* `ato_find_col()` matched column names exactly, so ATO footnote
+  markers defeated it: the postcode table's state column is
+  `state_territory1`, not `state_territory`. Filters therefore
+  did nothing and returned unfiltered data with only a warning.
+  Matching now also accepts a trailing footnote digit
+  (`broad_industry2`) and the variant as a leading token
+  (`occupation_unit_group1`). `ato_individuals_postcode(state =
+  "NSW")` returns 1,250 rows rather than all 5,254.
+
+* Column lookups now happen only when a filter is actually
+  requested, and a requested filter that cannot be applied warns
+  that the data is being returned unfiltered rather than
+  reporting a missing column and continuing quietly.
+
+## Datasets that moved
+
+* `ato_fbt()`, `ato_payg()` and `ato_charities()` searched for
+  standalone packages that have never existed on data.gov.au.
+  All three are table families inside Taxation Statistics and
+  now resolve there.
+
+* `ato_fuel_tax_credits(by = "industry")` looked in the Excise
+  Data package, which has never carried the industry table. It
+  now reads Excise Table 4 of Taxation Statistics. `by = "fuel"`
+  and `by = "period"` read the historical FTC rate schedule from
+  Excise Data.
+
+* `ato_vttc()` looked for a resource named after the year. The
+  ATO has replaced the per-year workbooks with a single dated
+  notifications register covering all signatories and years,
+  which is now returned, with a message when a requested year
+  cannot be honoured.
+
+## Functions that never had a data source
+
+These aborted or returned an unrelated table. They now abort
+with an accurate explanation and a pointer to the real source,
+and are candidates for removal in a later release.
+
+* `ato_whm()`: no Working Holiday Maker resource exists in any
+  ATO package on data.gov.au, current or archived.
+* `ato_division293()`: Division 293 is not published as a
+  labelled series. 0.1.0 fell back to Individuals Table 3 and
+  titled the result "ATO Division 293".
+* `ato_compliance()`: the ATO annual report is a PDF on
+  ato.gov.au, not open data.
+
+## Tests
+
+* Added `test-resolution.R`. Most of it is offline: query
+  encoding, resource-resolution priority and exclusion against a
+  mocked package, and column matching. One live test asserts
+  that `year = "latest"` resolves to a well-formed, current
+  release slug. It is deliberately not behind `ATO_LIVE_TESTS`,
+  because every existing live test pinned an explicit year and
+  sat behind that opt-in gate, which is why none of them noticed
+  that the default argument was broken.
+
 # ato 0.1.0
 
 Initial CRAN submission. First public release. Provides R
