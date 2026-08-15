@@ -96,6 +96,26 @@ and are candidates for removal in a later release.
 * `ato_compliance()`: the ATO annual report is a PDF on
   ato.gov.au, not open data.
 
+## Back catalogue
+
+* The front-matter sheet test matched the whole sheet name, so it
+  caught "Notes" (28 workbooks) but not "Title & notes" (6) or
+  "Individuals Tax Title & Notes" (2). Every release up to 2015-16
+  was therefore still parsing its title page instead of the data.
+  Now matched as whole words anywhere in the name, which leaves
+  genuine data sheets alone (the pre-2010 GST workbooks open on a
+  sheet named for the income year, e.g. "2000-01").
+  `ato_individuals_postcode(year = "2011-12")` returns 5,067 rows
+  instead of 14.
+
+* `ato_super_funds()` matched `fund0[1-4]` only. Releases up to
+  2012-13 used a single unpadded digit
+  (`taxstats2012fund1apraselecteditemsbyyear.xls`), so those two
+  years errored. Both now return ~200 rows.
+
+* Net effect: all six core series now resolve across every release
+  from 2011-12 to 2023-24, verified year by year.
+
 ## Corporate Tax Transparency
 
 * `ato_top_taxpayers()` ignored its `year` argument when reading

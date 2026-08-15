@@ -101,13 +101,21 @@ ato_fetch_xlsx <- function(url, sheet = 1, skip = NULL) {
 
 #' Sheet names that hold front matter rather than data
 #'
-#' ATO workbooks lead with a notes sheet under a handful of names:
-#' "Notes", "Information", "Cover", "Contents", "Index",
-#' "Explanatory notes", "Version control".
+#' Matched as whole words anywhere in the sheet name, not as the
+#' entire name. Across the releases on data.gov.au the leading
+#' sheet is called "Notes" (28 workbooks), "Title & notes" (6) or
+#' "Individuals Tax Title & Notes" (2); an exact-match rule caught
+#' only the first of those and left the older releases reading
+#' their title page as data.
+#'
+#' The word-boundary form still leaves genuine data sheets alone:
+#' the pre-2010 GST workbooks open on a sheet named for the income
+#' year ("2000-01"), and the R&D workbook's second sheet is
+#' "2022-23 Report".
 #' @noRd
 ATO_FRONT_MATTER_SHEETS <- paste0(
-  "^\\s*(notes?|information|info|cover(\\s*page)?|contents|index|",
-  "explanatory(\\s*notes?)?|version\\s*control|about|disclaimer)\\s*$"
+  "\\b(notes?|title|information|info|cover|contents|index|",
+  "explanatory|version\\s*control|about|disclaimer)\\b"
 )
 
 #' Is a sheet name front matter rather than data?

@@ -6,15 +6,15 @@ An R package for accessing statistical data published by the [Australian Taxatio
 
 ## What is the ATO?
 
-The Australian Taxation Office is the Commonwealth agency responsible for collecting federal taxes. In 2023-24 it collected **AUD 611 billion in net tax** (ATO Annual Report 2023-24), equivalent to around 87% of total Commonwealth receipts. It administers personal income tax, company tax, GST, fringe benefits tax, fuel tax credits, the Research and Development Tax Incentive, the Super Guarantee compliance regime, self-managed superannuation funds (SMSFs), and the Corporate Tax Transparency regime. Superannuation policy sits with Treasury; prudential regulation of APRA-regulated super funds is APRA's domain; conduct and disclosure are ASIC's.
+The Australian Taxation Office is the Commonwealth agency responsible for collecting federal taxes. In 2023-24 it collected **AUD 610.6 billion in net tax** from AUD 769.7 billion gross (Commissioner of Taxation annual report 2023-24), equivalent to around 87% of the AUD 704.5 billion total Commonwealth revenue reported in the Final Budget Outcome. It administers personal income tax, company tax, GST, fringe benefits tax, fuel tax credits, the Research and Development Tax Incentive, the Super Guarantee compliance regime, self-managed superannuation funds (SMSFs), and the Corporate Tax Transparency regime. Superannuation policy sits with Treasury; prudential regulation of APRA-regulated super funds is APRA's domain; conduct and disclosure are ASIC's.
 
-The ATO's flagship public data release is **Taxation Statistics**: an annual XLSX-heavy publication covering roughly 14 million individual tax returns, 1 million company returns, and all APRA-regulated and self-managed superannuation funds. Each release ships 90-plus tables across Individuals, Companies, Partnerships, Trusts, Super, GST, FBT, CGT, Excise, and Activity Statement Ratios, plus a separate Corporate Tax Transparency release and a multi-year postcode series. Beyond Taxation Statistics, the 43 ATO datasets on data.gov.au include Tax Gaps estimates, Small Business Benchmarks, International Related Party Dealings (IRPD), R&D Tax Incentive claimants, HELP repayments, and the foreign-ownership register.
+The ATO's flagship public data release is **Taxation Statistics**: an annual XLSX-heavy publication covering 16.6 million individual tax returns, 1.3 million company returns, and all APRA-regulated and self-managed superannuation funds (2023-24 entity counts). Each release ships 90-plus tables across Individuals, Companies, Partnerships, Trusts, Super, GST, FBT, CGT, Excise, and Activity Statement Ratios, plus a separate Corporate Tax Transparency release and a multi-year postcode series. Beyond Taxation Statistics, the 43 ATO datasets on data.gov.au include Tax Gaps estimates, Small Business Benchmarks, International Related Party Dealings (IRPD), R&D Tax Incentive claimants, HELP repayments, and the foreign-ownership register.
 
 Taxation Statistics underlies much of the public income-distribution and top-incomes literature in Australia. Atkinson and Leigh (2007) used the ATO aggregates to reconstruct century-long top-income shares; the Burkhauser-Hahn-Wilkins and Wilkins series followed. Work from the Grattan Institute, e61 Institute, the ANU Tax and Transfer Policy Institute, and the Australia Institute routinely draws on these tables, and the **Corporate Tax Transparency** release drives an October-November news cycle every year as journalists tally which large entities paid zero tax. Where longitudinal microdata is needed, researchers apply for access to **ALife** (the ATO Longitudinal Information Files) through the ATO's DataLab; the Parliamentary Budget Office accesses richer microdata through separate arrangements.
 
 ## Why does this package exist?
 
-The ATO's annual **Taxation Statistics** publication is free and available under Creative Commons, but getting it into R has always been tedious. The ATO's own statistics site at ato.gov.au renders via JavaScript and blocks bulk crawlers. The canonical machine interface is the data.gov.au CKAN mirror, but CKAN resource UUIDs change on every annual release, column names drift from year to year, table numbers shift (occupation data has been Table 13, 14, and 15 in different years), and the historical series from 1994-95 to 2008-09 is a ZIP bundle of legacy `.xls` files.
+The ATO's annual **Taxation Statistics** publication is free and available under Creative Commons, but getting it into R has always been tedious. The ATO's own statistics site at ato.gov.au renders via JavaScript and blocks bulk crawlers. The canonical machine interface is the data.gov.au CKAN mirror, but CKAN resource UUIDs change on every annual release, column names drift from year to year, table numbers shift (occupation data was Individuals Table 13 up to 2012-13 and Tables 14 and 15 from 2013-14), and the historical series from 1994-95 to 2008-09 is a separate package of 36 mixed ZIP, `.xls` and PDF resources rather than per-table workbooks.
 
 ```r
 # Without this package
@@ -95,10 +95,16 @@ head(c)
 
 Coverage starts at 2011-12 because that is the earliest Taxation
 Statistics release on data.gov.au that ships individual tables as
-separate resources. The 2009-10 and 2010-11 packages hold only a
-PDF, an index and a ZIP, and 1994-95 to 2008-09 lives in one
-legacy bundle (`taxation-statstics-1994-95-to-2008-09`) of `.xls`
-files. Reach those with `ato_download()` directly.
+separate resources: it has 101, where 2009-10 and 2010-11 have
+three apiece (a PDF, an index and a ZIP). Earlier years live in
+`taxation-statstics-1994-95-to-2008-09`. Reach either with
+`ato_download()` directly.
+
+One caveat on the back catalogue: `ato_individuals_occupation()`
+resolves correctly for 2011-12 and 2012-13 but those releases
+publish a coarser occupation table (about 100 rows, against 3,000
+or more from 2013-14 onwards). That is the ATO's own change of
+granularity, not a parsing artefact.
 | `ato_cache_info()` | Inspect the local cache | - |
 | `ato_clear_cache()` | Clear locally cached files | - |
 
@@ -171,7 +177,7 @@ ts[order(-as.numeric(substr(ts$id, 21, 24))), c("id", "n_resources", "modified")
 
 ## Data source and licence
 
-Data is published by the ATO at <https://www.ato.gov.au/about-ato/research-and-statistics/> and mirrored at <https://data.gov.au/data/organization/australiantaxationoffice>. Most datasets are licensed under **Creative Commons Attribution 2.5 Australia**; the Corporate Tax Transparency release and the Voluntary Tax Transparency Code are **CC BY 3.0 Australia**. This package caches downloads to `tools::R_user_dir("ato", "cache")`.
+Data is published by the ATO at <https://www.ato.gov.au/about-ato/research-and-statistics/> and mirrored at <https://data.gov.au/data/organization/australiantaxationoffice>. Of the 43 ATO packages, 31 are licensed **Creative Commons Attribution 2.5 Australia** and 12 are **CC BY 3.0 Australia**, the latter including the Corporate Tax Transparency release and the Voluntary Tax Transparency Code. This package caches downloads to `tools::R_user_dir("ato", "cache")`.
 
 The mixed licence is preserved on each returned `ato_tbl`: the `ato_licence` attribute (inspectable via `print()`) reports CC BY 2.5 AU or 3.0 AU per table.
 
