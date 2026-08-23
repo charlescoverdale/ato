@@ -53,7 +53,7 @@ try(ato_individuals(year = "2022-23"))
 #> # ato_tbl: ATO individuals snapshot 2022-23
 #> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/f4a2a02f-92ca-49b4-bf4f-990e2226b687/download/ts23individual01byyear.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-08-15 19:07 UTC 
+#> # Retrieved: 2026-08-23 17:36 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  043e3fb9d7abd41e...
 #> # Rows: 844  Cols: 47
@@ -8516,7 +8516,7 @@ ato_manifest()
 #>                                                             sha256 size_bytes
 #> 1 043e3fb9d7abd41ebb41ae6b006fbcda51ad95c7dd0287b5484eaea1f2de5658     396061
 #>                  retrieved snapshot_date r_version ato_version
-#> 1 2026-08-15T19:07:04+0000    2026-04-24     4.6.1       0.1.1
+#> 1 2026-08-23T17:36:14+0000    2026-04-24     4.6.1       0.1.1
 options(op)
 # }
 ```

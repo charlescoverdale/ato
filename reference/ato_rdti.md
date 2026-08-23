@@ -79,7 +79,7 @@ try({
 #> # ato_tbl: ATO R&D Tax Incentive 2022-23
 #> # Source:   https://data.gov.au/data/dataset/7c356598-b048-4c1e-862f-c936041e3d81/resource/e9c059c8-a801-4068-844e-9d4ee84a1d81/download/report-of-information-about-research-and-development-tax-incentive-entities.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-08-15 19:07 UTC 
+#> # Retrieved: 2026-08-23 17:36 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  a2a05ddfacba0840...
 #> # Rows: 6  Cols: 5

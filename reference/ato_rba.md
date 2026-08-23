@@ -51,12 +51,12 @@ Other specialist:
 op <- options(ato.cache_dir = tempdir())
 try(ato_rba(series = "receipts"))
 #> ℹ Downloading <https://www.rba.gov.au/statistics/tables/xls/h01hist.xlsx>
-#> ✔ Downloading <https://www.rba.gov.au/statistics/tables/xls/h01hist.xlsx> [1.5s]
+#> ✔ Downloading <https://www.rba.gov.au/statistics/tables/xls/h01hist.xlsx> [1s]
 #> 
 #> # ato_tbl: RBA Commonwealth receipts
 #> # Source:   https://www.rba.gov.au/statistics/tables/xls/h01hist.xlsx
 #> # Licence:  RBA terms
-#> # Retrieved: 2026-08-15 19:07 UTC 
+#> # Retrieved: 2026-08-23 17:36 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  5ad6184c2cd719ee...
 #> # Rows: 279  Cols: 12

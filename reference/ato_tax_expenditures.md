@@ -63,6 +63,7 @@ Other specialist:
 # \donttest{
 op <- options(ato.cache_dir = tempdir())
 try(head(ato_tax_expenditures("latest")))
+#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
 #> Error in ato_tax_expenditures("latest") : 
 #>   TEIS not found on data.gov.au.
 #> ℹ Fetch manually from <https://treasury.gov.au/publication/p2025-721342>

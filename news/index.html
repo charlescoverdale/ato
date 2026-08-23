@@ -109,6 +109,10 @@
 <code><a href="../reference/ato_top_taxpayers.html">ato_top_taxpayers()</a></code> ignored its <code>year</code> argument when reading the workbook. Each CTT release carries late amendments for earlier income years alongside the headline year, so the 2023-24 request returned 4,198 rows spanning 2023-24, 2022-23 and 2021-22. It now filters on <code>income_year</code> and returns the 4,110 rows the ATO published for 2023-24, reporting how many amendment rows were dropped.</li>
 </ul></div>
 <div class="section level3">
+<h3 id="description-0-1-1">DESCRIPTION<a class="anchor" aria-label="anchor" href="#description-0-1-1"></a></h3>
+<ul><li>The package Description advertised Division 293, compliance, and Working Holiday Maker aggregates. Those are exactly the three series with no data source behind them, and they now abort. Removed from the Description, which had been promising data the package cannot supply.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="metadata-and-links-0-1-1">Metadata and links<a class="anchor" aria-label="anchor" href="#metadata-and-links-0-1-1"></a></h3>
 <ul><li><p><code>Language</code> in DESCRIPTION was <code>en-US</code> while the prose is British English throughout. Set to <code>en-GB</code>, which clears 53 spurious spell-check hits (behaviour, catalogue, harmonisation, licence, modelling, organisation and similar). <code>inst/WORDLIST</code> refreshed against the remaining acronyms, surnames and package names; <code>spelling::spell_check_package()</code> is now clean.</p></li>
 <li><p><code><a href="../reference/ato_international.html">ato_international()</a></code> cited <code>oecd.org/tax/tax-policy/revenue-statistics.htm</code>, which OECD has since deleted (HTTP 410). Repointed at Revenue Statistics 2025. The 410 was invisible to automated URL checking because oecd.org returns 403 to every request from a non-browser client, valid path or not.</p></li>
