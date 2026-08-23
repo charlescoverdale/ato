@@ -10,9 +10,9 @@ Description: Fetch Australian Taxation Office (ATO) Taxation
     individual, company, superannuation, goods and services tax
     (GST), fringe benefits tax (FBT), Voluntary Tax Transparency
     Code (VTTC), Pay As You Go (PAYG) withholding, charity,
-    excise, and Corporate Tax Transparency data, plus Division 293,
-    Petroleum Resource Rent Tax, Medicare Levy Surcharge, fuel tax
-    credits, compliance, and Working Holiday Maker aggregates.
+    excise, and Corporate Tax Transparency data, plus Petroleum
+    Resource Rent Tax, Medicare Levy Surcharge, and fuel tax
+    credit aggregates.
     Includes reproducibility helpers (snapshot pinning, SHA-256
     cache integrity, session manifest, optional 'Zenodo' deposit),
     classification crosswalks (ANZSIC 2006 to 2020, ANZSCO 2013

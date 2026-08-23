@@ -56,6 +56,10 @@ year.
   unrelated Individuals table and labelled the result as the requested
   series. All three are candidates for removal in a later release.
 
+  The package Description advertised all three. Since they cannot return
+  data, that text has been removed: the DESCRIPTION was promising
+  datasets the package has never been able to supply.
+
 * `ato_top_taxpayers()` now honours its `year` argument. Corporate Tax
   Transparency releases carry late amendments for earlier income years,
   so a 2023-24 request previously returned 4,198 rows spanning three

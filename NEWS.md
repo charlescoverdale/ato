@@ -126,6 +126,13 @@ and are candidates for removal in a later release.
   4,110 rows the ATO published for 2023-24, reporting how many
   amendment rows were dropped.
 
+## DESCRIPTION
+
+* The package Description advertised Division 293, compliance, and
+  Working Holiday Maker aggregates. Those are exactly the three series
+  with no data source behind them, and they now abort. Removed from the
+  Description, which had been promising data the package cannot supply.
+
 ## Metadata and links
 
 * `Language` in DESCRIPTION was `en-US` while the prose is British
