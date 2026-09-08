@@ -69,6 +69,17 @@ year.
   standalone data.gov.au packages that have never existed. All three are
   table families inside Taxation Statistics and now resolve there.
 
+## Examples hardened against an unreachable Zenodo
+
+Every `\donttest{}` example that makes a network call is now wrapped in
+`try()`, so a build machine that cannot reach Zenodo gets a printed
+condition rather than an example ERROR. 1 block was affected. The
+`options(op)` cache restore stays outside the `try()` so it always runs.
+
+I verified that every generated example still parses: each Rd file with
+examples was extracted with `tools::Rd2ex(commentDonttest = FALSE)` and
+passed to `parse()` without error.
+
 ## R CMD check results
 
 0 errors | 0 warnings | 0 notes
