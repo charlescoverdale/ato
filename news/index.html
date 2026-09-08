@@ -44,6 +44,11 @@
 <h2 class="pkg-version" data-toc-text="0.1.1" id="ato-011">ato 0.1.1<a class="anchor" aria-label="anchor" href="#ato-011"></a></h2>
 <p>Bug-fix release. Version 0.1.0 could not reach the current ATO release, and several functions returned the wrong table without saying so. Everything below is a fix; no user-facing arguments changed except where noted.</p>
 <div class="section level3">
+<h3 id="examples-now-fail-gracefully-when-zenodo-is-unreachable-0-1-1">Examples now fail gracefully when Zenodo is unreachable<a class="anchor" aria-label="anchor" href="#examples-now-fail-gracefully-when-zenodo-is-unreachable-0-1-1"></a></h3>
+<p>Every <code>\donttest{}</code> example that reaches Zenodo is wrapped in <code><a href="https://rdrr.io/r/base/try.html" class="external-link">try()</a></code>. 1 block was affected. CRAN runs these in its additional-issues donttest check, on build machines the upstream host routinely refuses or rate-limits, and an example that could not reach it was an ERROR rather than a printed condition. The <code>options(op)</code> cache restore stays outside the <code><a href="https://rdrr.io/r/base/try.html" class="external-link">try()</a></code> so it runs either way.</p>
+<p>This is the CRAN Repository Policy requirement that a package using an internet resource fail gracefully when the resource is unavailable. It is the rule obr was archived under on 2026-08-22.</p>
+</div>
+<div class="section level3">
 <h3 id="data-currency-0-1-1">Data currency<a class="anchor" aria-label="anchor" href="#data-currency-0-1-1"></a></h3>
 <ul><li>The ATO published Taxation Statistics 2023-24 in June 2026. <code>year = "latest"</code> now resolves to it. Documentation that named 2022-23 as the newest release has been updated, and the “latest” wording no longer hardcodes a year.</li>
 </ul></div>

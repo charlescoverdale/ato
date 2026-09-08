@@ -68,14 +68,12 @@ Other specialist:
 # \donttest{
 op <- options(ato.cache_dir = tempdir())
 try(ato_medicare_levy(year = "2022-23", component = "surcharge"))
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■                 
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
 #> ℹ surcharge columns in this table: "medicare_levy_surcharge_no" and
 #>   "medicare_levy_surcharge".
 #> # ato_tbl: ATO Medicare surcharge 2022-23
 #> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/a7f8226a-af03-431a-80f3-cdca85a9d63e/download/ts23individual03sextaxablestatusagerangetaxableincomerange.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-08-23 17:36 UTC 
+#> # Retrieved: 2026-09-08 07:13 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  ad75d24e07f2aad7...
 #> # Rows: 1,322  Cols: 169

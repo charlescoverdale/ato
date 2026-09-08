@@ -86,14 +86,16 @@ Other reproducibility:
 
 ``` r
 # \donttest{
-ato_snapshot("2026-04-24")
-ato_deposit_zenodo(
+try({
+  ato_snapshot("2026-04-24")
+  ato_deposit_zenodo(
   title = "ATO data snapshot for working paper v1",
   creators = list(list(name = "Coverdale, Charles")),
   upload = FALSE
-)
+  )
+})
 #> ✔ Dry run: payload built, manifest staged at
-#>   /tmp/RtmpWNu6dG/ato_manifest_20260823_173542.csv.
+#>   /tmp/Rtmp5DJNWv/ato_manifest_20260908_071309.csv.
 #> ℹ Call with `upload = TRUE` to deposit to Zenodo.
 # }
 ```

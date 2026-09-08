@@ -61,8 +61,8 @@ try({
   vttc <- ato_vttc(year = "2022-23")
   head(vttc)
 })
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■                 
 #> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
+#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■                 
 #> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
 #> ℹ VTTC is published as a single all-years register, not per-year files.
 #> ℹ Returning the full register; filter it yourself if you need one year.
@@ -73,10 +73,10 @@ try({
 #> ✔ Downloading <https://data.gov.au/data/dataset/f71709a8-2eeb-4592-ad1f-443f7f5…
 #> 
 #> # ato_tbl: ATO VTTC disclosures (all years)
-#> # Source:   https://data.gov.au/data/dataset/f71709a8-2eeb-4592-ad1f-443f7f520186/resource/e44e9729-30f5-4764-848e-f060f5099277/download/20260731_ttc_notifications.xlsx
+#> # Source:   https://data.gov.au/data/dataset/f71709a8-2eeb-4592-ad1f-443f7f520186/resource/e44e9729-30f5-4764-848e-f060f5099277/download/20260831_ttc_notifications.xlsx
 #> # Licence:  CC BY 3.0 AU
-#> # Retrieved: 2026-08-23 17:37 UTC 
-#> # SHA-256:  f3841f6c0c379e94...
+#> # Retrieved: 2026-09-08 07:14 UTC 
+#> # SHA-256:  fa865360500c1355...
 #> # Rows: 6  Cols: 9
 #> 
 #>                   signatory_name         abn business_size

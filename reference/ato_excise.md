@@ -78,7 +78,7 @@ try({
 #> # ato_tbl: ATO Excise data (excise_rates)
 #> # Source:   https://data.gov.au/data/dataset/0aa77454-d0f6-4499-b0a4-88dbdeee95d1/resource/b9227cdf-4c04-492d-bd84-65031adc408e/download/historical-excise-rates-3-aug-2026.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-08-23 17:35 UTC 
+#> # Retrieved: 2026-09-08 07:13 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  ee9604bbb5e7a286...
 #> # Rows: 6  Cols: 94

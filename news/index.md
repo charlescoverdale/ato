@@ -7,6 +7,20 @@ and several functions returned the wrong table without saying so.
 Everything below is a fix; no user-facing arguments changed except where
 noted.
 
+### Examples now fail gracefully when Zenodo is unreachable
+
+Every `\donttest{}` example that reaches Zenodo is wrapped in
+[`try()`](https://rdrr.io/r/base/try.html). 1 block was affected. CRAN
+runs these in its additional-issues donttest check, on build machines
+the upstream host routinely refuses or rate-limits, and an example that
+could not reach it was an ERROR rather than a printed condition. The
+`options(op)` cache restore stays outside the
+[`try()`](https://rdrr.io/r/base/try.html) so it runs either way.
+
+This is the CRAN Repository Policy requirement that a package using an
+internet resource fail gracefully when the resource is unavailable. It
+is the rule obr was archived under on 2026-08-22.
+
 ### Data currency
 
 - The ATO published Taxation Statistics 2023-24 in June 2026.

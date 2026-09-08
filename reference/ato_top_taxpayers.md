@@ -104,13 +104,12 @@ try({
   prrt <- ato_top_taxpayers(year = "2023-24", sheet = "prrt")
   head(prrt)
 })
-#> ℹ Dropped 88 prior-year amendment rows from the 2023-24 workbook.
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■                 
 #> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
+#> ℹ Dropped 88 prior-year amendment rows from the 2023-24 workbook.
 #> # ato_tbl: ATO Corporate Tax Transparency 2023-24 (prrt)
 #> # Source:   https://data.gov.au/data/dataset/c2524c87-cea4-4636-acac-599a82048a26/resource/491b366b-aa6f-4b1c-b39d-cebaeeb6f874/download/2023-24-corporate-report-of-entity-tax-information.xlsx
 #> # Licence:  CC BY 3.0 AU
-#> # Retrieved: 2026-08-23 17:36 UTC 
+#> # Retrieved: 2026-09-08 07:14 UTC 
 #> # SHA-256:  6b47837efab92e1e...
 #> # Rows: 6  Cols: 3
 #> 

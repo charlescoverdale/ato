@@ -71,7 +71,7 @@ try({
 #> # ato_tbl: ATO individuals snapshot 2022-23
 #> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/f4a2a02f-92ca-49b4-bf4f-990e2226b687/download/ts23individual01byyear.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-08-23 17:35 UTC 
+#> # Retrieved: 2026-09-08 07:13 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  043e3fb9d7abd41e...
 #> # Rows: 6  Cols: 47

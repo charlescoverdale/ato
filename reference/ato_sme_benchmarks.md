@@ -55,15 +55,13 @@ try({
   bm <- ato_sme_benchmarks(year = "2023-24")
   head(bm)
 })
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■                 
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
 #> ℹ Downloading <https://data.gov.au/data/dataset/591b444b-be7f-4121-8252-119a9fe…
 #> ✔ Downloading <https://data.gov.au/data/dataset/591b444b-be7f-4121-8252-119a9fe…
 #> 
 #> # ato_tbl: ATO Small Business Benchmarks 2023-24
 #> # Source:   https://data.gov.au/data/dataset/591b444b-be7f-4121-8252-119a9fe07c19/resource/db3ab8b7-e029-48de-8e7a-c61532e25496/download/small-business-benchmarks-2023-24-data.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-08-23 17:36 UTC 
+#> # Retrieved: 2026-09-08 07:14 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  84925348cc6abfdb...
 #> # Rows: 6  Cols: 16

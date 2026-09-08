@@ -57,8 +57,6 @@ try({
   tbl <- ato_individuals(year = "2022-23")
   ato_meta(tbl)
 })
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■                 
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
 #> $id
 #> [1] "taxation-statistics-2022-23"
 #> 
