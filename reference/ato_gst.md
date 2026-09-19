@@ -61,7 +61,7 @@ try({
 #> # ato_tbl: ATO GST 2022-23 (industry)
 #> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/678e9689-38b9-49ae-b149-58378e5bf8f1/download/ts23gst04byindustry.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-09-08 07:13 UTC 
+#> # Retrieved: 2026-09-19 10:26 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  b0f9b0f583c3d03e...
 #> # Rows: 6  Cols: 7

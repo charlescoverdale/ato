@@ -68,7 +68,7 @@ try(ato_international(country = "AUS"))
 #> # ato_tbl: OECD tax-to-GDP AUS latest
 #> # Source:   https://www.oecd.org/en/publications/revenue-statistics-2025_3a264267-en.html
 #> # Licence:  OECD terms
-#> # Retrieved: 2026-09-08 07:13 UTC 
+#> # Retrieved: 2026-09-19 10:26 UTC 
 #> # Snapshot: 2026-04-24
 #> # Rows: 3  Cols: 4
 #> 

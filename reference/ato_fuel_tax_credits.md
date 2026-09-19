@@ -81,7 +81,7 @@ try(head(ato_fuel_tax_credits(year = "latest", by = "industry")))
 #> # ato_tbl: ATO fuel tax credits latest (industry)
 #> # Source:   https://data.gov.au/data/dataset/faea4485-f407-457d-97f8-3f0822ccd654/resource/c12e48ca-4b65-499c-8455-a3ced570e800/download/ts24excise04ftcbyindustryyear.xlsx
 #> # Licence:  CC BY 3.0 AU
-#> # Retrieved: 2026-09-08 07:13 UTC 
+#> # Retrieved: 2026-09-19 10:26 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  70fd11f4cb4bdf94...
 #> # Rows: 6  Cols: 6

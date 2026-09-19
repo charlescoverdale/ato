@@ -54,17 +54,13 @@ try({
   s <- ato_super_funds(year = "2022-23", type = "apra")
   head(s)
 })
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■                 
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
-#> ℹ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
-#> Waiting 2s for throttling delay ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  
 #> ℹ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
 #> ✔ Downloading <https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a…
 #> 
 #> # ato_tbl: ATO super funds 2022-23 (apra)
 #> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/a286ac7c-9adb-444b-9bb1-ef2814552f21/download/ts23fund01aprasbyyear.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-09-08 07:14 UTC 
+#> # Retrieved: 2026-09-19 10:27 UTC 
 #> # SHA-256:  747be0b20c119aba...
 #> # Rows: 6  Cols: 36
 #> 

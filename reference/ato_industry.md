@@ -53,7 +53,7 @@ try({
 #> # ato_tbl: ATO industry 2022-23 (company)
 #> # Source:   https://data.gov.au/data/organization/australiantaxationoffice
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-09-08 07:13 UTC 
+#> # Retrieved: 2026-09-19 10:26 UTC 
 #> # Snapshot: 2026-04-24
 #> # Rows: 6  Cols: 252
 #> 

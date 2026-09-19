@@ -59,7 +59,7 @@ try(ato_prrt(year = "2022-23"))
 #> # ato_tbl: ATO PRRT 2022-23
 #> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/0986a5c1-dd83-46a6-b665-31b82f854a89/download/ts23gst05prrtbyyear.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-09-08 07:13 UTC 
+#> # Retrieved: 2026-09-19 10:27 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  94889ad05c9238cb...
 #> # Rows: 24  Cols: 36

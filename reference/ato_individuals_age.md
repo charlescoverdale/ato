@@ -57,7 +57,7 @@ try(ato_individuals_age(year = "2022-23", sex = "female"))
 #> # ato_tbl: ATO individuals by age 2022-23
 #> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/a5730d59-1bee-4b74-a8d1-85602230f4e9/download/ts23individual02lodgmentmethodsextaxablestatusstateageyear.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-09-08 07:13 UTC 
+#> # Retrieved: 2026-09-19 10:26 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  38a37cdf675961da...
 #> # Rows: 468  Cols: 169

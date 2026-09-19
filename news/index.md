@@ -2,6 +2,8 @@
 
 ## ato 0.1.1
 
+CRAN release: 2026-09-08
+
 Bug-fix release. Version 0.1.0 could not reach the current ATO release,
 and several functions returned the wrong table without saying so.
 Everything below is a fix; no user-facing arguments changed except where

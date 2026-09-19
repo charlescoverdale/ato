@@ -95,7 +95,7 @@ try({
   )
 })
 #> ✔ Dry run: payload built, manifest staged at
-#>   /tmp/Rtmp5DJNWv/ato_manifest_20260908_071309.csv.
+#>   /tmp/RtmpzSxoHo/ato_manifest_20260919_102603.csv.
 #> ℹ Call with `upload = TRUE` to deposit to Zenodo.
 # }
 ```

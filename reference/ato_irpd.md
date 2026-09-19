@@ -88,7 +88,7 @@ try({
 #> # ato_tbl: ATO IRPD 2023-24 (Table 2)
 #> # Source:   https://data.gov.au/data/dataset/cee66e72-94aa-436a-b4ed-b186204a443a/resource/cd82e606-3131-49d3-962e-5d18ad83f748/download/table_2_irpds_by_jurisdiction_2017-2024.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-09-08 07:13 UTC 
+#> # Retrieved: 2026-09-19 10:26 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  b41894d320ec379c...
 #> # Rows: 6  Cols: 6
