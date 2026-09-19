@@ -1,0 +1,1664 @@
+# ato: full API reference
+
+> Fetch Australian Taxation Office (ATO) Taxation Statistics and related datasets via the data.
+
+- Version: 0.1.1
+- Install: `install.packages("ato")`
+- CRAN: https://CRAN.R-project.org/package=ato
+- GitHub: https://github.com/charlescoverdale/ato
+- Reference site: https://charlescoverdale.github.io/ato/
+
+This file is a self-contained reference for LLM agents: every exported
+function with its signature, arguments, return value, and example.
+
+---
+
+## `ato_cache_info()`
+
+**Inspect the local ato cache**
+
+Inspect the local ato cache
+
+**Usage**
+
+```r
+ato_cache_info()
+```
+
+**Returns**
+
+A list with `dir`, `n_files`, `size_bytes`, `size_human`, and `files`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+ato_cache_info()
+options(op)
+```
+
+---
+
+## `ato_catalog()`
+
+**ATO dataset catalogue**
+
+Returns a summary of all datasets published by the Australian Taxation Office on data.gov.au. Each row is a CKAN "package" with an id (slug), title, licence, modification date, and resource count.
+
+**Usage**
+
+```r
+ato_catalog(q = NULL)
+```
+
+**Arguments**
+
+- `q`: Optional free-text filter (CKAN Solr query). `NULL` returns the full ATO catalogue.
+
+**Returns**
+
+An `ato_tbl` with one row per dataset.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  cat <- ato_catalog()
+  head(cat[, c("id", "title", "licence")])
+})
+options(op)
+```
+
+---
+
+## `ato_charities()`
+
+**Charity and deductible gift recipient data**
+
+Returns the ATO's data on income tax-exempt entities and Deductible Gift Recipients (DGRs): entity counts, income, expenditure, and gift deductions by charity subtype and state. Covers public benevolent institutions, health promotion charities, environmental organisations, and other DGR categories.
+
+**Usage**
+
+```r
+ato_charities(year = "latest")
+```
+
+**Arguments**
+
+- `year`: Income year in `"YYYY-YY"` form (e.g. `"2021-22"`) or `"latest"`.
+
+**Returns**
+
+An `ato_tbl`. Monetary values in nominal AUD.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  ch <- ato_charities(year = "2021-22")
+  head(ch)
+})
+options(op)
+```
+
+---
+
+## `ato_cite()`
+
+**Cite an ato_tbl (or URL) in BibTeX and plain-text form**
+
+Returns a citation suitable for footnotes, papers, and Treasury-grade briefs. Uses the provenance attributes attached to every `ato_tbl`: source URL, licence, retrieval date, title, snapshot pin, and SHA-256 digest.
+
+**Usage**
+
+```r
+ato_cite(x, style = c("text", "bibtex", "apa"), doi = NULL)
+```
+
+**Arguments**
+
+- `x`: Either an `ato_tbl` (as returned by any ato_* data function) or a character URL pointing to an ATO data.gov.au resource.
+- `style`: One of `"text"` (default, plain-text footnote), `"bibtex"`, or `"apa"`.
+- `doi`: Optional DOI (e.g. from `ato_deposit_zenodo()`) to include in BibTeX output as a `doi` field and APA suffix.
+
+**Returns**
+
+A character string. For `style = "bibtex"`, a complete @misc{} entry.
+
+**Example**
+
+```r
+x <- data.frame(a = 1)
+x <- structure(x,
+  ato_source = "https://data.gov.au/data/dataset/example.xlsx",
+  ato_licence = "CC BY 2.5 AU",
+  ato_retrieved = as.POSIXct("2026-04-23 00:00:00", tz = "UTC"),
+  ato_title = "ATO individuals 2022-23",
+  ato_sha256 = "abc123def456",
+  ato_snapshot_date = "2026-04-23",
+  class = c("ato_tbl", "data.frame"))
+
+ato_cite(x)
+ato_cite(x, style = "bibtex")
+# DOI style: supply any minted DOI (Zenodo, DataCite, etc.).
+# The placeholder below is illustrative only.
+ato_cite(x, style = "apa", doi = "10.5281/zenodo.XXXXXXXX")
+```
+
+---
+
+## `ato_clear_cache()`
+
+**Clear the ato cache**
+
+Deletes all locally cached files. The next call to any data function will re-download.
+
+**Usage**
+
+```r
+ato_clear_cache()
+```
+
+**Returns**
+
+Invisibly returns `NULL`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+ato_clear_cache()
+options(op)
+```
+
+---
+
+## `ato_companies()`
+
+**Company Taxation Statistics**
+
+Returns the annual Company Taxation Statistics tables. The Company release ships tables covering entity type, turnover band, industry, taxable status, source of income, and expense deductions. Pick the table that matches your question:
+
+**Usage**
+
+```r
+ato_companies(
+  year = "latest",
+  table = c("industry", "snapshot", "key_items_by_size", "entity_type",
+    "industry_by_size", "sub_industry", "taxable_status", "source", "expenses"),
+  industry = NULL
+)
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"`, `"latest"`, or a vector of years for a multi-year panel. Multi-year requests add a `year` column.
+- `table`: One of `"snapshot"`, `"key_items_by_size"`, `"entity_type"`, `"industry"` (default), `"industry_by_size"`, `"sub_industry"`, `"taxable_status"`, `"source"`, or `"expenses"`.
+- `industry`: Optional substring filter on industry name (applied only when the fetched table has an industry column).
+
+**Returns**
+
+An `ato_tbl`. Monetary values in nominal AUD of the reporting year.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  s <- ato_companies(year = "2022-23", table = "snapshot")
+  head(s)
+  m <- ato_companies(year = "2022-23", industry = "mining")
+  head(m)
+  # Multi-year industry panel
+  panel <- ato_companies(year = c("2021-22", "2022-23"))
+})
+options(op)
+```
+
+---
+
+## `ato_compliance()`
+
+**ATO compliance program outcomes**
+
+Returns the ATO's annual compliance program outcomes: audit yield (tax raised from audits), settled disputes, collectable debt, and compliance cost recovery. These appear in the ATO annual report and related data.gov.au releases.
+
+**Usage**
+
+```r
+ato_compliance(year = "latest", metric = c("overview", "debt", "audit"))
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"` or `"latest"`.
+- `metric`: One of `"overview"` (default), `"debt"` (collectable vs insolvency vs disputed), or `"audit"` (liabilities raised by program area).
+
+**Returns**
+
+An `ato_tbl`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try(ato_compliance(year = "2022-23", metric = "debt"))
+options(op)
+```
+
+---
+
+## `ato_crosswalk()`
+
+**Load a bundled ATO crosswalk table**
+
+Returns one of the bundled classification crosswalks. Used internally by `ato_harmonise()` and available for user-level panel work.
+
+**Usage**
+
+```r
+ato_crosswalk(name = c("anzsic", "anzsco", "postcode", "cpi", "erp", "budget"))
+```
+
+**Arguments**
+
+- `name`: One of `"anzsic"`, `"anzsco"`, `"postcode"`, `"cpi"`, `"erp"`, `"budget"`.
+
+**Returns**
+
+A data frame.
+
+**Example**
+
+```r
+ato_crosswalk("anzsic")
+ato_crosswalk("cpi")
+```
+
+---
+
+## `ato_deflate()`
+
+**Deflate nominal AUD to real AUD**
+
+Converts a numeric vector of nominal AUD figures indexed by financial year to real AUD of a chosen base year using the bundled ABS CPI series (annual, All Groups Australia, 2011-12 = 1.0). For the user's `inflateR` workflow in non-Australian contexts, bundle a matching CPI series and call this with a custom cpi = argument.
+
+**Usage**
+
+```r
+ato_deflate(x, year, base = "2022-23", cpi = NULL)
+```
+
+**Arguments**
+
+- `x`: Numeric vector of nominal AUD values.
+- `year`: Character vector of financial years for each entry in `x`, in `"YYYY-YY"` form. Must be the same length as `x`.
+- `base`: Base financial year for real terms (default `"2022-23"`).
+- `cpi`: Optional override: a data frame with columns `financial_year` and `cpi_all_groups_australia`. Default uses the bundled ABS series.
+
+**Returns**
+
+Numeric vector of real AUD values in base-year prices.
+
+**Example**
+
+```r
+ato_deflate(c(100, 100, 100),
+            year = c("2012-13", "2017-18", "2022-23"),
+            base = "2022-23")
+```
+
+---
+
+## `ato_deposit_zenodo()`
+
+**Prepare a Zenodo deposit payload for the session manifest**
+
+Builds the JSON metadata payload Zenodo expects for a data deposit, using the current `ato_manifest()` and the snapshot pin set via `ato_snapshot()`. The function does NOT upload by default; it returns the payload and saved manifest path so you can inspect before calling with `upload = TRUE`.
+
+**Usage**
+
+```r
+ato_deposit_zenodo(
+  title = NULL,
+  description = NULL,
+  creators = list(list(name = "Anonymous")),
+  keywords = c("ATO", "taxation", "Australia", "reproducibility"),
+  upload = FALSE,
+  sandbox = FALSE,
+  token = Sys.getenv("ZENODO_TOKEN")
+)
+```
+
+**Arguments**
+
+- `title`: Deposit title. Defaults to "ATO data snapshot YYYY-MM-DD" using the current snapshot pin.
+- `description`: Free-text description. Defaults to a short auto-generated note listing the datasets fetched.
+- `creators`: List of creator records. Each should be a list with `name`, optional `affiliation`, `orcid`. Defaults to a single anonymous entry; override for published work.
+- `keywords`: Character vector of keywords. Defaults to `c("ATO", "taxation", "Australia", "reproducibility")`.
+- `upload`: Logical; if `TRUE`, POSTs the deposit to Zenodo and uploads the manifest CSV. Default `FALSE` (dry run).
+- `sandbox`: Logical; if `TRUE`, uses Zenodo Sandbox (sandbox.zenodo.org) for testing. Default `FALSE`.
+- `token`: Zenodo personal access token. Defaults to `Sys.getenv("ZENODO_TOKEN")`.
+
+**Returns**
+
+A list with `payload` (the JSON metadata), `manifest_path` (where the CSV manifest was staged), and if `upload = TRUE`, `deposit_id`, `doi_prereserve`, and `url`.
+
+**Example**
+
+```r
+try({
+  ato_snapshot("2026-04-24")
+  ato_deposit_zenodo(
+  title = "ATO data snapshot for working paper v1",
+  creators = list(list(name = "Coverdale, Charles")),
+  upload = FALSE
+  )
+})
+```
+
+---
+
+## `ato_division293()`
+
+**Division 293 tax assessments (high-income super contributions)**
+
+Returns Division 293 tax data: number of assessments, average Division 293 liability, and distribution by income band. Division 293 applies an extra 15% tax on concessional super contributions for individuals with combined income plus low-tax super contributions above AUD 250,000. Central to retirement-income reform analysis (e.g. Grattan's "Better Super" proposals).
+
+**Usage**
+
+```r
+ato_division293(year = "latest")
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"` or `"latest"`. Ignored.
+
+**Returns**
+
+Never returns; always aborts.
+
+**Example**
+
+```r
+try(ato_division293())
+```
+
+---
+
+## `ato_download()`
+
+**Download a resource from an ATO dataset**
+
+Low-level helper for arbitrary CKAN resources. Resolves the package by id (slug) and picks the first resource matching `pattern`, or the first resource if `pattern` is `NULL`.
+
+**Usage**
+
+```r
+ato_download(
+  id,
+  pattern = NULL,
+  parse = c("auto", "csv", "xlsx", "none"),
+  sheet = 1
+)
+```
+
+**Arguments**
+
+- `id`: CKAN package id (e.g. `"taxation-statistics-2022-23"` or `"corporate-transparency"`).
+- `pattern`: Optional regex applied to the resource filename and name.
+- `parse`: One of `"auto"` (default), `"csv"`, `"xlsx"`, or `"none"` (returns the cached file path).
+- `sheet`: For XLSX resources: sheet index or name.
+
+**Returns**
+
+Either a file path (`parse = "none"`) or an `ato_tbl`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  cat <- ato_download("corporate-transparency",
+                      pattern = "2023",
+                      parse = "csv")
+})
+options(op)
+```
+
+---
+
+## `ato_excise()`
+
+**Excise and fuel tax credit rates and clearances**
+
+Returns ATO excise data, covering four sub-releases: beer : beer clearances summary (volumes by product class) spirits : spirits and other excisable beverages clearances excise_rates : historical excise rate schedule (all excise categories, quarterly indexed rates) ftc_rates : historical Fuel Tax Credit rates
+
+**Usage**
+
+```r
+ato_excise(table = c("excise_rates", "ftc_rates", "beer", "spirits"))
+```
+
+**Arguments**
+
+- `table`: One of `"beer"`, `"spirits"`, `"excise_rates"` (default), or `"ftc_rates"`.
+
+**Returns**
+
+An `ato_tbl`. Rates are in AUD per litre (or per kg for tobacco); volumes are in megalitres or similar.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  rates <- ato_excise("excise_rates")
+  head(rates)
+})
+options(op)
+```
+
+---
+
+## `ato_fbt()`
+
+**Fringe Benefits Tax statistics**
+
+Returns the ATO's annual Fringe Benefits Tax (FBT) Taxation Statistics: employer counts, gross taxable value, FBT payable, and employee benefit counts by benefit type and industry. Used by Treasury, PBO, and researchers evaluating the FBT concession system (electric vehicles, remote area exemptions, novated leases).
+
+**Usage**
+
+```r
+ato_fbt(year = "latest")
+```
+
+**Arguments**
+
+- `year`: Income year in `"YYYY-YY"` form (e.g. `"2022-23"`) or `"latest"`.
+
+**Returns**
+
+An `ato_tbl`. Monetary values in nominal AUD.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  fbt <- ato_fbt(year = "2022-23")
+  head(fbt)
+})
+options(op)
+```
+
+---
+
+## `ato_fuel_tax_credits()`
+
+**Fuel Tax Credits by industry and claim period**
+
+Returns the Fuel Tax Credits scheme data: entitlement rates by fuel type, claim totals by industry. FTC is a major implicit fossil-fuel subsidy and is a key lens for decarbonisation policy cost-benefit analysis.
+
+**Usage**
+
+```r
+ato_fuel_tax_credits(year = "latest", by = c("industry", "fuel", "period"))
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"` or `"latest"`. Applies to `by = "industry"` only; the rates file is a single all-years workbook.
+- `by`: One of `"industry"` (default, claim totals by ANZSIC division, from Taxation Statistics), `"fuel"` or `"period"` (both return the historical entitlement-rate schedule by fuel type, from Excise Data).
+
+**Returns**
+
+An `ato_tbl`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try(head(ato_fuel_tax_credits(year = "latest", by = "industry")))
+options(op)
+```
+
+---
+
+## `ato_gst()`
+
+**GST and activity statement ratios**
+
+Returns the Taxation Statistics GST tables (T1-T5) or the Activity Statement Ratios (A1-A5) for the requested year.
+
+**Usage**
+
+```r
+ato_gst(year = "latest", table = c("overview", "state", "industry", "ratios"))
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"` or `"latest"`.
+- `table`: One of `"overview"` (default, GST T1), `"state"` (GST by state), `"industry"` (GST by ANZSIC), or `"ratios"` (Activity Statement Ratios).
+
+**Returns**
+
+An `ato_tbl`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  g <- ato_gst(year = "2022-23", table = "industry")
+  head(g)
+})
+options(op)
+```
+
+---
+
+## `ato_harmonise()`
+
+**Harmonise column names in a multi-year ATO panel**
+
+ATO renames columns across annual releases; a stacked panel from `ato_individuals_postcode(year = c("2020-21", "2021-22"))` may have inconsistent names like `total_income` vs `total_income_or_loss`. `ato_harmonise()` renames columns to the first variant in `ATO_COL_VARIANTS` so panels are join-ready.
+
+**Usage**
+
+```r
+ato_harmonise(df)
+```
+
+**Arguments**
+
+- `df`: A data frame (typically an `ato_tbl` with `year` column from a multi-year call).
+
+**Returns**
+
+A data frame with harmonised names. `ato_tbl` class and provenance attributes are preserved.
+
+**Example**
+
+```r
+df <- data.frame(postcode = "2000",
+                 total_income_or_loss = 100,
+                 state_territory = "NSW")
+ato_harmonise(df)
+```
+
+---
+
+## `ato_help()`
+
+**Study and Training Support Loan data (HELP, AASL, VSL)**
+
+Returns aggregate statistics on Australia's three main education-loan schemes: HELP (Higher Education Loan Program, ~3m borrowers, AUD 80bn+ outstanding debt) AASL (Australian Apprenticeship Support Loans, previously Trade Support Loans) VSL (VET Student Loans, vocational education loans)
+
+**Usage**
+
+```r
+ato_help(scheme = c("help", "aasl", "vsl"))
+```
+
+**Arguments**
+
+- `scheme`: One of `"help"` (default), `"aasl"`, or `"vsl"`.
+
+**Returns**
+
+An `ato_tbl`. All dollar values in nominal AUD.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  help <- ato_help(scheme = "help")
+  head(help)
+})
+options(op)
+```
+
+---
+
+## `ato_individuals()`
+
+**Individual Taxation Statistics snapshot**
+
+Returns the Individuals Table 1 snapshot: aggregate counts, total income, taxable income, tax payable, and deductions across all individual returns (roughly 14 million per year). The snapshot is the headline table; for finer cuts use the dedicated functions: `ato_individuals_postcode()` for geographic breakdowns, `ato_individuals_occupation()` for occupation × sex × income-range detail, or `ato_download()` with a custom `pattern` for specific Tables 2 to 27 (age, sex, state, industry, source of income, deductions, offsets, CGT, non-residents).
+
+**Usage**
+
+```r
+ato_individuals(year = "latest")
+```
+
+**Arguments**
+
+- `year`: Year in `"YYYY-YY"` form (e.g. `"2023-24"`) or `"latest"`. `"latest"` is resolved against the live CKAN catalogue at call time, so it tracks new ATO releases without a package update. As at August 2026 it resolves to 2023-24.
+
+**Returns**
+
+An `ato_tbl` with one row per aggregate line-item and columns for count and amount in nominal AUD.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  ind <- ato_individuals(year = "2022-23")
+  head(ind)
+})
+options(op)
+```
+
+---
+
+## `ato_individuals_age()`
+
+**Individual tax data by age range**
+
+Returns Taxation Statistics Individuals Table 2 (approximately): counts, total income, taxable income, and tax payable by age range and (usually) sex. Age ranges are 5-year bands for most of working life plus wider bands at the tails.
+
+**Usage**
+
+```r
+ato_individuals_age(year = "latest", sex = c("all", "male", "female"))
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"`, `"latest"`, or a vector of years.
+- `sex`: One of `"all"` (default), `"male"`, or `"female"`.
+
+**Returns**
+
+An `ato_tbl`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try(ato_individuals_age(year = "2022-23", sex = "female"))
+options(op)
+```
+
+---
+
+## `ato_individuals_occupation()`
+
+**Individual tax data by occupation**
+
+Returns the Individuals Table 14 (occupation by sex by taxable income range). Around 1,000 occupations classified by ANZSCO with aggregate counts, total income, taxable income, and tax payable. The ATO migrated from ANZSCO 2013 to ANZSCO 2021 across the 2022-23 release; cross-year joins on occupation name or code must account for the recode.
+
+**Usage**
+
+```r
+ato_individuals_occupation(
+  year = "latest",
+  occupation = NULL,
+  sex = c("all", "male", "female", "m", "f")
+)
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"`, `"latest"`, or a vector of years for a multi-year panel (e.g. `c("2020-21", "2021-22", "2022-23")`).
+- `occupation`: Optional substring filter (case-insensitive) applied to the occupation description column.
+- `sex`: One of `"all"` (default), `"male"`, or `"female"`. Rows with sex recorded as `"Not stated"` are dropped when filtering to male or female. Short forms `"m"`/`"f"` are accepted.
+
+**Returns**
+
+An `ato_tbl` with one row per occupation-sex-income combination. Multi-year queries add a `year` column. Monetary values in nominal AUD of the reporting year.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  occ <- ato_individuals_occupation(year = "2022-23",
+                                    occupation = "economist")
+  head(occ)
+  # Multi-year panel
+  panel <- ato_individuals_occupation(year = c("2021-22", "2022-23"),
+                                      occupation = "nurse")
+})
+options(op)
+```
+
+---
+
+## `ato_individuals_postcode()`
+
+**Individual tax data by postcode**
+
+Returns the Individuals Table 6 (or standalone postcode dataset): taxable income, tax payable, and return counts by 4-digit postcode. Headline dataset for income-distribution journalism.
+
+**Usage**
+
+```r
+ato_individuals_postcode(year = "latest", state = NULL, postcode = NULL)
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"` or `"latest"`. Pass a vector of years (e.g. `c("2020-21", "2021-22", "2022-23")` or `2018:2022`) to stack multiple years with a `year` column added to the output. Useful for time-series analysis.
+- `state`: Optional character vector of state codes (e.g. `"NSW"`, `c("VIC", "QLD")`).
+- `postcode`: Optional character vector of 4-digit postcodes.
+
+**Returns**
+
+An `ato_tbl` with one row per postcode (or per postcode per year for multi-year queries), including state, return count, total income, taxable income, and tax payable. Schema drifts year to year (SA3/SA4 columns present from 2017 onwards).
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  # Single year
+  p <- ato_individuals_postcode(year = "2022-23", state = "NSW")
+  head(p)
+  # Multi-year stack with year column
+  panel <- ato_individuals_postcode(year = c("2020-21", "2021-22"),
+                                    state = "NSW")
+})
+options(op)
+```
+
+---
+
+## `ato_individuals_sex()`
+
+**Individual tax data by sex**
+
+Returns counts and aggregates split by sex. Thin wrapper around the ATO "Selected items by sex" table.
+
+**Usage**
+
+```r
+ato_individuals_sex(year = "latest")
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"`, `"latest"`, or a vector of years.
+
+**Returns**
+
+An `ato_tbl`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try(ato_individuals_sex(year = "2022-23"))
+options(op)
+```
+
+---
+
+## `ato_individuals_state()`
+
+**Individual tax data by state or territory**
+
+Returns counts and aggregates by state. Thin wrapper around the ATO "Selected items by state/territory" table.
+
+**Usage**
+
+```r
+ato_individuals_state(year = "latest")
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"`, `"latest"`, or a vector of years.
+
+**Returns**
+
+An `ato_tbl`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try(ato_individuals_state(year = "2022-23"))
+options(op)
+```
+
+---
+
+## `ato_industry()`
+
+**Industry aggregates across entity types**
+
+Derived helper that returns an ANZSIC industry breakdown based on either individual, company, or all entities for the year.
+
+**Usage**
+
+```r
+ato_industry(
+  year = "latest",
+  entity = c("company", "individual", "all"),
+  anzsic = NULL
+)
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"` or `"latest"`.
+- `entity`: One of `"individual"`, `"company"` (default), or `"all"`.
+- `anzsic`: Optional substring filter on industry name.
+
+**Returns**
+
+An `ato_tbl`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  i <- ato_industry(year = "2022-23", entity = "company",
+                    anzsic = "manufacturing")
+  head(i)
+})
+options(op)
+```
+
+---
+
+## `ato_international()`
+
+**OECD Revenue Statistics comparison**
+
+Fetches OECD Revenue Statistics for cross-country tax-to-GDP benchmarking. Returns tax revenue as percent of GDP by tax category. Use to contextualise Australian ATO aggregates in cross-country policy arguments (e.g. OECD average corporate tax-to-GDP, international ranks for personal income tax).
+
+**Usage**
+
+```r
+ato_international(country = "AUS", year = "latest")
+```
+
+**Arguments**
+
+- `country`: Country ISO code or name (default `"AUS"`).
+- `year`: Four-digit year or `"latest"`.
+
+**Returns**
+
+An `ato_tbl` with columns `country`, `year`, `tax`, `pct_gdp`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try(ato_international(country = "AUS"))
+options(op)
+```
+
+---
+
+## `ato_irpd()`
+
+**International Related Party Dealings (IRPD)**
+
+Returns the ATO's International Related Party Dealings data, which captures intra-group cross-border payments and receivables reported by Australian corporate taxpayers. Core dataset for BEPS and transfer-pricing research, transfer pricing risk assessment, and multinational tax analysis.
+
+**Usage**
+
+```r
+ato_irpd(year = "latest", table = 1L)
+```
+
+**Arguments**
+
+- `year`: Income year in `"YYYY-YY"` form (e.g. `"2023-24"`) or `"latest"`.
+- `table`: Integer 1, 2, or 3. Default `1`.
+
+**Returns**
+
+An `ato_tbl`. Monetary values in nominal AUD.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  by_jurisdiction <- ato_irpd(year = "2023-24", table = 2)
+  head(by_jurisdiction)
+})
+options(op)
+```
+
+---
+
+## `ato_manifest()`
+
+**Return the session manifest of fetched ATO datasets**
+
+Every call to a data function (`ato_individuals()`, `ato_companies()`, etc.) appends one row to the session manifest, recording URL, dataset title, CKAN resource and package IDs where resolvable, SHA-256 of the cached file, size, retrieval timestamp, and the snapshot pin set via `ato_snapshot()`. Duplicate URLs within a session are deduplicated (last fetch wins).
+
+**Usage**
+
+```r
+ato_manifest(format = c("df", "yaml", "json"))
+```
+
+**Arguments**
+
+- `format`: One of `"df"` (default, tidy data frame), `"yaml"`, or `"json"`.
+
+**Returns**
+
+A data frame, YAML string, or JSON string depending on `format`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+ato_manifest_clear()
+ato_snapshot("2026-04-24")
+try(ato_individuals(year = "2022-23"))
+ato_manifest()
+options(op)
+```
+
+---
+
+## `ato_manifest_clear()`
+
+**Clear the session manifest**
+
+Clear the session manifest
+
+**Usage**
+
+```r
+ato_manifest_clear()
+```
+
+**Returns**
+
+Invisibly `NULL`. Useful at the top of a script when running repeatedly.
+
+**Example**
+
+```r
+ato_manifest_clear()
+```
+
+---
+
+## `ato_manifest_write()`
+
+**Write the session manifest to a file**
+
+Writes the manifest to a file in the requested format. Call at the end of an analysis script; commit the manifest alongside the paper for full reproducibility.
+
+**Usage**
+
+```r
+ato_manifest_write(path, format = c("auto", "csv", "yaml", "json"))
+```
+
+**Arguments**
+
+- `path`: Output file path. Extension determines format if `format = "auto"`: `.csv` to CSV, `.yaml`/`.yml` to YAML, `.json` to JSON.
+- `format`: One of `"auto"` (infer from extension), `"csv"`, `"yaml"`, or `"json"`.
+
+**Returns**
+
+Invisibly, the absolute path to the written file.
+
+**Example**
+
+```r
+p <- tempfile(fileext = ".csv")
+ato_manifest_clear()
+ato_manifest_write(p)
+```
+
+---
+
+## `ato_medicare_levy()`
+
+**Medicare Levy and Medicare Levy Surcharge**
+
+Returns Individuals Table 3 (sex by taxable status by age range by taxable income range), which carries the "Medicare levy", "Medicare levy surcharge" and "Total Medicare levy liability" column pairs. The 2% Medicare Levy is on most taxable income; MLS is an additional 1.0 to 1.5% on high-income earners without adequate private hospital cover. Used in private health insurance reform analysis.
+
+**Usage**
+
+```r
+ato_medicare_levy(year = "latest", component = c("levy", "surcharge"))
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"` or `"latest"`.
+- `component`: One of `"levy"` (default, standard Medicare Levy) or `"surcharge"` (MLS). Both return Table 3.
+
+**Returns**
+
+An `ato_tbl`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try(ato_medicare_levy(year = "2022-23", component = "surcharge"))
+options(op)
+```
+
+---
+
+## `ato_meta()`
+
+**Fetch CKAN metadata for an ATO dataset**
+
+Returns structured metadata for any ATO dataset on data.gov.au: title, notes, licence, last-modified timestamp, resource count, and all resource URLs. Useful for detecting silent updates before clearing the cache, or for auditing what version of data you have.
+
+**Usage**
+
+```r
+ato_meta(x)
+```
+
+**Arguments**
+
+- `x`: Either an `ato_tbl` (as returned by any ato_* data function) or a character CKAN package ID / slug (e.g. `"taxation-statistics-2022-23"`, `"corporate-transparency"`).
+
+**Returns**
+
+A list with elements: `id`: CKAN package slug `title`: human-readable title `notes`: dataset description (truncated to 400 chars) `licence`: licence title `metadata_modified`: ISO timestamp of last CKAN update `n_resources`: number of downloadable files `resource_urls`: character vector of all resource URLs
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  # By package ID
+  m <- ato_meta("taxation-statistics-2022-23")
+  m$metadata_modified
+
+  # From an ato_tbl
+  tbl <- ato_individuals(year = "2022-23")
+  ato_meta(tbl)
+})
+options(op)
+```
+
+---
+
+## `ato_payg()`
+
+**PAYG withholding data**
+
+Returns the ATO's Pay As You Go (PAYG) withholding data: employer counts, total withholding amounts, and employee counts by industry and state. Used by researchers studying labour market taxation, wage growth, and employer compliance.
+
+**Usage**
+
+```r
+ato_payg(year = "latest")
+```
+
+**Arguments**
+
+- `year`: Income year in `"YYYY-YY"` form (e.g. `"2022-23"`) or `"latest"`.
+
+**Returns**
+
+An `ato_tbl`. Monetary values in nominal AUD.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  payg <- ato_payg(year = "2022-23")
+  head(payg)
+})
+options(op)
+```
+
+---
+
+## `ato_per_capita()`
+
+**Express an aggregate per capita using ABS ERP**
+
+Express an aggregate per capita using ABS ERP
+
+**Usage**
+
+```r
+ato_per_capita(x, year, erp = NULL)
+```
+
+**Arguments**
+
+- `x`: Numeric vector of aggregate values (same length as `year`).
+- `year`: Character vector of financial years.
+- `erp`: Optional override: data frame with columns `financial_year` and `erp_june_australia_thousands`.
+
+**Returns**
+
+Numeric vector of per-capita values (same units as `x` per person).
+
+**Example**
+
+```r
+# Income tax per person, 2022-23 FBO headline
+ato_per_capita(316.4e9, "2022-23")
+```
+
+---
+
+## `ato_prrt()`
+
+**Petroleum Resource Rent Tax (PRRT) annual data**
+
+Returns PRRT revenue and assessments. PRRT is a 40% tax on the profits of offshore petroleum projects; revenues are volatile and project-specific. Key dataset for resource-tax reform analysis.
+
+**Usage**
+
+```r
+ato_prrt(year = "latest")
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"` or `"latest"`.
+
+**Returns**
+
+An `ato_tbl`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try(ato_prrt(year = "2022-23"))
+options(op)
+```
+
+---
+
+## `ato_rba()`
+
+**RBA Commonwealth receipts (H1 statistical table)**
+
+Pointer to the RBA's H1 series on Commonwealth receipts for long-run time series. RBA compiles since 1959-60, filling gaps in ATO Taxation Statistics which start 1994-95.
+
+**Usage**
+
+```r
+ato_rba(series = c("receipts", "income_tax"))
+```
+
+**Arguments**
+
+- `series`: One of `"receipts"` (default, all Commonwealth receipts by category) or `"income_tax"` (income tax only).
+
+**Returns**
+
+An `ato_tbl`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try(ato_rba(series = "receipts"))
+options(op)
+```
+
+---
+
+## `ato_rdti()`
+
+**R&D Tax Incentive claimants**
+
+Returns the annual "Report of data about Research and Development Tax Incentive entities": claimants, claimed expenditure, refundable and non-refundable tax offsets by industry and company size. Treasury and DISR use this series to evaluate the R&D Tax Incentive programme, which is the largest single element of Australia's business innovation policy (AUD 2 billion+ per year).
+
+**Usage**
+
+```r
+ato_rdti(year = "latest")
+```
+
+**Arguments**
+
+- `year`: Income year in `"YYYY-YY"` form (e.g. `"2022-23"`) or `"latest"`. Current releases cover 2021-22 and 2022-23.
+
+**Returns**
+
+An `ato_tbl` with one row per entity (or aggregated cell, depending on the release schema). Monetary values in nominal AUD.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  rdti <- ato_rdti(year = "2022-23")
+  head(rdti)
+})
+options(op)
+```
+
+---
+
+## `ato_reconcile()`
+
+**Reconcile an aggregate against Commonwealth budget totals**
+
+Compares a scalar (or data frame total) against the published Final Budget Outcome figure for the same year and revenue line. Useful as a sanity check on an ATO Taxation Statistics sum before reporting it in a paper or brief.
+
+**Usage**
+
+```r
+ato_reconcile(value, year, measure, sum_column = NULL)
+```
+
+**Arguments**
+
+- `value`: Numeric; the figure to check, in AUD (not AUD billions). An `ato_tbl` can also be passed: pass `sum_column` to pick which numeric column to sum.
+- `year`: Financial year, e.g. `"2022-23"`.
+- `measure`: One of the measure codes in `ato_crosswalk("budget")`, for example `"individuals_income_tax_net"`, `"company_tax_net"`, `"gst_net"`, `"fuel_excise_net"`.
+- `sum_column`: Column name to sum when `value` is a data frame. Default `NULL` (errors if multiple numeric columns exist).
+
+**Returns**
+
+A one-row data frame: `measure`, `year`, `value_aud`, `reference_aud`, `diff_aud`, `pct_diff`, `source`. Emits a warning if `abs(pct_diff) > 0.05`.
+
+**Example**
+
+```r
+ato_reconcile(value = 316.4e9,
+              year = "2022-23",
+              measure = "individuals_income_tax_net")
+```
+
+---
+
+## `ato_schema_map()`
+
+**Print the ATO -> taxstats schema map**
+
+Convenience accessor for the bundled column-name mapping.
+
+**Usage**
+
+```r
+ato_schema_map()
+```
+
+**Returns**
+
+A data frame with columns `ato_aggregate` and `taxstats_microdata`.
+
+**Example**
+
+```r
+head(ato_schema_map())
+```
+
+---
+
+## `ato_sha256()`
+
+**Compute the SHA-256 digest of a file**
+
+Wraps `tools::md5sum()` style behaviour for SHA-256 via the `digest` package when available, or falls back to a pure-R implementation via `tools::md5sum()` + file length as a weaker check. For integrity work PBO/Grattan-grade, install the `digest` package (Suggests).
+
+**Usage**
+
+```r
+ato_sha256(file)
+```
+
+**Arguments**
+
+- `file`: Path to a local file.
+
+**Returns**
+
+A length-1 character string (hex digest), or `NA` if the file does not exist.
+
+**Example**
+
+```r
+f <- tempfile()
+writeLines("hello", f)
+ato_sha256(f)
+```
+
+---
+
+## `ato_sme_benchmarks()`
+
+**Small Business Benchmarks**
+
+Returns the ATO's Small Business Benchmarks: industry-specific performance ranges (cost of sales / turnover, total expenses / turnover, labour / turnover, etc.) derived from small-business income tax returns. Used by the ATO to identify outlier taxpayers, by small-business advisors for comparative analysis, and by tax integrity researchers.
+
+**Usage**
+
+```r
+ato_sme_benchmarks(year = "latest")
+```
+
+**Arguments**
+
+- `year`: Income year in `"YYYY-YY"` form (e.g. `"2023-24"`) or `"latest"`. Releases available from 2016-17 onwards.
+
+**Returns**
+
+An `ato_tbl` with one row per (industry, turnover band, ratio) combination. Ratios are percentages.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  bm <- ato_sme_benchmarks(year = "2023-24")
+  head(bm)
+})
+options(op)
+```
+
+---
+
+## `ato_snapshot()`
+
+**Pin or inspect the session snapshot date**
+
+Call once at the top of an analysis script to declare the vintage of ATO data you intend to use. Every subsequent ato_* fetch records this date in the `ato_tbl` provenance header, in `ato_manifest()` entries, and in `ato_cite()` output. Combined with SHA-256 integrity (see `ato_sha256()` and `ato_manifest()`), this gives a reproducible audit trail acceptable for PBO or Grattan-style published work.
+
+**Usage**
+
+```r
+ato_snapshot(date)
+```
+
+**Arguments**
+
+- `date`: ISO `"YYYY-MM-DD"` character, `Date`, or `POSIXct`. Pass `NULL` to clear.
+
+**Returns**
+
+Invisibly, the new pinned date (as `Date`), or `NULL`.
+
+**Example**
+
+```r
+ato_snapshot("2026-04-24")
+ato_snapshot()
+ato_snapshot(NULL)
+```
+
+---
+
+## `ato_state_tax()`
+
+**State and territory tax revenue (ABS 5506.0)**
+
+Fetches the ABS Taxation Revenue collection (cat. 5506.0), which gives land tax, payroll tax, stamp duty, motor vehicle taxes, and other state taxes by jurisdiction. Needed for complete-tax-system analysis alongside ATO Commonwealth data.
+
+**Usage**
+
+```r
+ato_state_tax(year = "latest")
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"` or `"latest"`.
+
+**Returns**
+
+An `ato_tbl`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try(ato_state_tax(year = "latest"))
+options(op)
+```
+
+---
+
+## `ato_super_funds()`
+
+**Superannuation fund aggregates**
+
+Returns Taxation Statistics Super Funds tables or Self-Managed Superannuation Fund ('SMSF') aggregates, depending on `type`.
+
+**Usage**
+
+```r
+ato_super_funds(year = "latest", type = c("apra", "smsf", "all"))
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"` or `"latest"`.
+- `type`: One of `"apra"` (APRA-regulated funds, default), `"smsf"` (SMSF statistical overview), or `"all"`.
+
+**Returns**
+
+An `ato_tbl`.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  s <- ato_super_funds(year = "2022-23", type = "apra")
+  head(s)
+})
+options(op)
+```
+
+---
+
+## `ato_tax_expenditures()`
+
+**Tax Expenditures and Insights Statement (TEIS)**
+
+Returns the Treasury TEIS annual table of concession-by-concession tax expenditure estimates in AUD millions. TEIS is the authoritative cost-of-concessions dataset used in PBO and Grattan tax reform costings.
+
+**Usage**
+
+```r
+ato_tax_expenditures(year = "latest")
+```
+
+**Arguments**
+
+- `year`: Reference year for the TEIS release, e.g. `"2024"` or `"latest"`. Treasury publishes one TEIS per calendar year.
+
+**Returns**
+
+An `ato_tbl` with one row per tax expenditure: label, category, estimated revenue forgone in AUD millions by year.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try(head(ato_tax_expenditures("latest")))
+options(op)
+```
+
+---
+
+## `ato_tax_gaps()`
+
+**Australian tax gaps estimates**
+
+Returns the ATO's annual Tax Gap publication: estimates of the difference between the tax theoretically payable under current law and the tax actually collected, across each tax type and taxpayer population (individuals not in business, small business, large corporate, GST, excise, fuel tax credits, PRRT, superannuation guarantee).
+
+**Usage**
+
+```r
+ato_tax_gaps(sheet = 1)
+```
+
+**Arguments**
+
+- `sheet`: Optional sheet name or index. The workbook contains separate sheets for each tax-gap population (e.g. "Large corporate", "Small business", "Individuals"). Pass the sheet name to extract a specific population. `NULL` (default) returns sheet 1 (overview).
+
+**Returns**
+
+An `ato_tbl`. Tax-gap estimates are in nominal AUD millions of the reporting year and typically accompanied by a percentage-gap column.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  gaps <- ato_tax_gaps()
+  head(gaps)
+})
+options(op)
+```
+
+---
+
+## `ato_to_taxstats()`
+
+**Remap an ato_tbl to the taxstats microdata column schema**
+
+Takes an `ato_tbl` with aggregate column names (produced by any ato_* function) and renames columns to match the `taxstats` (or `taxstats2`) 2% microdata sample schema used by Hugh Parsonage's DRAT package. Enables consistent variable definitions when moving between aggregate views and microdata prototyping.
+
+**Usage**
+
+```r
+ato_to_taxstats(df, direction = c("to_taxstats", "from_taxstats"))
+```
+
+**Arguments**
+
+- `df`: An `ato_tbl` or data frame.
+- `direction`: `"to_taxstats"` (default, aggregate -> microdata) or `"from_taxstats"` (microdata -> aggregate).
+
+**Returns**
+
+A data frame with renamed columns. `ato_tbl` class and provenance attributes preserved.
+
+**Example**
+
+```r
+df <- data.frame(postcode = "2000", taxable_income = 80000,
+                 medicare_levy = 1600)
+ato_to_taxstats(df)
+```
+
+---
+
+## `ato_top_taxpayers()`
+
+**Corporate Tax Transparency**
+
+Returns the ATO's annual Corporate Tax Transparency release, mandated by Part 5-25 of the Taxation Administration Act 1953. Covers every Australian public company, foreign-owned company, or Australian-owned private company above the AUD 100 million total-income threshold (the private-company threshold was lowered from AUD 200 million to AUD 100 million for the 2022-23 income year onwards, making all three categories uniform). The 2023-24 release was published 1 October 2025 and covered 4,110 entities.
+
+**Usage**
+
+```r
+ato_top_taxpayers(
+  year = "latest",
+  entity_type = c("all", "public", "private", "foreign"),
+  sheet = c("income_tax", "prrt")
+)
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"` (e.g. `"2023-24"`) or `"latest"`.
+- `entity_type`: One of `"all"` (default), `"public"`, `"private"`, or `"foreign"`. Matches the CTT Entity type column values `"Australian public"`, `"Australian private"`, `"Foreign-owned"`.
+- `sheet`: One of `"income_tax"` (default, the ~4,000-entity income-tax sheet) or `"prrt"` (petroleum resource rent tax filers, typically 10-20 entities).
+
+**Returns**
+
+An `ato_tbl` with one row per disclosed entity. All monetary values are nominal AUD of the reporting year.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  top <- ato_top_taxpayers(year = "2023-24")
+  head(top)
+  # Petroleum resource rent tax sheet
+  prrt <- ato_top_taxpayers(year = "2023-24", sheet = "prrt")
+  head(prrt)
+})
+options(op)
+```
+
+---
+
+## `ato_vttc()`
+
+**Voluntary Tax Transparency Code disclosures**
+
+Returns the ATO's Voluntary Tax Transparency Code (VTTC) disclosures: large private companies that voluntarily publish tax information beyond the Corporate Tax Transparency mandate. Covers total income, taxable income, tax payable, and effective tax rate for each disclosing entity.
+
+**Usage**
+
+```r
+ato_vttc(year = "latest")
+```
+
+**Arguments**
+
+- `year`: Income year in `"YYYY-YY"` form (e.g. `"2022-23"`) or `"latest"`.
+
+**Returns**
+
+An `ato_tbl`. Monetary values in nominal AUD.
+
+**Example**
+
+```r
+op <- options(ato.cache_dir = tempdir())
+try({
+  vttc <- ato_vttc(year = "2022-23")
+  head(vttc)
+})
+options(op)
+```
+
+---
+
+## `ato_whm()`
+
+**Working Holiday Maker tax data (not available)**
+
+Defunct. The ATO does not publish Working Holiday Maker aggregates as open data. No resource matching working holiday makers, WHM or backpackers exists in any ATO package on data.gov.au, in the current Taxation Statistics release or in the archived ones. This function was shipped in 0.1.0 on the assumption that such a table existed; it never returned WHM data.
+
+**Usage**
+
+```r
+ato_whm(year = "latest")
+```
+
+**Arguments**
+
+- `year`: `"YYYY-YY"` or `"latest"`. Ignored.
+
+**Returns**
+
+Never returns; always aborts.
+
+**Example**
+
+```r
+try(ato_whm())
+```
+
+---
+
