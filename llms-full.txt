@@ -2,7 +2,7 @@
 
 > Fetch Australian Taxation Office (ATO) Taxation Statistics and related datasets via the data.
 
-- Version: 0.1.1
+- Version: 0.1.2
 - Install: `install.packages("ato")`
 - CRAN: https://CRAN.R-project.org/package=ato
 - GitHub: https://github.com/charlescoverdale/ato
