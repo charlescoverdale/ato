@@ -1153,7 +1153,7 @@ Numeric vector of per-capita values (same units as `x` per person).
 
 ```r
 # Income tax per person, 2022-23 FBO headline
-ato_per_capita(316.4e9, "2022-23")
+ato_per_capita(296.658e9, "2022-23")
 ```
 
 ---
@@ -1267,7 +1267,7 @@ ato_reconcile(value, year, measure, sum_column = NULL)
 
 - `value`: Numeric; the figure to check, in AUD (not AUD billions). An `ato_tbl` can also be passed: pass `sum_column` to pick which numeric column to sum.
 - `year`: Financial year, e.g. `"2022-23"`.
-- `measure`: One of the measure codes in `ato_crosswalk("budget")`, for example `"individuals_income_tax_net"`, `"company_tax_net"`, `"gst_net"`, `"fuel_excise_net"`.
+- `measure`: One of the measure codes in `ato_crosswalk("budget")`, for example `"individuals_income_tax_net"`, `"company_tax_net"`, `"gst_net"`, `"fuel_excise_and_customs"`, `"taxation_receipts"`.
 - `sum_column`: Column name to sum when `value` is a data frame. Default `NULL` (errors if multiple numeric columns exist).
 
 **Returns**
@@ -1277,7 +1277,7 @@ A one-row data frame: `measure`, `year`, `value_aud`, `reference_aud`, `diff_aud
 **Example**
 
 ```r
-ato_reconcile(value = 316.4e9,
+ato_reconcile(value = 290e9,
               year = "2022-23",
               measure = "individuals_income_tax_net")
 ```
