@@ -33,6 +33,21 @@ the published source, and covers more years.
   `superannuation_guarantee_contribution` row, an unsourced indicative
   figure, is removed.
 
+## Wide tables are usable without cleanup
+
+The year-by-year tables (for example `ato_gst()` and `ato_individuals()`)
+came back with problems carried over from the spreadsheets:
+
+* Footnote markers stuck to year headers, so "2000-01" with note 2 became
+  the column `2000_012`. They are now stripped.
+* The label and unit columns had empty names, which tibbles and dplyr
+  reject. They are now `x1`, `x2` and so on, by position.
+* Year columns were text, because the ATO's lowercase `"na"` (not
+  available) was not among the suppression tokens converted to `NA`. It
+  now is, and year columns whose entries are all numbers are numeric.
+  Identifier columns such as postcodes are left as text, keeping their
+  leading zeros.
+
 **Results change** for `ato_deflate()`, `ato_per_capita()` and
 `ato_reconcile()`; the old values were wrong.
 
