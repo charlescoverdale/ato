@@ -72,12 +72,12 @@ try({
 #> # ato_tbl: ATO FBT Taxation Statistics 2022-23
 #> # Source:   https://data.gov.au/data/dataset/03326c3f-c0d3-4af4-afc7-c6ccc0a02223/resource/f955281b-8ff6-45a9-a804-bad1b79e7817/download/ts23fbt01selecteditemsbyyear.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-09-19 10:26 UTC 
+#> # Retrieved: 2026-11-01 14:03 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  eb4fa15d3a41fae0...
 #> # Rows: 6  Cols: 17
 #> 
-#>                                      2009_10    2010_11    2011_12    2012_13
+#>                            x1  x2    2009_10    2010_11    2011_12    2012_13
 #> 1                     Returns no.      72285      74165      73175      76796
 #> 2     Type 1 aggregate amount no.      51155      50855      49140      48867
 #> 3     Type 1 aggregate amount   $ 2521222582 2576578558 2583608517 2599433802

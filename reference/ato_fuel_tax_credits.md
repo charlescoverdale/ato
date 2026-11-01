@@ -81,7 +81,7 @@ try(head(ato_fuel_tax_credits(year = "latest", by = "industry")))
 #> # ato_tbl: ATO fuel tax credits latest (industry)
 #> # Source:   https://data.gov.au/data/dataset/faea4485-f407-457d-97f8-3f0822ccd654/resource/c12e48ca-4b65-499c-8455-a3ced570e800/download/ts24excise04ftcbyindustryyear.xlsx
 #> # Licence:  CC BY 3.0 AU
-#> # Retrieved: 2026-09-19 10:26 UTC 
+#> # Retrieved: 2026-11-01 14:03 UTC 
 #> # Snapshot: 2026-04-24
 #> # SHA-256:  70fd11f4cb4bdf94...
 #> # Rows: 6  Cols: 6
@@ -94,12 +94,12 @@ try(head(ato_fuel_tax_credits(year = "latest", by = "industry")))
 #> 5         2006–07 a. Agriculture, Forestry and Fishing
 #> 6         2006–07 a. Agriculture, Forestry and Fishing
 #>                             fine_industry2 claims_no entities_no    claims
-#> 1  011 Nursery and Floriculture Production      2270          na   3772888
-#> 2       012 Mushroom and Vegetable Growing      9505          na  28806433
-#> 3           013 Fruit and Tree Nut Growing     20060          na  25647865
-#> 4 014 Sheep, Beef Cattle and Grain Farming    156510          na 307332381
-#> 5                   015 Other Crop Growing     16400          na  64401162
-#> 6                 016 Dairy Cattle Farming     25160          na  31727049
+#> 1  011 Nursery and Floriculture Production      2270          NA   3772888
+#> 2       012 Mushroom and Vegetable Growing      9505          NA  28806433
+#> 3           013 Fruit and Tree Nut Growing     20060          NA  25647865
+#> 4 014 Sheep, Beef Cattle and Grain Farming    156510          NA 307332381
+#> 5                   015 Other Crop Growing     16400          NA  64401162
+#> 6                 016 Dairy Cattle Farming     25160          NA  31727049
 options(op)
 # }
 ```

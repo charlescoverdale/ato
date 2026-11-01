@@ -146,18 +146,23 @@ head(c)
 
 ## Functions
 
+### Taxation Statistics
+
 | Function | Description | Coverage |
 |----|----|----|
-| [`ato_catalog()`](https://charlescoverdale.github.io/ato/reference/ato_catalog.md) | Summary of every ATO dataset on data.gov.au: id, title, licence, resource count, last modified | Current (live) |
-| [`ato_download()`](https://charlescoverdale.github.io/ato/reference/ato_download.md) | Generic CKAN resource downloader with auto CSV or XLSX parsing | Any dataset |
 | [`ato_individuals()`](https://charlescoverdale.github.io/ato/reference/ato_individuals.md) | Individuals Table 1 snapshot (counts, taxable income, tax payable, deductions) | 2011-12 - present |
 | [`ato_individuals_postcode()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_postcode.md) | Individual tax return items by 4-digit postcode and state | 2011-12 - present |
 | [`ato_individuals_occupation()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_occupation.md) | Individuals by occupation, sex, and taxable income range (~1,000 occupations) | 2011-12 - present |
+| [`ato_individuals_age()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_age.md), [`ato_individuals_sex()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_sex.md), [`ato_individuals_state()`](https://charlescoverdale.github.io/ato/reference/ato_individuals_state.md) | Individual tax data by age range, by sex, and by state or territory | Varies by release |
 | [`ato_companies()`](https://charlescoverdale.github.io/ato/reference/ato_companies.md) | Company tax aggregates by ANZSIC industry, turnover band, entity type | 2011-12 - present |
-| [`ato_super_funds()`](https://charlescoverdale.github.io/ato/reference/ato_super_funds.md) | APRA-regulated fund aggregates plus SMSF statistical overview | 2011-12 - present |
-| [`ato_top_taxpayers()`](https://charlescoverdale.github.io/ato/reference/ato_top_taxpayers.md) | Corporate Tax Transparency release: income, taxable income, tax payable for large entities | 2013-14 - present |
-| [`ato_gst()`](https://charlescoverdale.github.io/ato/reference/ato_gst.md) | GST and Activity Statement Ratios tables | 2011-12 - present |
 | [`ato_industry()`](https://charlescoverdale.github.io/ato/reference/ato_industry.md) | Industry aggregates joined across Individual and Company tables | 2011-12 - present |
+| [`ato_super_funds()`](https://charlescoverdale.github.io/ato/reference/ato_super_funds.md) | APRA-regulated fund aggregates plus SMSF statistical overview | 2011-12 - present |
+| [`ato_gst()`](https://charlescoverdale.github.io/ato/reference/ato_gst.md) | GST and Activity Statement Ratios tables | 2011-12 - present |
+| [`ato_fbt()`](https://charlescoverdale.github.io/ato/reference/ato_fbt.md) | Fringe Benefits Tax statistics | Varies by release |
+| [`ato_payg()`](https://charlescoverdale.github.io/ato/reference/ato_payg.md) | PAYG withholding data | Varies by release |
+| [`ato_medicare_levy()`](https://charlescoverdale.github.io/ato/reference/ato_medicare_levy.md) | Medicare Levy and Medicare Levy Surcharge | Varies by release |
+| [`ato_prrt()`](https://charlescoverdale.github.io/ato/reference/ato_prrt.md) | Petroleum Resource Rent Tax | Varies by release |
+| [`ato_fuel_tax_credits()`](https://charlescoverdale.github.io/ato/reference/ato_fuel_tax_credits.md) | Fuel tax credits by industry and claim period | Varies by release |
 
 Coverage starts at 2011-12 because that is the earliest Taxation
 Statistics release on data.gov.au that ships individual tables as
@@ -172,11 +177,58 @@ One caveat on the back catalogue:
 resolves correctly for 2011-12 and 2012-13 but those releases publish a
 coarser occupation table (about 100 rows, against 3,000 or more from
 2013-14 onwards). That is the ATO’s own change of granularity, not a
-parsing artefact. \|
-[`ato_cache_info()`](https://charlescoverdale.github.io/ato/reference/ato_cache_info.md)
-\| Inspect the local cache \| - \| \|
-[`ato_clear_cache()`](https://charlescoverdale.github.io/ato/reference/ato_clear_cache.md)
-\| Clear locally cached files \| - \|
+parsing artefact.
+
+### Other ATO releases
+
+| Function | Description |
+|----|----|
+| [`ato_top_taxpayers()`](https://charlescoverdale.github.io/ato/reference/ato_top_taxpayers.md) | Corporate Tax Transparency: income, taxable income and tax payable for large entities (2013-14 onwards) |
+| [`ato_vttc()`](https://charlescoverdale.github.io/ato/reference/ato_vttc.md) | Voluntary Tax Transparency Code disclosures |
+| [`ato_irpd()`](https://charlescoverdale.github.io/ato/reference/ato_irpd.md) | International Related Party Dealings |
+| [`ato_rdti()`](https://charlescoverdale.github.io/ato/reference/ato_rdti.md) | R&D Tax Incentive claimants |
+| [`ato_tax_gaps()`](https://charlescoverdale.github.io/ato/reference/ato_tax_gaps.md) | Australian tax gap estimates |
+| [`ato_tax_expenditures()`](https://charlescoverdale.github.io/ato/reference/ato_tax_expenditures.md) | Tax Expenditures and Insights Statement |
+| [`ato_sme_benchmarks()`](https://charlescoverdale.github.io/ato/reference/ato_sme_benchmarks.md) | Small Business Benchmarks |
+| [`ato_compliance()`](https://charlescoverdale.github.io/ato/reference/ato_compliance.md) | Compliance program outcomes |
+| [`ato_charities()`](https://charlescoverdale.github.io/ato/reference/ato_charities.md) | Charity and deductible gift recipient data |
+| [`ato_division293()`](https://charlescoverdale.github.io/ato/reference/ato_division293.md) | Division 293 tax assessments (high-income super contributions) |
+| [`ato_help()`](https://charlescoverdale.github.io/ato/reference/ato_help.md) | Study and training support loans (HELP, AASL, VSL) |
+| [`ato_excise()`](https://charlescoverdale.github.io/ato/reference/ato_excise.md) | Excise and fuel tax credit rates and clearances |
+| [`ato_whm()`](https://charlescoverdale.github.io/ato/reference/ato_whm.md) | Defunct: the ATO publishes no Working Holiday Maker aggregates as open data; the function says where to look instead |
+
+### Other agencies
+
+| Function | Description |
+|----|----|
+| [`ato_rba()`](https://charlescoverdale.github.io/ato/reference/ato_rba.md) | RBA Commonwealth receipts (statistical table H1) |
+| [`ato_state_tax()`](https://charlescoverdale.github.io/ato/reference/ato_state_tax.md) | State and territory tax revenue (ABS Taxation Revenue) |
+| [`ato_international()`](https://charlescoverdale.github.io/ato/reference/ato_international.md) | OECD Revenue Statistics comparison |
+
+### Analysis helpers
+
+| Function | Description |
+|----|----|
+| [`ato_deflate()`](https://charlescoverdale.github.io/ato/reference/ato_deflate.md) | Deflate nominal AUD to real AUD with the ABS CPI (financial-year average, 2011-12 = 100, to 2025-26) |
+| [`ato_per_capita()`](https://charlescoverdale.github.io/ato/reference/ato_per_capita.md) | Express an aggregate per head of ABS estimated resident population (to June 2025) |
+| [`ato_reconcile()`](https://charlescoverdale.github.io/ato/reference/ato_reconcile.md) | Compare an aggregate with the Final Budget Outcome cash receipts for the same year (2019-20 to 2025-26) |
+| [`ato_crosswalk()`](https://charlescoverdale.github.io/ato/reference/ato_crosswalk.md) | Bundled crosswalks and reference tables (ANZSIC, ANZSCO, postcode to state, CPI, population, budget totals) |
+| [`ato_harmonise()`](https://charlescoverdale.github.io/ato/reference/ato_harmonise.md) | Harmonise column names across a multi-year panel |
+| [`ato_to_taxstats()`](https://charlescoverdale.github.io/ato/reference/ato_to_taxstats.md), [`ato_schema_map()`](https://charlescoverdale.github.io/ato/reference/ato_schema_map.md) | Remap an `ato_tbl` to the `taxstats` microdata schema, and show the mapping |
+
+### Discovery, reproducibility and cache
+
+| Function | Description |
+|----|----|
+| [`ato_catalog()`](https://charlescoverdale.github.io/ato/reference/ato_catalog.md) | Summary of every ATO dataset on data.gov.au: id, title, licence, resource count, last modified |
+| [`ato_meta()`](https://charlescoverdale.github.io/ato/reference/ato_meta.md) | CKAN metadata for one ATO dataset |
+| [`ato_download()`](https://charlescoverdale.github.io/ato/reference/ato_download.md) | Generic CKAN resource downloader with auto CSV or XLSX parsing |
+| [`ato_cite()`](https://charlescoverdale.github.io/ato/reference/ato_cite.md) | Cite an `ato_tbl` (or URL) in BibTeX and plain text |
+| [`ato_manifest()`](https://charlescoverdale.github.io/ato/reference/ato_manifest.md), [`ato_manifest_write()`](https://charlescoverdale.github.io/ato/reference/ato_manifest_write.md), [`ato_manifest_clear()`](https://charlescoverdale.github.io/ato/reference/ato_manifest_clear.md) | The session manifest of fetched datasets: view, write to file, clear |
+| [`ato_snapshot()`](https://charlescoverdale.github.io/ato/reference/ato_snapshot.md) | Pin or inspect the session snapshot date |
+| [`ato_sha256()`](https://charlescoverdale.github.io/ato/reference/ato_sha256.md) | SHA-256 digest of a file |
+| [`ato_deposit_zenodo()`](https://charlescoverdale.github.io/ato/reference/ato_deposit_zenodo.md) | Prepare a Zenodo deposit payload from the session manifest |
+| [`ato_cache_info()`](https://charlescoverdale.github.io/ato/reference/ato_cache_info.md), [`ato_clear_cache()`](https://charlescoverdale.github.io/ato/reference/ato_clear_cache.md) | Inspect or clear the local cache |
 
 ## Examples
 

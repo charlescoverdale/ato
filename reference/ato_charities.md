@@ -64,11 +64,11 @@ try({
 #> # ato_tbl: ATO charity / DGR statistics 2021-22
 #> # Source:   https://data.gov.au/data/dataset/4be150cc-8f84-46b8-8c61-55ff1d48a700/resource/35bd310b-2c57-47d2-9bad-501095a66345/download/ts22charities01refundablefrankingcredits.xlsx
 #> # Licence:  CC BY 2.5 AU
-#> # Retrieved: 2026-09-19 10:25 UTC 
+#> # Retrieved: 2026-11-01 14:03 UTC 
 #> # SHA-256:  83afd3ab09d70031...
 #> # Rows: 6  Cols: 24
 #> 
-#>            refund_ranges       2001_02  2002_03  2003_04  2004_05  2005_06
+#>            refund_ranges   x2  2001_02  2002_03  2003_04  2004_05  2005_06
 #> 1                   <NA> <NA>       NA       NA       NA       NA       NA
 #> 2       a. Under $10,000  no.     1765     2140     1995     1920     1945
 #> 3                   <NA>    $  3155218  4607630  4476899  5008137  5437626

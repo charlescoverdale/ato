@@ -54,6 +54,6 @@ Other harmonisation:
 
 ``` r
 # Income tax per person, 2022-23 FBO headline
-ato_per_capita(316.4e9, "2022-23")
-#> [1] 11877.77
+ato_per_capita(296.658e9, "2022-23")
+#> [1] 11127.46
 ```

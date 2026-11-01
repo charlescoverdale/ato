@@ -27,7 +27,7 @@ ato_reconcile(value, year, measure, sum_column = NULL)
 
   One of the measure codes in `ato_crosswalk("budget")`, for example
   `"individuals_income_tax_net"`, `"company_tax_net"`, `"gst_net"`,
-  `"fuel_excise_net"`.
+  `"fuel_excise_and_customs"`, `"taxation_receipts"`.
 
 - sum_column:
 
@@ -58,9 +58,10 @@ Budget Outcome (FBO) are expected and meaningful:
 A 1-3 per cent gap is consistent with the accrual-to-cash reconciliation
 Treasury publishes in the FBO statement of revenues; larger gaps warrant
 investigation. The bundled reference totals in
-`inst/extdata/budget_reference_totals.csv` are taken from the relevant
-FBO release, with the precise table cited in the `source` column of each
-row.
+`inst/extdata/budget_reference_totals.csv` are read from the cash
+receipts table of each Final Budget Outcome (2019-20 to 2025-26) by
+`data-raw/budget_reference_totals.R`, with the edition and table cited
+in the `source` column of each row.
 
 ## References
 
@@ -86,11 +87,13 @@ Other harmonisation:
 ## Examples
 
 ``` r
-ato_reconcile(value = 316.4e9,
+ato_reconcile(value = 290e9,
               year = "2022-23",
               measure = "individuals_income_tax_net")
-#>                      measure    year value_aud reference_aud diff_aud pct_diff
-#> 1 individuals_income_tax_net 2022-23 3.164e+11     3.164e+11        0        0
-#>                                   source
-#> 1 Final Budget Outcome 2022-23 Table 4.2
+#>                      measure    year value_aud reference_aud   diff_aud
+#> 1 individuals_income_tax_net 2022-23   2.9e+11   2.96658e+11 -6.658e+09
+#>      pct_diff
+#> 1 -0.02244335
+#>                                                                    source
+#> 1 Final Budget Outcome 2022-23, Table 1.3 (cash receipts), Outcome column
 ```
