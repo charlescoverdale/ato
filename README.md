@@ -80,18 +80,23 @@ head(c)
 
 ## Functions
 
+### Taxation Statistics
+
 | Function | Description | Coverage |
 |---|---|---|
-| `ato_catalog()` | Summary of every ATO dataset on data.gov.au: id, title, licence, resource count, last modified | Current (live) |
-| `ato_download()` | Generic CKAN resource downloader with auto CSV or XLSX parsing | Any dataset |
 | `ato_individuals()` | Individuals Table 1 snapshot (counts, taxable income, tax payable, deductions) | 2011-12 - present |
 | `ato_individuals_postcode()` | Individual tax return items by 4-digit postcode and state | 2011-12 - present |
 | `ato_individuals_occupation()` | Individuals by occupation, sex, and taxable income range (~1,000 occupations) | 2011-12 - present |
+| `ato_individuals_age()`, `ato_individuals_sex()`, `ato_individuals_state()` | Individual tax data by age range, by sex, and by state or territory | Varies by release |
 | `ato_companies()` | Company tax aggregates by ANZSIC industry, turnover band, entity type | 2011-12 - present |
-| `ato_super_funds()` | APRA-regulated fund aggregates plus SMSF statistical overview | 2011-12 - present |
-| `ato_top_taxpayers()` | Corporate Tax Transparency release: income, taxable income, tax payable for large entities | 2013-14 - present |
-| `ato_gst()` | GST and Activity Statement Ratios tables | 2011-12 - present |
 | `ato_industry()` | Industry aggregates joined across Individual and Company tables | 2011-12 - present |
+| `ato_super_funds()` | APRA-regulated fund aggregates plus SMSF statistical overview | 2011-12 - present |
+| `ato_gst()` | GST and Activity Statement Ratios tables | 2011-12 - present |
+| `ato_fbt()` | Fringe Benefits Tax statistics | Varies by release |
+| `ato_payg()` | PAYG withholding data | Varies by release |
+| `ato_medicare_levy()` | Medicare Levy and Medicare Levy Surcharge | Varies by release |
+| `ato_prrt()` | Petroleum Resource Rent Tax | Varies by release |
+| `ato_fuel_tax_credits()` | Fuel tax credits by industry and claim period | Varies by release |
 
 Coverage starts at 2011-12 because that is the earliest Taxation
 Statistics release on data.gov.au that ships individual tables as
@@ -105,8 +110,57 @@ resolves correctly for 2011-12 and 2012-13 but those releases
 publish a coarser occupation table (about 100 rows, against 3,000
 or more from 2013-14 onwards). That is the ATO's own change of
 granularity, not a parsing artefact.
-| `ato_cache_info()` | Inspect the local cache | - |
-| `ato_clear_cache()` | Clear locally cached files | - |
+
+### Other ATO releases
+
+| Function | Description |
+|---|---|
+| `ato_top_taxpayers()` | Corporate Tax Transparency: income, taxable income and tax payable for large entities (2013-14 onwards) |
+| `ato_vttc()` | Voluntary Tax Transparency Code disclosures |
+| `ato_irpd()` | International Related Party Dealings |
+| `ato_rdti()` | R&D Tax Incentive claimants |
+| `ato_tax_gaps()` | Australian tax gap estimates |
+| `ato_tax_expenditures()` | Tax Expenditures and Insights Statement |
+| `ato_sme_benchmarks()` | Small Business Benchmarks |
+| `ato_compliance()` | Compliance program outcomes |
+| `ato_charities()` | Charity and deductible gift recipient data |
+| `ato_division293()` | Division 293 tax assessments (high-income super contributions) |
+| `ato_help()` | Study and training support loans (HELP, AASL, VSL) |
+| `ato_excise()` | Excise and fuel tax credit rates and clearances |
+| `ato_whm()` | Defunct: the ATO publishes no Working Holiday Maker aggregates as open data; the function says where to look instead |
+
+### Other agencies
+
+| Function | Description |
+|---|---|
+| `ato_rba()` | RBA Commonwealth receipts (statistical table H1) |
+| `ato_state_tax()` | State and territory tax revenue (ABS Taxation Revenue) |
+| `ato_international()` | OECD Revenue Statistics comparison |
+
+### Analysis helpers
+
+| Function | Description |
+|---|---|
+| `ato_deflate()` | Deflate nominal AUD to real AUD with the ABS CPI (financial-year average, 2011-12 = 100, to 2025-26) |
+| `ato_per_capita()` | Express an aggregate per head of ABS estimated resident population (to June 2025) |
+| `ato_reconcile()` | Compare an aggregate with the Final Budget Outcome cash receipts for the same year (2019-20 to 2025-26) |
+| `ato_crosswalk()` | Bundled crosswalks and reference tables (ANZSIC, ANZSCO, postcode to state, CPI, population, budget totals) |
+| `ato_harmonise()` | Harmonise column names across a multi-year panel |
+| `ato_to_taxstats()`, `ato_schema_map()` | Remap an `ato_tbl` to the `taxstats` microdata schema, and show the mapping |
+
+### Discovery, reproducibility and cache
+
+| Function | Description |
+|---|---|
+| `ato_catalog()` | Summary of every ATO dataset on data.gov.au: id, title, licence, resource count, last modified |
+| `ato_meta()` | CKAN metadata for one ATO dataset |
+| `ato_download()` | Generic CKAN resource downloader with auto CSV or XLSX parsing |
+| `ato_cite()` | Cite an `ato_tbl` (or URL) in BibTeX and plain text |
+| `ato_manifest()`, `ato_manifest_write()`, `ato_manifest_clear()` | The session manifest of fetched datasets: view, write to file, clear |
+| `ato_snapshot()` | Pin or inspect the session snapshot date |
+| `ato_sha256()` | SHA-256 digest of a file |
+| `ato_deposit_zenodo()` | Prepare a Zenodo deposit payload from the session manifest |
+| `ato_cache_info()`, `ato_clear_cache()` | Inspect or clear the local cache |
 
 ## Examples
 
