@@ -105,8 +105,8 @@ ato_reconcile <- function(value, year, measure,
     cli::cli_warn(c(
       "Reconciliation diff {round(100*pct, 1)}% for {.val {measure}} \\
        ({.val {year}}).",
-      "i" = "ATO data: {.val {format(v, big.mark = ',', scientific = FALSE)}}.",
-      "i" = "Reference: {.val {format(ref_v, big.mark = ',', scientific = FALSE)}}.",
+      "i" = "ATO data: {format(v, big.mark = ',', scientific = FALSE)}.",
+      "i" = "Reference: {format(ref_v, big.mark = ',', scientific = FALSE)}.",
       "i" = "Expected 1-3% accrual-vs-cash gap; investigate larger."
     ))
   }
